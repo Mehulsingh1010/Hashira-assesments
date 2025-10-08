@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Hashira Snippet Notebook</title>
+  <link rel="stylesheet" href="attached.css" />
+</head>
+<body>
+  <div class="container">
+    <header>
+      <img src="./logo.png" alt="Hashira Logo" class="logo" />
+      <h1>⚡ Hashira Snippet Notebook</h1>
+      <p>Quick-access snippets with preview & copy functionality</p>
+    </header>
+
+    <main class="notebook">
+      <div class="snippet">
+        <div class="snippet-code">
+          <button class="copy-btn" onclick="copySnippet(this)">📋 Copy</button>
+          <pre><code>&lt;button class="btn"&gt;Click Me&lt;/button&gt;</code></pre>
+        </div>
+        <div class="snippet-preview">
+          <button class="btn">Click Me</button>
+        </div>
+      </div>
+
+      <div class="snippet">
+        <div class="snippet-code">
+          <button class="copy-btn" onclick="copySnippet(this)">📋 Copy</button>
+          <pre><code>&lt;div class="card"&gt;Hello World&lt;/div&gt;</code></pre>
+        </div>
+        <div class="snippet-preview">
+          <div class="card">Hello World</div>
+        </div>
+      </div>
+
+    </main>
+  </div>
+
+  <script>
+    function copySnippet(btn) {
+      const code = btn.nextElementSibling.innerText;
+      navigator.clipboard.writeText(code);
+      btn.innerText = "Copied!";
+      setTimeout(() => (btn.innerText = "📋 Copy"), 1500);
+    }
+  </script>
+</body>
+</html>
