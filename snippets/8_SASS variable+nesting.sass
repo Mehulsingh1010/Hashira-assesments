@@ -1,0 +1,17 @@
+// === Variables ===
+$brand: #0b74de;
+$text: #222;
+$radius: 12px;
+
+// === Nesting Example ===
+button {
+  background: $brand;
+  color: white;
+  border-radius: $radius;
+  padding: 0.75rem 1.5rem;
+  cursor: pointer;
+
+  &:hover {
+    background: darken($brand, 10%);
+  }
+}

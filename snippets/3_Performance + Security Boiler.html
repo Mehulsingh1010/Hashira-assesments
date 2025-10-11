@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <!--  Basic SEO Essentials -->
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Fast & Secure Webpage | Your Brand</title>
+  <meta name="description" content="A blazing-fast, secure, and mobile-friendly web experience built with modern HTML5 standards." />
+  <link rel="canonical" href="https://www.example.com/" />
+  <meta name="robots" content="index, follow" />
+
+  <!--  Performance Optimization -->
+  <!-- Preconnect: helps browsers establish early connections -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
+  <!-- Preload: critical assets load earlier -->
+  <link rel="preload" as="style" href="/styles/main.css" />
+  <link rel="preload" as="script" href="/scripts/main.js" />
+
+  <!-- Load main CSS (non-blocking if you prefer `media=print` trick) -->
+  <link rel="stylesheet" href="/styles/main.css" />
+
+  <!-- Lazy load non-critical CSS (optional) -->
+  <link rel="stylesheet" href="/styles/non-critical.css" media="print" onload="this.media='all'" />
+
+  <!--  Security & Browser Compatibility -->
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests" />
+  <meta name="referrer" content="no-referrer-when-downgrade" />
+  <meta http-equiv="Permissions-Policy" content="geolocation=(), microphone=(), camera=()" />
+
+  <!--  HTTPS-first design -->
+  <meta http-equiv="Strict-Transport-Security" content="max-age=31536000; includeSubDomains" />
+
+  <!-- Favicon -->
+  <link rel="icon" href="/favicon.ico" type="image/x-icon" />
+
+  <!-- Theme color for mobile browsers -->
+  <meta name="theme-color" content="#0b74de" />
+</head>
+
+<body>
+  <header>
+    <h1>Welcome to a Fast & Secure HTML5 Page</h1>
+    <nav>
+      <a href="/">Home</a>
+      <a href="/about">About</a>
+    </nav>
+  </header>
+
+  <main>
+    <section>
+      <h2>Performance Highlights</h2>
+      <ul>
+        <li>Preconnects improve DNS and TCP handshake time</li>
+        <li>Preloads ensure critical CSS/JS loads first</li>
+        <li>Deferred JS and lazy-loaded images boost Core Web Vitals</li>
+      </ul>
+    </section>
+
+    <section>
+      <h2>Security Features</h2>
+      <ul>
+        <li>Strict HTTPS enforcement via HSTS</li>
+        <li>Referrer & Permissions policies reduce exposure</li>
+        <li>Content Security Policy upgrades insecure requests</li>
+      </ul>
+    </section>
+  </main>
+
+  <footer>
+    <p>&copy; <span id="year"></span> Your Brand | All Rights Reserved</p>
+  </footer>
+
+  <!-- Defer JavaScript for better performance -->
+  <script src="/scripts/main.js" defer></script>
+  <script>
+    // Simple enhancement: auto-update year
+    document.getElementById("year").textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>

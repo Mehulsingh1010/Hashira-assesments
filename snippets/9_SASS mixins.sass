@@ -1,0 +1,23 @@
+// === Responsive Mixin ===
+@mixin respond($breakpoint) {
+  @if $breakpoint == tablet {
+    @media (max-width: 768px) { @content; }
+  } @else if $breakpoint == mobile {
+    @media (max-width: 480px) { @content; }
+  }
+}
+
+// === Flex Center Mixin ===
+@mixin flex-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+// Example usage:
+.hero {
+  @include flex-center;
+  @include respond(tablet) {
+    flex-direction: column;
+  }
+}
