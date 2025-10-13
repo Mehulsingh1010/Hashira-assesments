@@ -1,20 +1,143 @@
-<!doctype html>
+<!DOCTYPE html>
 <html>
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link href="./src/output.css" rel="stylesheet">
-</head>
-<body >
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://cdn.tailwindcss.com"></script>
+  </head>
+  <body class="">
+    <!-- navvbar -->
+    <nav class="bg-white border-b border-gray-200">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex justify-between items-center h-16">
+          <div class="text-2xl font-normal">Area</div>
 
-  <!-- navbar -->
+          <button
+            id="menu-btn"
+            class="md:hidden block text-black focus:outline-none"
+            aria-label="Toggle menu"
+          >
+            <svg
+              id="hamburger-icon"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M3 5.6665H21V7.6665H3V5.6665ZM3 10.6665H21V12.6665H3V10.6665ZM3 15.6665H21V17.6665H3V15.6665Z"
+                fill="black"
+              />
+            </svg>
+            <svg
+              id="close-icon"
+              class="hidden"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M19 6.41L17.59 5L12 10.59L6.41 5L5 6.41L10.59 12L5 17.59L6.41 19L12 13.41L17.59 19L19 17.59L13.41 12L19 6.41Z"
+                fill="black"
+              />
+            </svg>
+          </button>
 
-  <div class="main">
+          <div class="hidden md:flex items-center gap-8 font-medium text-sm">
+            <a href="#" class="hover:text-gray-600">Benefits</a>
+            <a href="#" class="hover:text-gray-600">Specifications</a>
+            <a href="#" class="hover:text-gray-600">How-to</a>
+            <a href="#" class="hover:text-gray-600">Contact Us</a>
+          </div>
 
-  </div>
+          <div class="hidden md:flex">
+            <button
+              class="flex items-center gap-2 text-white px-5 py-2.5 rounded-full bg-[#485C11] hover:bg-[#3a4a0d] transition-colors"
+            >
+              Learn More
+              <span>
+                <svg
+                  width="8"
+                  height="8"
+                  viewBox="0 0 6 6"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M5.01037 4.98754V1.04598L5.64939 1.08556L0.735155 6.00545L0 5.2703L4.91423 0.356063L4.96513 0.995083H1.0066V-0.00585938L6 0.00545071V4.98754H5.01037Z"
+                    fill="white"
+                  />
+                </svg>
+              </span>
+            </button>
+          </div>
+        </div>
+      </div>
 
-  <h1 class="">
-    
-  </h1>
-</body>
+      <div id="mobile-menu" class="hidden md:hidden border-t border-gray-200">
+        <div class="px-4 pt-2 pb-3 space-y-1">
+          <a
+            href="#"
+            class="block px-3 py-2 text-base font-medium hover:bg-gray-50 rounded-md"
+            >Benefits</a
+          >
+          <a
+            href="#"
+            class="block px-3 py-2 text-base font-medium hover:bg-gray-50 rounded-md"
+            >Specifications</a
+          >
+          <a
+            href="#"
+            class="block px-3 py-2 text-base font-medium hover:bg-gray-50 rounded-md"
+            >How-to</a
+          >
+          <a
+            href="#"
+            class="block px-3 py-2 text-base font-medium hover:bg-gray-50 rounded-md"
+            >Contact Us</a
+          >
+          <div class="px-3 pt-2">
+            <button
+              class="w-full flex items-center justify-center gap-2 text-white px-5 py-2.5 rounded-full bg-[#485C11] hover:bg-[#3a4a0d] transition-colors"
+            >
+              Learn More
+              <span>
+                <svg
+                  width="8"
+                  height="8"
+                  viewBox="0 0 6 6"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M5.01037 4.98754V1.04598L5.64939 1.08556L0.735155 6.00545L0 5.2703L4.91423 0.356063L4.96513 0.995083H1.0066V-0.00585938L6 0.00545071V4.98754H5.01037Z"
+                    fill="white"
+                  />
+                </svg>
+              </span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </nav>
+
+    <!-- hero sec -->
+ 
+
+    <script>
+      const menuBtn = document.getElementById("menu-btn");
+      const mobileMenu = document.getElementById("mobile-menu");
+      const hamburgerIcon = document.getElementById("hamburger-icon");
+      const closeIcon = document.getElementById("close-icon");
+
+      menuBtn.addEventListener("click", () => {
+        mobileMenu.classList.toggle("hidden");
+        hamburgerIcon.classList.toggle("hidden");
+        closeIcon.classList.toggle("hidden");
+      });
+    </script>
+  </body>
 </html>
