@@ -6,13 +6,13 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-   
+
     <link
       href="https://fonts.googleapis.com/css2?family=Crimson+Text:wght@400;700&family=DM+Sans:wght@400;500;700&family=Roboto+Mono:wght@400;500;700&display=swap"
       rel="stylesheet"
     />
   </head>
-  <body style="font-family: 'DM Sans', sans-serif;">
+  <body style="font-family: 'DM Sans', sans-serif">
     <nav class="bg-white border-b border-gray-200">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex justify-between items-center h-16">
@@ -126,72 +126,378 @@
       </div>
     </nav>
 
-    <div class="bg-gray-50 px-4 pt-8 pb-12 sm:px-6 sm:pt-12 sm:pb-16 lg:px-8 lg:pt-16 lg:pb-20">
-      <div class="max-w-7xl mx-auto">
-        <div class="text-center mb-8 sm:mb-10 lg:mb-12">
-          <h1
-            class="font-normal text-gray-800"
-            style="
-              font-family: 'Crimson Text', serif;
-              font-size: clamp(48px, 10vw, 120px);
-              line-height: 1.1;
-            "
-          >
-            Browse<br class="lg:hidden" />
-            everything.
-          </h1>
-        </div>
-        <div class="w-full">
-          <picture>
-            <source media="(max-width: 767px)" srcset="./img/small-hero.png" />
-            <source
-              media="(min-width: 768px) and (max-width: 1023px)"
-              srcset="./img/medium-hero.png"
-            />
-            <img
-              src="./img/big-hero.png"
-              alt="Hero Image"
-              class="w-full h-auto rounded-lg object-cover"
-            />
-          </picture>
-        </div>
-      </div>
+  <div class="bg-gray-50 px-4 pt-8 pb-12 sm:px-6 sm:pt-12 sm:pb-16 lg:px-8 lg:pt-16 lg:pb-20">
+  <div class="max-w-7xl mx-auto">
+    <div class="text-center mb-8 sm:mb-10 lg:mb-12">
+      <h1
+        class="font-normal text-gray-800 text-[80px] sm:text-[100px] md:text-[120px] lg:text-[150px] leading-[1.1] break-words"
+        style="font-family: 'Crimson Text', serif;"
+      >
+        Browse<br class="lg:hidden" />
+        everything.
+      </h1>
     </div>
+    <div class="w-full">
+      <picture>
+        <source media="(max-width: 767px)" srcset="./img/small-hero.png" />
+        <source media="(min-width: 768px) and (max-width: 1023px)" srcset="./img/medium-hero.png" />
+        <img
+          src="./img/big-hero.png"
+          alt="Hero Image"
+          class="w-full h-auto rounded-lg object-cover"
+        />
+      </picture>
+    </div>
+  </div>
+</div>
+
 
     <div class="py-8 sm:py-12 lg:py-16 bg-gray-50">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <h4 class="text-gray-600 text-base sm:text-lg mb-6 sm:mb-8 text-left">
           Trusted by:
         </h4>
-        <div class="grid mt-10 grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-12 sm:gap-16 md:gap-20 lg:gap-24 items-center justify-items-center">
-          <img src="./img/1.png" alt="Company 1" class="h-8 sm:h-10 md:h-12 lg:h-14 w-auto object-contain" />
-          <img src="./img/2.png" alt="Company 2" class="h-8 sm:h-10 md:h-12 lg:h-14 w-auto object-contain" />
-          <img src="./img/3.png" alt="Company 3" class="h-8 sm:h-10 md:h-12 lg:h-14 w-auto object-contain" />
-          <img src="./img/4.png" alt="Company 4" class="h-8 sm:h-10 md:h-12 lg:h-14 w-auto object-contain" />
-          <img src="./img/5.png" alt="Company 5" class="h-8 sm:h-10 md:h-12 lg:h-14 w-auto object-contain" />
-          <img src="./img/6.png" alt="Company 6" class="h-8 sm:h-10 md:h-12 lg:h-14 w-auto object-contain" />
+        <div
+          class="grid mt-10 grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-12 sm:gap-16 md:gap-20 lg:gap-24 items-center justify-items-center"
+        >
+          <img
+            src="./img/1.png"
+            alt="Company 1"
+            class="h-8 sm:h-10 md:h-12 lg:h-14 w-auto object-contain"
+          />
+          <img
+            src="./img/2.png"
+            alt="Company 2"
+            class="h-8 sm:h-10 md:h-12 lg:h-14 w-auto object-contain"
+          />
+          <img
+            src="./img/3.png"
+            alt="Company 3"
+            class="h-8 sm:h-10 md:h-12 lg:h-14 w-auto object-contain"
+          />
+          <img
+            src="./img/4.png"
+            alt="Company 4"
+            class="h-8 sm:h-10 md:h-12 lg:h-14 w-auto object-contain"
+          />
+          <img
+            src="./img/5.png"
+            alt="Company 5"
+            class="h-8 sm:h-10 md:h-12 lg:h-14 w-auto object-contain"
+          />
+          <img
+            src="./img/6.png"
+            alt="Company 6"
+            class="h-8 sm:h-10 md:h-12 lg:h-14 w-auto object-contain"
+          />
         </div>
       </div>
     </div>
 
     <div class="py-8 sm:py-12 lg:py-16 bg-gray-50">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <h4 class="text-gray-600 text-base sm:text-lg mb-6 sm:mb-8 text-left" style="font-family: 'Roboto Mono', monospace;">
+        <h4
+          class="text-gray-600 text-base sm:text-lg mb-6 sm:mb-8 text-left"
+          style="font-family: 'Roboto Mono', monospace"
+        >
           Benefits:
         </h4>
-        <div class=" mt-10 text-[60px] font-400 
-         text-left"
-         style="
-              font-family: 'Crimson Text', serif;
-              line-height: 1.0;
-            ">
-          <h1>We have cracked the code.</h2> </div>
+        <div
+          class="mt-10 text-[60px] font-400 text-left"
+          style="font-family: 'Crimson Text', serif; line-height: 1"
+        >
+          <h1>We have cracked the code.</h1>
+        </div>
 
-            <p class="text-[#929292] mt-6" >
-  Area provides real insights, without the data overload.
-</p>
+        <p class="text-[#929292] mt-6">
+          Area provides real insights, without the data overload.
+        </p>
       </div>
     </div>
+
+    <section class="sm:py-16 lg:py-20 bg-gray-50">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div
+          class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10 sm:gap-12 md:gap-16"
+        >
+          <div class="flex flex-col border-t border-gray-200 pt-6">
+            <div class="mb-5">
+              <svg
+                width="22"
+                height="20"
+                viewBox="0 0 22 20"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M6.05305 1.4998C4.68305 2.8798 4.68305 5.0998 6.05305 6.4698L14.543 14.9498C15.123 15.5398 15.123 16.4998 14.543 17.0698C13.953 17.6598 13.003 17.6598 12.413 17.0698L8.17305 12.8298L9.23305 11.7698L5.70305 8.2298L5.34305 8.5898L3.93305 7.1698C3.54305 6.7798 2.91305 6.7798 2.50305 7.1698L1.10305 8.5898C0.713047 8.9998 0.713047 9.6098 1.10305 9.9998L2.50305 11.4098L2.16305 11.7698L5.70305 15.2998L6.76305 14.2398L11.003 18.4998C12.373 19.8498 14.583 19.8498 15.953 18.4998C17.323 17.1198 17.323 14.8998 15.953 13.5398L7.46305 5.0498C6.88305 4.4598 6.88305 3.4998 7.46305 2.9298C8.05305 2.3398 9.00305 2.3398 9.59305 2.9298L13.833 7.1698L12.773 8.2298L16.303 11.7698L16.663 11.4098L18.073 12.8298C18.463 13.2198 19.103 13.2198 19.503 12.8298L20.903 11.4098C21.293 10.9998 21.293 10.3898 20.903 9.9998L19.503 8.5898L19.843 8.2298L16.303 4.6998L15.243 5.7598L11.003 1.4998C9.63305 0.149805 7.42305 0.149805 6.05305 1.4998Z"
+                  fill="#000"
+                />
+              </svg>
+            </div>
+            <h3
+              class="text-lg sm:text-xl font-semibold text-gray-900 mb-2 font-['Crimson Text']"
+            >
+              Amplify Insights
+            </h3>
+            <p class="text-sm text-gray-600 leading-relaxed">
+              Unlock data-driven decisions with comprehensive analytics,
+              revealing key opportunities for strategic regional growth.
+            </p>
+          </div>
+
+          <div class="flex flex-col border-t border-gray-200 pt-6">
+            <div class="mb-5">
+              <svg
+                width="20"
+                height="20"
+                fill="none"
+                stroke="black"
+                stroke-width="1.5"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  d="M12 2a10 10 0 100 20 10 10 0 000-20zM2 12h20M12 2a15 15 0 010 20"
+                />
+              </svg>
+            </div>
+            <h3
+              class="text-lg sm:text-xl font-semibold text-gray-900 mb-2 font-['Crimson Text']"
+            >
+              Control Your Global Presence
+            </h3>
+            <p class="text-sm text-gray-600 leading-relaxed">
+              Manage and track satellite offices, ensuring consistent
+              performance and streamlined operations everywhere.
+            </p>
+          </div>
+
+          <div class="flex flex-col border-t border-gray-200 pt-6">
+            <div class="mb-5">
+              <svg
+                width="22"
+                height="22"
+                fill="none"
+                stroke="black"
+                stroke-width="1.5"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  d="M17 8a5 5 0 11-10 0 5 5 0 0110 0zM2 20h20"
+                />
+              </svg>
+            </div>
+            <h3
+              class="text-lg sm:text-xl font-semibold text-gray-900 mb-2 font-['Crimson Text']"
+            >
+              Remove Language Barriers
+            </h3>
+            <p class="text-sm text-gray-600 leading-relaxed">
+              Adapt to diverse markets with built-in localization for clear
+              communication and enhanced user experience.
+            </p>
+          </div>
+
+          <div class="flex flex-col border-t border-gray-200 pt-6">
+            <div class="mb-5">
+              <svg
+                width="22"
+                height="22"
+                fill="none"
+                stroke="black"
+                stroke-width="1.5"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  d="M4 17l6-6 4 4 6-6"
+                />
+              </svg>
+            </div>
+            <h3
+              class="text-lg sm:text-xl font-semibold text-gray-900 mb-2 font-['Crimson Text']"
+            >
+              Visualize Growth
+            </h3>
+            <p class="text-sm text-gray-600 leading-relaxed">
+              Generate precise, visually compelling reports that illustrate your
+              growth trajectories across all regions.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="max-w-7xl mb-10 mx-auto px-4 sm:px-6 lg:px-8">
+      <img
+        src="./img/card.png"
+        alt="Dashboard preview"
+        class="w-full h-[620px]"
+      />
+    </div>
+
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+      <!-- Use lg:flex instead of md:flex -->
+      <div class="flex flex-col lg:flex-row items-center lg:items-start gap-12">
+        <!-- Text Section -->
+        <div class="lg:w-1/2 w-full lg:pr-10">
+          <h2
+            class="text-[42px] sm:text-[52px] lg:text-[60px] font-normal leading-tight mb-6 font-['Crimson'] text-gray-900"
+          >
+            See the Big Picture
+          </h2>
+          <p class="text-gray-500 text-lg leading-relaxed mb-10">
+            Area turns your data into clear, vibrant visuals that show you
+            exactly what's happening in each region.
+          </p>
+
+          <div class="space-y-6">
+            <div class="flex space-x-4 pb-4 border-b border-gray-200">
+              <span class="text-gray-400 text-lg font-medium w-8 flex-shrink-0"
+                >01</span
+              >
+              <span class="text-gray-800 text-base leading-relaxed">
+                <strong class="font-semibold">Spot Trends in Seconds:</strong>
+                No more digging through numbers.
+              </span>
+            </div>
+            <div class="flex space-x-4 pb-4 border-b border-gray-200">
+              <span class="text-gray-400 text-lg font-medium w-8 flex-shrink-0"
+                >02</span
+              >
+              <span class="text-gray-800 text-base leading-relaxed">
+                <strong class="font-semibold"
+                  >Get Everyone on the Same Page:</strong
+                >
+                Share easy-to-understand reports with your team.
+              </span>
+            </div>
+            <div class="flex space-x-4 pb-4 border-b border-gray-200">
+              <span class="text-gray-400 text-lg font-medium w-8 flex-shrink-0"
+                >03</span
+              >
+              <span class="text-gray-800 text-base leading-relaxed">
+                <strong class="font-semibold">Make Presentations Pop:</strong>
+                Interactive maps and dashboards keep your audience engaged.
+              </span>
+            </div>
+            <div class="flex space-x-4">
+              <span class="text-gray-400 text-lg font-medium w-8 flex-shrink-0"
+                >04</span
+              >
+              <span class="text-gray-800 text-base leading-relaxed">
+                <strong class="font-semibold">Your Global Snapshot:</strong> Get
+                a quick, clear overview of your entire operation.
+              </span>
+            </div>
+          </div>
+
+          <button
+            class="bg-lime-100 hover:bg-lime-200 text-green-900 font-semibold px-8 py-3 rounded-full shadow-sm transition mt-10"
+          >
+            Discover More
+          </button>
+        </div>
+
+        <!-- Image Section -->
+        <div class="lg:w-1/2 w-full flex">
+          <div class="rounded-2xl">
+            <img
+              src="./img/cyl.png"
+              alt="Cylinders"
+              class="w-full mx-auto object-contain"
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 text-center justify-center">
+      <p class="text-[#485C11]">Specs</p>
+      <h1 class="text-[60px] font-['Crimson']">Why Choose Area?</h1>
+      <p class="text-[#6F6F6F] text-[15px]">
+        You need a solution that keeps up. That’s why we developed Area. A
+        developer-friendly approach to <br> streamline your business.
+      </p>
+      <button
+        class="bg-lime-100 hover:bg-lime-200 text-green-900 font-semibold px-8 py-3 rounded-full shadow-sm transition mt-10"
+      >
+        Discover More
+      </button>
+    </div>
+
+
+     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+  <div class="flex flex-col lg:flex-row items-center gap-12">
+
+    <div class="w-full lg:w-1/2">
+      <div class="rounded-2xl overflow-hidden">
+        <img 
+          src="./img/cyl2.png" 
+          alt="Stacked spherical shapes" 
+          class="w-full aspect-square object-cover"
+        />
+      </div>
+    </div>
+
+    <div class="w-full lg:w-1/2 text-center lg:text-left">
+      <p class="font-['Crimson'] text-[20px] sm:text-[24px] lg:text-[28px] text-gray-900 leading-relaxed">
+        “I was skeptical, but Area has completely transformed the way I manage my business.
+        The data visualizations are so clear and intuitive, and the platform is so easy to use.
+        I can't imagine running my company without it.”
+      </p>
+
+      <div class="mt-6">
+        <p class="text-sm font-medium text-gray-900">John Smith</p>
+        <p class="text-xs font-['Robonto'] text-[#485C11] mt-1">Head of Data</p>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+
+
+<div class="max-w-2xl mx-auto px-4 sm:px-6 lg:px-8 py-20 text-center">
+  <h1 class="text-[40px] sm:text-[60px] font-['Crimson'] mb-4">Connect with us</h1>
+  
+  <p class="text-[#6F6F6F] text-[15px] mb-8">
+    Schedule a quick call to learn how Area can turn your regional data into a powerful advantage.
+  </p>
+
+  <!-- Button with same max-width as paragraph -->
+  <div class="inline-block w-full max-w-md">
+    <button
+      class="w-full flex items-center justify-center gap-2 text-white px-5 py-2.5 rounded-full bg-[#485C11] hover:bg-[#3a4a0d] transition-colors"
+    >
+      Learn More
+      <span>
+        <svg
+          width="8"
+          height="8"
+          viewBox="0 0 6 6"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M5.01037 4.98754V1.04598L5.64939 1.08556L0.735155 6.00545L0 5.2703L4.91423 0.356063L4.96513 0.995083H1.0066V-0.00585938L6 0.00545071V4.98754H5.01037Z"
+            fill="white"
+          />
+        </svg>
+      </span>
+    </button>
+  </div>
+</div>
+
+
+
+
+    
 
     <script>
       const menuBtn = document.getElementById("menuu");
