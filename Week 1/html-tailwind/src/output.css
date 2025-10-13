@@ -285,6 +285,9 @@
   .m-10 {
     margin: calc(var(--spacing) * 10);
   }
+  .mx-2 {
+    margin-inline: calc(var(--spacing) * 2);
+  }
   .mx-auto {
     margin-inline: auto;
   }
@@ -329,6 +332,9 @@
   }
   .mb-10 {
     margin-bottom: calc(var(--spacing) * 10);
+  }
+  .mb-12 {
+    margin-bottom: calc(var(--spacing) * 12);
   }
   .block {
     display: block;
@@ -546,6 +552,9 @@
   .flex-wrap {
     flex-wrap: wrap;
   }
+  .items-baseline {
+    align-items: baseline;
+  }
   .items-center {
     align-items: center;
   }
@@ -593,6 +602,15 @@
   }
   .gap-20 {
     gap: calc(var(--spacing) * 20);
+  }
+  .gap-27 {
+    gap: calc(var(--spacing) * 27);
+  }
+  .gap-\[27px\] {
+    gap: 27px;
+  }
+  .gap-\[80px\] {
+    gap: 80px;
   }
   .space-y-1 {
     :where(& > :not(:last-child)) {
@@ -812,6 +830,9 @@
   .text-left {
     text-align: left;
   }
+  .align-baseline {
+    vertical-align: baseline;
+  }
   .align-bottom {
     vertical-align: bottom;
   }
@@ -823,6 +844,9 @@
   }
   .font-\[\'Robonto\'\] {
     font-family: 'Robonto';
+  }
+  .font-\[\'Roboto\'\] {
+    font-family: 'Roboto';
   }
   .font-serif {
     font-family: var(--font-serif);
@@ -866,6 +890,9 @@
   .text-xs {
     font-size: var(--text-xs);
     line-height: var(--tw-leading, var(--text-xs--line-height));
+  }
+  .text-\[12px\] {
+    font-size: 12px;
   }
   .text-\[15px\] {
     font-size: 15px;
@@ -915,6 +942,10 @@
   .leading-tight {
     --tw-leading: var(--leading-tight);
     line-height: var(--leading-tight);
+  }
+  .font-\[12px\] {
+    --tw-font-weight: 12px;
+    font-weight: 12px;
   }
   .font-\[400\] {
     --tw-font-weight: 400;
