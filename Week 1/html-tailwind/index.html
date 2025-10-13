@@ -20,7 +20,7 @@
 
           <button
             id="menu-btn"
-            class="md:hidden block text-black focus:outline-none z-50"
+            class="lg:hidden block text-black focus:outline-none z-50"
             aria-label="Toggle menu"
           >
             <svg
@@ -52,14 +52,14 @@
             </svg>
           </button>
 
-          <div class="hidden md:flex items-center gap-8 font-medium text-sm">
+          <div class="hidden lg:flex items-center gap-8 font-medium text-sm">
             <a href="#" class="hover:text-gray-600">Benefits</a>
             <a href="#" class="hover:text-gray-600">Specifications</a>
             <a href="#" class="hover:text-gray-600">How-to</a>
             <a href="#" class="hover:text-gray-600">Contact Us</a>
           </div>
 
-          <div class="hidden md:flex">
+          <div class="hidden lg:flex">
             <button
               class="flex items-center gap-2 text-white px-5 py-2.5 rounded-full bg-[#485C11] hover:bg-[#3a4a0d] transition-colors"
             >
@@ -83,7 +83,7 @@
         </div>
       </div>
 
-      <div id="mobile-menu" class="hidden md:hidden border-t border-gray-200">
+      <div id="mobile-menu" class="hidden lg:hidden border-t border-gray-200">
         <div class="px-4 pt-2 pb-3 space-y-1">
           <a
             href="#"
@@ -131,9 +131,11 @@
     </nav>
 
     <!-- hero section -->
-    <div class="min-h-screen bg-gray-50 px-4 py-8 sm:px-6 sm:py-12 lg:px-8 lg:py-16">
+    <div
+      class="bg-gray-50 px-4 pt-8 pb-12 sm:px-6 sm:pt-12 sm:pb-16 lg:px-8 lg:pt-16 lg:pb-20"
+    >
       <div class="max-w-7xl mx-auto">
-        <div class="text-center mb-6 sm:mb-8 lg:mb-12">
+        <div class="text-center mb-8 sm:mb-10 lg:mb-12">
           <h1
             class="font-normal text-gray-800"
             style="
@@ -142,19 +144,70 @@
               line-height: 1.1;
             "
           >
-            Browse<br class="md:hidden" /> everything.
+            Browse<br class="lg:hidden" />
+            everything.
           </h1>
         </div>
 
         <div class="w-full">
           <picture>
-            <source media="(max-width: 768px)" srcset="./img/small-hero.png" />
-            <img 
-              src="./img/big-hero.png" 
-              alt="Hero Image" 
-              class="w-full h-auto rounded-lg"
+            <source media="(max-width: 767px)" srcset="./img/small-hero.png" />
+
+            <source
+              media="(min-width: 768px) and (max-width: 1023px)"
+              srcset="./img/medium-hero.png"
+            />
+
+            <img
+              src="./img/big-hero.png"
+              alt="Hero Image"
+              class="w-full h-auto rounded-lg object-cover"
             />
           </picture>
+        </div>
+      </div>
+    </div>
+
+    <!-- partners -->
+    <div class="py-8 sm:py-12 lg:py-16 bg-gray-50">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <h4 class="text-gray-600 text-base sm:text-lg mb-6 sm:mb-8 text-left">
+          Trusted by:
+        </h4>
+
+        <div
+          class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-6 sm:gap-8 items-center justify-items-center"
+        >
+          <img
+            src="./img/1.png"
+            alt="Company 1"
+            class="h-10 sm:h-12 lg:h-14 w-auto object-contain"
+          />
+          <img
+            src="./img/2.png"
+            alt="Company 2"
+            class="h-10 sm:h-12 lg:h-14 w-auto object-contain"
+          />
+          <img
+            src="./img/3.png"
+            alt="Company 3"
+            class="h-10 sm:h-12 lg:h-14 w-auto object-contain"
+          />
+          <img
+            src="./img/4.png"
+            alt="Company 4"
+            class="h-10 sm:h-12 lg:h-14 w-auto object-contain"
+          />
+          <img
+            src="./img/5.png"
+            alt="Company 5"
+            class="h-10 sm:h-12 lg:h-14 w-auto object-contain"
+          />
+          <img
+            src="./img/6.png"
+            alt="Company 6"
+            class="h-10 sm:h-12 lg:h-14 w-auto object-contain"
+          />
         </div>
       </div>
     </div>
