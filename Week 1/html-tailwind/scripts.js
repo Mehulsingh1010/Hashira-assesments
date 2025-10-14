@@ -125,3 +125,54 @@ container.addEventListener("scroll", () => {
 });
 
 updateButtons();
+
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+//footer animation
+const logo = document.getElementById("logo");
+const video = document.getElementById("footerVideo");
+const footerLinksContainer = document.getElementById("footer-links");
+const footerTexts = [
+  document.getElementById("footerText1"),
+  document.getElementById("footerText2"),
+  document.getElementById("footerText3"),
+  document.getElementById("footerText7"),
+  document.getElementById("footerText8"),
+  document.getElementById("footerText9"),
+];
+
+let videoPlaying = false;
+
+logo.addEventListener("click", () => {
+  videoPlaying = !videoPlaying;
+
+  if (videoPlaying) {
+    video.style.display = "block";
+    video.play();
+    setTimeout(() => (video.style.opacity = "1"), 50);
+
+    // Add class for white underline & text
+    footerLinksContainer.classList.add("video-on");
+
+    // Change all other footer text & logo to white
+    footerTexts.forEach((el) =>
+      el.classList.replace("text-black", "text-white")
+    );
+    logo.querySelector("svg path").setAttribute("fill", "white");
+  } else {
+    video.style.opacity = "0";
+    setTimeout(() => {
+      video.pause();
+      video.currentTime = 0;
+      video.style.display = "none";
+    }, 700);
+
+    // Remove class for white underline & text
+    footerLinksContainer.classList.remove("video-on");
+
+    footerTexts.forEach((el) =>
+      el.classList.replace("text-white", "text-black")
+    );
+    logo.querySelector("svg path").setAttribute("fill", "black");
+  }
+});

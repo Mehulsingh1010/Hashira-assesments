@@ -138,11 +138,11 @@ html {
 }
 
 .nav-link::after {
-  content: '';
+  content: "";
   display: block;
   height: 2px;
   width: 0;
-  background-color: #485C11;
+  background-color: #485c11;
   position: absolute;
   bottom: 0;
   left: 0;
@@ -151,4 +151,64 @@ html {
 .nav-link:hover::after,
 .nav-link.active::after {
   width: 100%;
+}
+
+.hero-text .word {
+  display: inline-block;
+  opacity: 0;
+  transform: translateY(30px);
+  animation: fadeInUp 1s ease-out forwards;
+}
+
+.hero-text .word:nth-child(1) {
+  animation-delay: 0.2s;
+}
+
+.hero-text .word:nth-child(2) {
+  animation-delay: 0.5s;
+}
+
+@keyframes fadeInUp {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.hero-image {
+  opacity: 0;
+  transform: translateY(40px);
+  animation: fadeInUp 1s ease-out 0.8s forwards;
+}
+
+.footer-link {
+  position: relative;
+  display: inline-block;
+  padding-bottom: 2px;
+  transition: color 0.3s;
+}
+
+.footer-link::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  height: 2px;
+  width: 0;
+  background-color: black;
+  transition: width 0.3s, background-color 0.3s;
+}
+
+.footer-link:hover::after {
+  width: 100%;
+}
+
+/* White underline when video is on */
+.video-on .footer-link::after {
+  background-color: white;
+}
+
+/* White text when video is on */
+.video-on .footer-link {
+  color: white;
 }
