@@ -764,6 +764,9 @@
     --tw-font-weight: var(--font-weight-semibold);
     font-weight: var(--font-weight-semibold);
   }
+  .text-\[\#7c8f5c\] {
+    color: #7c8f5c;
+  }
   .text-black {
     color: var(--color-black);
   }

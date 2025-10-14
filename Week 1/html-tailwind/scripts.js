@@ -128,17 +128,17 @@ updateButtons();
 
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-//footer animation
 const logo = document.getElementById("logo");
 const video = document.getElementById("footerVideo");
 const footerLinksContainer = document.getElementById("footer-links");
+
 const footerTexts = [
-  document.getElementById("footerText1"),
-  document.getElementById("footerText2"),
-  document.getElementById("footerText3"),
   document.getElementById("footerText7"),
   document.getElementById("footerText8"),
   document.getElementById("footerText9"),
+  document.getElementById("footerText11"),
+  document.getElementById("footerText12"),
+  document.getElementById("footerText13"),
 ];
 
 let videoPlaying = false;
@@ -151,13 +151,13 @@ logo.addEventListener("click", () => {
     video.play();
     setTimeout(() => (video.style.opacity = "1"), 50);
 
-    // Add class for white underline & text
     footerLinksContainer.classList.add("video-on");
 
-    // Change all other footer text & logo to white
-    footerTexts.forEach((el) =>
-      el.classList.replace("text-black", "text-white")
-    );
+    footerTexts.forEach((el) => {
+      el.classList.remove("text-black", "text-[#7c8f5c]");
+      el.classList.add("text-white");
+    });
+
     logo.querySelector("svg path").setAttribute("fill", "white");
   } else {
     video.style.opacity = "0";
@@ -167,12 +167,18 @@ logo.addEventListener("click", () => {
       video.style.display = "none";
     }, 700);
 
-    // Remove class for white underline & text
     footerLinksContainer.classList.remove("video-on");
 
-    footerTexts.forEach((el) =>
-      el.classList.replace("text-white", "text-black")
-    );
+    footerTexts.forEach((el) => {
+      el.classList.remove("text-white");
+      if (el.dataset.original === "green") {
+        el.classList.add("text-[#7c8f5c]");
+      } else {
+        el.classList.add("text-black");
+      }
+    });
+
     logo.querySelector("svg path").setAttribute("fill", "black");
   }
 });
+
