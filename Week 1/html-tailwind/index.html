@@ -356,40 +356,40 @@
     </div>
 
     <!-- Hero Section -->
-    <div
-      class="bg-gray-50 pt-28 md:pt-0 px-4 sm:px-6 sm:pt-12 lg:px-8 lg:pt-16 pb-0"
-    >
-      <div class="max-w-7xl mx-auto">
-        <div class="text-center mb-8 sm:mb-10 lg:mb-12">
-          <h1
-            class="font-normal text-gray-800 text-[80px] sm:text-[100px] md:text-[120px] lg:text-[150px] leading-[1.1] break-words"
-            style="font-family: 'Crimson Text', serif"
-          >
-            Browse<br class="lg:hidden" />
-            everything.
-          </h1>
-        </div>
-        <div class="bg-gray-50">
-          <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <picture>
-              <source
-                media="(max-width: 767px)"
-                srcset="./img/small-hero.png"
-              />
-              <source
-                media="(min-width: 768px) and (max-width: 1023px)"
-                srcset="./img/medium-hero.png"
-              />
-              <img
-                src="./img/big-hero.png"
-                alt="Hero Image"
-                class="w-full h-auto rounded-lg object-cover block"
-              />
-            </picture>
-          </div>
-        </div>
+<div
+  class="bg-gray-50 pt-28 md:pt-0 px-4 sm:px-6 sm:pt-12 lg:px-8 lg:pt-16 pb-0"
+>
+  <div class="max-w-7xl mx-auto">
+    <div class="text-center mb-8 sm:mb-10 lg:mb-12">
+      <h1
+        class="font-normal text-gray-800 text-[80px] sm:text-[100px] md:text-[120px] lg:text-[150px] leading-[1.1]"
+        style="font-family: 'Crimson Text', serif"
+      >
+        Browse<br class="md:hidden" />
+        everything.
+      </h1>
+    </div>
+    <div class="bg-gray-50">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <picture>
+          <source
+            media="(max-width: 767px)"
+            srcset="./img/small-hero.png"
+          />
+          <source
+            media="(min-width: 768px) and (max-width: 1023px)"
+            srcset="./img/medium-hero.png"
+          />
+          <img
+            src="./img/big-hero.png"
+            alt="Hero Image"
+            class="w-full h-auto rounded-lg object-cover block"
+          />
+        </picture>
       </div>
     </div>
+  </div>
+</div>
 
     <!-- Trusted By Section -->
     <div class="py-8 sm:py-12 lg:py-16 bg-gray-light">
@@ -398,7 +398,7 @@
           Trusted by:
         </h4>
         <div
-          class="grid mt-10 grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-12 sm:gap-16 md:gap-20 lg:gap-24 items-center justify-items-center"
+          class="grid mt-10 grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-12 sm:gap-16 md:gap-20 lg:gap-24 items-center justify-center "
         >
           <img
             src="./img/1.png"
@@ -1060,7 +1060,7 @@
 
     <!-- Testimonial Section -->
     <div class="container-main py-20">
-      <div class="flex flex-col xl:flex-row items-start gap-12 pb-12">
+      <div class="flex flex-col xl:flex-row  gap-12 pb-12">
         <div class="w-full xl:w-1/2">
           <div class="rounded-2xl overflow-hidden">
             <img
@@ -1073,9 +1073,9 @@
 
         <div class="w-full xl:w-1/2 flex flex-col">
           <div class="border-top"></div>
-          <div class="pt-8 flex-1 flex flex-col justify-center">
+          <div class="pt-8 flex-1 flex flex-col  justify-center">  
             <p
-              class="text-[20px] sm:text-[24px] lg:text-[28px] text-gray-900 leading-relaxed mb-8 font-serif"
+              class="text-[32px] sm:text-[px] lg:text-[32px]  text-gray-900 items-center justify-center leading-relaxed mb-8 font-serif"
             >
               "I was skeptical, but Area has completely transformed the way I
               manage my business. The data visualizations are so clear and
@@ -1083,7 +1083,7 @@
               running my company without it."
             </p>
 
-            <div>
+            <div class="">
               <p class="text-sm font-medium text-gray-900">John Smith</p>
               <p class="text-xs mt-1" style="color: var(--color-primary)">
                 Head of Data
@@ -1095,75 +1095,146 @@
     </div>
 
     <!-- Map Your Success Section -->
+<div
+  id="how-to"
+  class="flex flex-col gap-[60px] max-w-[1200px] mx-auto border-top pt-[80px] pb-[40px] px-4 sm:px-6 lg:px-8"
+>
+  <div
+    class="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-4 sm:gap-6"
+  >
+    <h1
+      class="text-[36px] sm:text-[48px] lg:text-[60px] font-serif leading-tight"
+    >
+      Map Your Success
+    </h1>
+    <button class="btn-secondary mt-4 sm:mt-0 self-start sm:self-auto">
+      Discover More
+    </button>
+  </div>
+
+  <div>
     <div
-      id="how-to"
-      class="flex flex-col gap-[80px] max-w-[1200px] mx-auto border-top pt-[80px] pb-[40px] px-4 sm:px-6 lg:px-8"
+      id="cardsContainer"
+      class="flex gap-5 overflow-x-auto sm:grid sm:grid-cols-2 lg:grid-cols-3 sm:gap-6 scrollbar-none scroll-smooth"
     >
       <div
-        class="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-4 sm:gap-6"
+        class="flex-none w-[300px] sm:w-auto h-[300px] flex flex-col pt-5 px-4 border-top"
       >
-        <h1
-          class="text-[36px] sm:text-[48px] lg:text-[60px] font-serif leading-tight"
+        <h4
+          class="text-[70px] lg:text-[80px] text-gray-dark mb-3 leading-none"
         >
-          Map Your Success
-        </h1>
-        <button class="btn-secondary mt-4 sm:mt-0 self-start sm:self-auto">
-          Discover More
-        </button>
+          01
+        </h4>
+        <h3 class="text-[17px] lg:text-[18px] font-serif mb-2">
+          Get Started
+        </h3>
+        <p class="text-gray-medium text-[14px] lg:text-[15px]">
+          With our intuitive setup, you're up and running in minutes.
+        </p>
       </div>
 
       <div
-        class="flex gap-5 overflow-x-auto md:grid md:grid-cols-2 lg:grid-cols-3 md:gap-6 scrollbar-none"
+        class="flex-none w-[300px] sm:w-auto h-[300px] flex flex-col pt-5 px-4 border-top"
       >
-        <div
-          class="flex-none w-[300px] md:w-auto h-[300px] flex flex-col pt-5 px-4 border-top"
+        <h4
+          class="text-[70px] lg:text-[80px] text-gray-dark mb-3 leading-none"
         >
-          <h4
-            class="text-[70px] lg:text-[80px] text-gray-dark mb-3 leading-none"
-          >
-            01
-          </h4>
-          <h3 class="text-[17px] lg:text-[18px] font-serif mb-2">
-            Get Started
-          </h3>
-          <p class="text-gray-medium text-[14px] lg:text-[15px]">
-            With our intuitive setup, you're up and running in minutes.
-          </p>
-        </div>
+          02
+        </h4>
+        <h3 class="text-[17px] lg:text-[18px] font-serif mb-2">
+          Customize and Configure
+        </h3>
+        <p class="text-gray-medium text-[14px] lg:text-[15px]">
+          Adapt Area to your specific requirements and preferences.
+        </p>
+      </div>
 
-        <div
-          class="flex-none w-[300px] md:w-auto h-[300px] flex flex-col pt-5 px-4 border-top"
+      <div
+        class="flex-none w-[300px] sm:w-auto h-[300px] flex flex-col pt-5 px-4 border-top"
+      >
+        <h4
+          class="text-[70px] lg:text-[80px] text-gray-dark mb-3 leading-none"
         >
-          <h4
-            class="text-[70px] lg:text-[80px] text-gray-dark mb-3 leading-none"
-          >
-            02
-          </h4>
-          <h3 class="text-[17px] lg:text-[18px] font-serif mb-2">
-            Customize and Configure
-          </h3>
-          <p class="text-gray-medium text-[14px] lg:text-[15px]">
-            Adapt Area to your specific requirements and preferences.
-          </p>
-        </div>
-
-        <div
-          class="flex-none w-[300px] md:w-auto h-[300px] flex flex-col pt-5 px-4 border-top"
-        >
-          <h4
-            class="text-[70px] lg:text-[80px] text-gray-dark mb-3 leading-none"
-          >
-            03
-          </h4>
-          <h3 class="text-[17px] lg:text-[18px] font-serif mb-2">
-            Grow Your Business
-          </h3>
-          <p class="text-gray-medium text-[14px] lg:text-[15px]">
-            Make informed decisions to exceed your goals.
-          </p>
-        </div>
+          03
+        </h4>
+        <h3 class="text-[17px] lg:text-[18px] font-serif mb-2">
+          Grow Your Business
+        </h3>
+        <p class="text-gray-medium text-[14px] lg:text-[15px]">
+          Make informed decisions to exceed your goals.
+        </p>
       </div>
     </div>
+
+    <!-- Navigation Buttons (Mobile only) - Below the cards -->
+    <div class="sm:hidden flex justify-center gap-3 ">
+      <button
+        id="scrollLeft"
+        class="bg-gray-200 rounded-2xl w-16 h-16 flex items-center justify-center hover:bg-gray-300 transition-all disabled:opacity-30 disabled:cursor-not-allowed"
+        style="display: none;"
+        aria-label="Scroll left"
+      >
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <polyline points="15 18 9 12 15 6"></polyline>
+        </svg>
+      </button>
+
+      <button
+        id="scrollRight"
+        class="bg-lime-200 rounded-2xl w-16 h-16 flex items-center justify-center hover:bg-lime-300 transition-all disabled:opacity-30 disabled:cursor-not-allowed"
+        aria-label="Scroll right"
+      >
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <polyline points="9 18 15 12 9 6"></polyline>
+        </svg>
+      </button>
+    </div>
+  </div>
+</div>
+
+<script>
+  const container = document.getElementById('cardsContainer');
+  const leftBtn = document.getElementById('scrollLeft');
+  const rightBtn = document.getElementById('scrollRight');
+  
+  const cardWidth = 320; // 300px width + 20px gap
+  let currentIndex = 0;
+  const totalCards = 3;
+
+  function updateButtons() {
+    // Hide left button on first card
+    leftBtn.style.display = currentIndex === 0 ? 'none' : 'flex';
+    
+    // Hide right button on last card
+    rightBtn.style.display = currentIndex === totalCards - 1 ? 'none' : 'flex';
+  }
+
+  leftBtn.addEventListener('click', () => {
+    if (currentIndex > 0) {
+      currentIndex--;
+      container.scrollBy({ left: -cardWidth, behavior: 'smooth' });
+      updateButtons();
+    }
+  });
+
+  rightBtn.addEventListener('click', () => {
+    if (currentIndex < totalCards - 1) {
+      currentIndex++;
+      container.scrollBy({ left: cardWidth, behavior: 'smooth' });
+      updateButtons();
+    }
+  });
+
+  // Update buttons on scroll (for touch/swipe gestures)
+  container.addEventListener('scroll', () => {
+    const scrollLeft = container.scrollLeft;
+    currentIndex = Math.round(scrollLeft / cardWidth);
+    updateButtons();
+  });
+
+  // Initialize button visibility
+  updateButtons();
+</script>
 
     <!-- Garden Image -->
     <div class="container-main mt-6 mb-10">
