@@ -152,7 +152,7 @@
   </head>
   <body>
     <nav
-      class="fixed md:relative top-0 left-0 right-0 w-full bg-white z-40 md:z-auto shadow-sm"
+      class="fixed md:relative top-0 left-0 right-0 w-full bg-white z-40 md:z-auto "
     >
       <div class="container-main">
         <div class="flex justify-between items-center h-16">
@@ -267,73 +267,76 @@
     </nav>
 
     <script>
-      const menuButton = document.getElementById("menuu");
-      const mobileMenu = document.getElementById("mobile-menu");
-      const hamburgerIcon = document.getElementById("hamburger-icon");
-      const closeIcon = document.getElementById("close-icon");
-      const menuItems = document.querySelectorAll(".menu-item");
+  const menuButton = document.getElementById("menuu");
+  const mobileMenu = document.getElementById("mobile-menu");
+  const hamburgerIcon = document.getElementById("hamburger-icon");
+  const closeIcon = document.getElementById("close-icon");
+  const menuItems = document.querySelectorAll(".menu-item");
 
-      // Toggle mobile menu with smooth animation
-      menuButton.addEventListener("click", () => {
-        const isOpen =
-          mobileMenu.style.maxHeight && mobileMenu.style.maxHeight !== "0px";
+  // Function to close menu
+  const closeMenu = () => {
+    mobileMenu.style.maxHeight = "0px";
+    mobileMenu.style.opacity = "0";
+    hamburgerIcon.classList.remove("hidden");
+    closeIcon.classList.add("hidden");
 
-        if (isOpen) {
-          // Close menu
-          mobileMenu.style.maxHeight = "0px";
-          mobileMenu.style.opacity = "0";
-          hamburgerIcon.classList.remove("hidden");
-          closeIcon.classList.add("hidden");
+    menuItems.forEach((item) => {
+      item.style.transform = "translateY(8px)";
+      item.style.opacity = "0";
+    });
+  };
 
-          // Reset menu items
-          menuItems.forEach((item) => {
-            item.style.transform = "translateY(8px)";
-            item.style.opacity = "0";
-          });
-        } else {
-          // Open menu
-          mobileMenu.style.maxHeight = "500px"; // Adjust based on your content height
-          mobileMenu.style.opacity = "1";
-          hamburgerIcon.classList.add("hidden");
-          closeIcon.classList.remove("hidden");
+  // Toggle mobile menu with smooth animation
+  menuButton.addEventListener("click", (e) => {
+    e.stopPropagation(); // Prevent this click from triggering document click
+    const isOpen =
+      mobileMenu.style.maxHeight && mobileMenu.style.maxHeight !== "0px";
 
-          // Animate menu items with stagger effect
-          menuItems.forEach((item, index) => {
-            setTimeout(() => {
-              item.style.transform = "translateY(0)";
-              item.style.opacity = "1";
-            }, 50 + index * 50); // Stagger by 50ms
-          });
-        }
+    if (isOpen) {
+      closeMenu();
+    } else {
+      mobileMenu.style.maxHeight = "500px"; // Adjust based on your content height
+      mobileMenu.style.opacity = "1";
+      hamburgerIcon.classList.add("hidden");
+      closeIcon.classList.remove("hidden");
+
+      // Animate menu items with stagger effect
+      menuItems.forEach((item, index) => {
+        setTimeout(() => {
+          item.style.transform = "translateY(0)";
+          item.style.opacity = "1";
+        }, 50 + index * 50);
       });
+    }
+  });
 
-      // Close menu when clicking a link + smooth scroll
-      document.querySelectorAll('#mobile-menu a[href^="#"]').forEach((link) => {
-        link.addEventListener("click", (e) => {
-          e.preventDefault();
-          const target = document.querySelector(link.getAttribute("href"));
+  // Close menu when clicking a link + smooth scroll
+  document.querySelectorAll('#mobile-menu a[href^="#"]').forEach((link) => {
+    link.addEventListener("click", (e) => {
+      e.preventDefault();
+      const target = document.querySelector(link.getAttribute("href"));
 
-          if (target) {
-            const yOffset = -60;
-            const y =
-              target.getBoundingClientRect().top + window.pageYOffset + yOffset;
-            window.scrollTo({ top: y, behavior: "smooth" });
-          }
+      if (target) {
+        const yOffset = -60;
+        const y =
+          target.getBoundingClientRect().top + window.pageYOffset + yOffset;
+        window.scrollTo({ top: y, behavior: "smooth" });
+      }
 
-          // Close the menu
-          mobileMenu.style.maxHeight = "0px";
-          mobileMenu.style.opacity = "0";
-          hamburgerIcon.classList.remove("hidden");
-          closeIcon.classList.add("hidden");
+      closeMenu();
+    });
+  });
 
-          // Reset menu items
-          menuItems.forEach((item) => {
-            item.style.transform = "translateY(8px)";
-            item.style.opacity = "0";
-          });
-        });
-      });
-    </script>
+  // Close menu when clicking outside
+  document.addEventListener("click", (e) => {
+    const isClickInsideMenu =
+      mobileMenu.contains(e.target) || menuButton.contains(e.target);
+    if (!isClickInsideMenu) {
+      closeMenu();
+    }
+  });
+</script>
+
 
     <!-- Desktop floating nav - always fixed -->
     <div
