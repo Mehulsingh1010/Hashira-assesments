@@ -791,6 +791,12 @@
   .bg-\[\#485C11\] {
     background-color: #485C11;
   }
+  .bg-\[\#DFECC6\] {
+    background-color: #DFECC6;
+  }
+  .bg-\[\#E4E4E4\] {
+    background-color: #E4E4E4;
+  }
   .bg-black {
     background-color: var(--color-black);
   }
