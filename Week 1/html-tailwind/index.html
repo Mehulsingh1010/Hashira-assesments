@@ -10,74 +10,352 @@
       href="https://fonts.googleapis.com/css2?family=Crimson+Text:wght@400;700&family=DM+Sans:wght@400;500;700&family=Roboto+Mono:wght@400;500;700&family=Rethink+Sans:wght@400;500;700&family=Reddit+Mono:wght@400;500;700&display=swap"
       rel="stylesheet"
     />
+
+    <style>
+      /* CSS Variables for colors and spacing */
+      :root {
+        --color-primary: #485c11;
+        --color-primary-hover: #7c8f5c;
+        --color-primary-dark: #3d4a0d;
+        --color-lime: #ecfccb;
+        --color-green-dark: #14532d;
+        --color-gray-light: #ffffff;
+        --color-gray-medium: #6f6f6f;
+        --color-gray-dark: #929292;
+        --color-border: #e9e9e9;
+
+        --font-primary: "DM Sans", sans-serif;
+        --font-serif: "Crimson Text", serif;
+        --font-mono: "Roboto Mono", monospace;
+        --font-rethink: "Rethink Sans", sans-serif;
+        --font-reddit: "Reddit Mono", monospace;
+      }
+
+      /* Base body font */
+      body {
+        font-family: var(--font-primary);
+      }
+
+      /* Reusable utility classes */
+      .container-main {
+        max-width: 1280px;
+        margin-left: auto;
+        margin-right: auto;
+        padding-left: 1rem;
+        padding-right: 1rem;
+        background-color: white;
+      }
+
+      @media (min-width: 640px) {
+        .container-main {
+          padding-left: 1.5rem;
+          padding-right: 1.5rem;
+        }
+      }
+
+      @media (min-width: 1024px) {
+        .container-main {
+          padding-left: 2rem;
+          padding-right: 2rem;
+        }
+      }
+
+      .font-serif {
+        font-family: var(--font-serif);
+      }
+
+      .font-mono {
+        font-family: var(--font-mono);
+      }
+
+      .font-rethink {
+        font-family: var(--font-rethink);
+      }
+
+      .font-reddit {
+        font-family: var(--font-reddit);
+      }
+
+      .btn-primary:hover {
+        background-color: var(--color-primary-hover);
+      }
+
+      .btn-primary:hover .arrow-move {
+        transform: translate(1px, -5px);
+      }
+
+      .btn-primary {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        color: white;
+        padding: 0.625rem 1.25rem;
+        border-radius: 9999px;
+        background-color: var(--color-primary);
+        transition: background-color 300ms;
+      }
+
+      .arrow-move {
+        transition: transform 300ms ease;
+      }
+
+      .btn-secondary {
+        background-color: var(--color-lime);
+        color: var(--color-green-dark);
+        font-weight: 600;
+        padding: 0.75rem 2rem;
+        border-radius: 9999px;
+        box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+        transition: all 500ms ease-in-out;
+      }
+
+      .btn-secondary:hover {
+        background-color: var(--color-primary);
+        color: white;
+      }
+
+      .border-top {
+        border-top: 1px solid var(--color-border);
+      }
+
+      .text-gray-medium {
+        color: var(--color-gray-medium);
+      }
+
+      .text-gray-dark {
+        color: var(--color-gray-dark);
+      }
+
+      .bg-gray-light {
+        background-color: var(--color-gray-light);
+      }
+    </style>
+    <style>
+      /* Smooth scroll */
+      html {
+        scroll-behavior: smooth;
+      }
+
+      /* Hide scrollbar but keep scroll */
+      ::-webkit-scrollbar {
+        display: none; /* Chrome, Safari, Edge */
+      }
+
+      html {
+        scrollbar-width: none; /* Firefox */
+      }
+
+      body {
+        -ms-overflow-style: none; /* IE and older Edge */
+      }
+    </style>
   </head>
-  <body style="font-family: 'DM Sans', sans-serif">
-     <nav class="sticky top-0 z-50 w-full bg-white/80 backdrop-blur-md shadow-sm">
-  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-    <div class="flex justify-between items-center h-16">
-      <!-- Logo -->
-      <div class="text-[30px] font-medium">Area</div>
+  <body>
+    <nav
+      class="fixed md:relative top-0 left-0 right-0 w-full bg-white z-40 md:z-auto shadow-sm"
+    >
+      <div class="container-main">
+        <div class="flex justify-between items-center h-16">
+          <div class="text-[30px] font-medium">Area</div>
 
-      <!-- Hamburger Button (mobile) -->
-      <button id="menuu" class="md:hidden block text-black focus:outline-none" aria-label="Toggle menu">
-        <svg id="hamburger-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M3 5.6665H21V7.6665H3V5.6665ZM3 10.6665H21V12.6665H3V10.6665ZM3 15.6665H21V17.6665H3V15.6665Z" fill="black"/>
-        </svg>
-        <svg id="close-icon" class="hidden" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M19 6.41L17.59 5L12 10.59L6.41 5L5 6.41L10.59 12L5 17.59L6.41 19L12 13.41L17.59 19L19 17.59L13.41 12L19 6.41Z" fill="black"/>
-        </svg>
-      </button>
-
-      <!-- Desktop Menu -->
-      <div class="hidden md:flex items-center gap-8 font-medium text-sm">
-        <a href="#" class="hover:text-gray-600">Benefits</a>
-        <a href="#" class="hover:text-gray-600">Specifications</a>
-        <a href="#" class="hover:text-gray-600">How-to</a>
-        <a href="#" class="hover:text-gray-600">Contact Us</a>
-      </div>
-
-      <!-- Desktop Button -->
-      <div class="hidden md:flex">
-        <button class="group flex items-center gap-2 text-white px-5 py-2.5 rounded-full bg-[#485C11] hover:bg-[#7C8F5C] transition-colors duration-300">
-          Learn More
-          <svg class="arrow-move" width="8" height="8" viewBox="0 0 6 6" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M5.01037 4.98754V1.04598L5.64939 1.08556L0.735155 6.00545L0 5.2703L4.91423 0.356063L4.96513 0.995083H1.0066V-0.00585938L6 0.00545071V4.98754H5.01037Z" fill="white" />
-          </svg>
-        </button>
-      </div>
-    </div>
-  </div>
-
-
-      <div id="mobile-menu" class="hidden md:hidden absolute top-full left-0 right-0 bg-white shadow-2xl max-h-screen overflow-y-auto">
-        <!-- Header with Close -->
-        <div class="flex justify-end items-center px-6 py-5 border-b border-gray-200">
-          <button id="close-btn" class="text-black focus:outline-none">
-            
+          <!-- Hamburger Button -->
+          <button
+            id="menuu"
+            class="md:hidden block text-black focus:outline-none"
+            aria-label="Toggle menu"
+          >
+            <svg
+              id="hamburger-icon"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+              class="transition-opacity duration-200"
+            >
+              <path
+                d="M3 5.6665H21V7.6665H3V5.6665ZM3 10.6665H21V12.6665H3V10.6665ZM3 15.6665H21V17.6665H3V15.6665Z"
+                fill="black"
+              />
+            </svg>
+            <svg
+              id="close-icon"
+              class="hidden transition-opacity duration-200"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+            >
+              <path
+                d="M19 6.41L17.59 5L12 10.59L6.41 5L5 6.41L10.59 12L5 17.59L6.41 19L12 13.41L17.59 19L19 17.59L13.41 12L19 6.41Z"
+                fill="black"
+              />
+            </svg>
           </button>
-        </div>
 
-        <!-- Menu Items with Dividers -->
+          <!-- Desktop Button -->
+          <div class="hidden md:flex">
+            <button class="btn-primary">
+              Learn More
+              <svg
+                class="arrow-move"
+                width="8"
+                height="8"
+                viewBox="0 0 6 6"
+                fill="none"
+              >
+                <path
+                  d="M5.01037 4.98754V1.04598L5.64939 1.08556L0.735155 6.00545L0 5.2703L4.91423 0.356063L4.96513 0.995083H1.0066V-0.00585938L6 0.00545071V4.98754H5.01037Z"
+                  fill="white"
+                />
+              </svg>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Mobile nav menu -->
+      <div
+        id="mobile-menu"
+        class="md:hidden absolute top-16 left-0 right-0 bg-white shadow-2xl border-t border-gray-200 rounded-b-2xl overflow-hidden transition-all duration-300 ease-in-out max-h-0 opacity-0"
+        style="
+          transition: max-height 0.3s ease-in-out, opacity 0.3s ease-in-out;
+        "
+      >
         <div class="divide-y divide-gray-200">
-          <a href="#" class="block px-6 py-4 text-base font-medium text-gray-900 hover:bg-gray-50 transition-colors">Benefits</a>
-          <a href="#" class="block px-6 py-4 text-base font-medium text-gray-900 hover:bg-gray-50 transition-colors">Specifications</a>
-          <a href="#" class="block px-6 py-4 text-base font-medium text-gray-900 hover:bg-gray-50 transition-colors">How-to</a>
-          <a href="#" class="block px-6 py-4 text-base font-medium text-gray-900 hover:bg-gray-50 transition-colors">Contact Us</a>
+          <a
+            href="#benefits"
+            class="block px-6 py-4 text-base font-medium text-gray-900 hover:bg-gray-50 transition-all duration-200 transform translate-y-2 opacity-0 menu-item"
+            >Benefits</a
+          >
+          <a
+            href="#specs"
+            class="block px-6 py-4 text-base font-medium text-gray-900 hover:bg-gray-50 transition-all duration-200 transform translate-y-2 opacity-0 menu-item"
+            >Specifications</a
+          >
+          <a
+            href="#how-to"
+            class="block px-6 py-4 text-base font-medium text-gray-900 hover:bg-gray-50 transition-all duration-200 transform translate-y-2 opacity-0 menu-item"
+            >How-to</a
+          >
+          <a
+            href="#contact"
+            class="block px-6 py-4 text-base font-medium text-gray-900 hover:bg-gray-50 transition-all duration-200 transform translate-y-2 opacity-0 menu-item"
+            >Contact Us</a
+          >
         </div>
 
-        <!-- Button Section with Divider -->
-        <div class="border-t border-gray-200 px-6 py-6">
-          <button class=" group flex items-center justify-center gap-2 text-white px-6 py-3 rounded-full bg-[#485C11] hover:bg-[#3d4a0d] transition-colors duration-300 font-medium text-sm">
+        <div
+          class="border-t border-gray-200 px-6 py-6 transform translate-y-2 opacity-0 menu-item"
+        >
+          <button class="btn-primary justify-center">
             Learn More
-            <svg class="arrow-move" width="8" height="8" viewBox="0 0 6 6" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M5.01037 4.98754V1.04598L5.64939 1.08556L0.735155 6.00545L0 5.2703L4.91423 0.356063L4.96513 0.995083H1.0066V-0.00585938L6 0.00545071V4.98754H5.01037Z" fill="white" />
+            <svg
+              class="arrow-move"
+              width="8"
+              height="8"
+              viewBox="0 0 6 6"
+              fill="none"
+            >
+              <path
+                d="M5.01037 4.98754V1.04598L5.64939 1.08556L0.735155 6.00545L0 5.2703L4.91423 0.356063L4.96513 0.995083H1.0066V-0.00585938L6 0.00545071V4.98754H5.01037Z"
+                fill="white"
+              />
             </svg>
           </button>
         </div>
       </div>
     </nav>
 
-    <div class="bg-gray-50 px-4 pt-8 sm:px-6 sm:pt-12 lg:px-8 lg:pt-16 pb-0">
+    <script>
+      const menuButton = document.getElementById("menuu");
+      const mobileMenu = document.getElementById("mobile-menu");
+      const hamburgerIcon = document.getElementById("hamburger-icon");
+      const closeIcon = document.getElementById("close-icon");
+      const menuItems = document.querySelectorAll(".menu-item");
+
+      // Toggle mobile menu with smooth animation
+      menuButton.addEventListener("click", () => {
+        const isOpen =
+          mobileMenu.style.maxHeight && mobileMenu.style.maxHeight !== "0px";
+
+        if (isOpen) {
+          // Close menu
+          mobileMenu.style.maxHeight = "0px";
+          mobileMenu.style.opacity = "0";
+          hamburgerIcon.classList.remove("hidden");
+          closeIcon.classList.add("hidden");
+
+          // Reset menu items
+          menuItems.forEach((item) => {
+            item.style.transform = "translateY(8px)";
+            item.style.opacity = "0";
+          });
+        } else {
+          // Open menu
+          mobileMenu.style.maxHeight = "500px"; // Adjust based on your content height
+          mobileMenu.style.opacity = "1";
+          hamburgerIcon.classList.add("hidden");
+          closeIcon.classList.remove("hidden");
+
+          // Animate menu items with stagger effect
+          menuItems.forEach((item, index) => {
+            setTimeout(() => {
+              item.style.transform = "translateY(0)";
+              item.style.opacity = "1";
+            }, 50 + index * 50); // Stagger by 50ms
+          });
+        }
+      });
+
+      // Close menu when clicking a link + smooth scroll
+      document.querySelectorAll('#mobile-menu a[href^="#"]').forEach((link) => {
+        link.addEventListener("click", (e) => {
+          e.preventDefault();
+          const target = document.querySelector(link.getAttribute("href"));
+
+          if (target) {
+            const yOffset = -60;
+            const y =
+              target.getBoundingClientRect().top + window.pageYOffset + yOffset;
+            window.scrollTo({ top: y, behavior: "smooth" });
+          }
+
+          // Close the menu
+          mobileMenu.style.maxHeight = "0px";
+          mobileMenu.style.opacity = "0";
+          hamburgerIcon.classList.remove("hidden");
+          closeIcon.classList.add("hidden");
+
+          // Reset menu items
+          menuItems.forEach((item) => {
+            item.style.transform = "translateY(8px)";
+            item.style.opacity = "0";
+          });
+        });
+      });
+    </script>
+
+    <!-- Desktop floating nav - always fixed -->
+    <div
+      class="hidden md:flex bg-white/60 backdrop-blur-md p-4 rounded-3xl fixed left-1/2 -translate-x-1/2 top-3 z-50 justify-center items-center"
+    >
+      <style>
+        html {
+          scroll-behavior: smooth;
+        }
+      </style>
+      <div class="flex items-center gap-8 font-medium text-sm">
+        <a href="#benefits" class="hover:text-gray-600">Benefits</a>
+        <a href="#specs" class="hover:text-gray-600">Specifications</a>
+        <a href="#how-to" class="hover:text-gray-600">How-to</a>
+        <a href="#contact" class="hover:text-gray-600">Contact Us</a>
+      </div>
+    </div>
+
+    <!-- Hero Section -->
+    <div
+      class="bg-gray-50 pt-28 md:pt-0 px-4 sm:px-6 sm:pt-12 lg:px-8 lg:pt-16 pb-0"
+    >
       <div class="max-w-7xl mx-auto">
         <div class="text-center mb-8 sm:mb-10 lg:mb-12">
           <h1
@@ -110,8 +388,9 @@
       </div>
     </div>
 
-    <div class="py-8 sm:py-12 lg:py-16 bg-gray-50">
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <!-- Trusted By Section -->
+    <div class="py-8 sm:py-12 lg:py-16 bg-gray-light">
+      <div class="container-main">
         <h4 class="text-gray-600 text-base sm:text-lg mb-6 sm:mb-8 text-left">
           Trusted by:
         </h4>
@@ -152,36 +431,35 @@
       </div>
     </div>
 
-    <div class="py-8 sm:py-12 lg:py-16 bg-gray-50 relative">
-      <!-- Top border (aligned with content width) -->
+    <!-- Benefits Section -->
+    <div id="benefits" class="py-8 sm:py-12 lg:py-16 bg-gray-light relative">
       <div
-        class="absolute top-0 left-1/2 -translate-x-1/2 w-[calc(100%-2rem)] sm:w-[calc(100%-3rem)] lg:w-[calc(100%-4rem)] max-w-7xl border-t border-[#E9E9E9] mx-auto"
+        class="absolute top-0 left-1/2 -translate-x-1/2 w-[calc(100%-2rem)] sm:w-[calc(100%-3rem)] lg:w-[calc(100%-4rem)] max-w-7xl border-top mx-auto"
       ></div>
 
-      <!-- Content -->
-      <div class="max-w-7xl mt-10 mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="container-main mt-10">
         <h4
-          class="text-gray-600 text-base sm:text-lg mb-6 sm:mb-8 text-left"
-          style="font-family: 'Roboto Mono', monospace"
+          class="font-mono text-gray-600 text-base sm:text-lg mb-6 sm:mb-8 text-left"
         >
           Benefits:
         </h4>
 
         <div
-          class="mt-10 text-[60px] font-400 text-left"
-          style="font-family: 'Crimson Text', serif; line-height: 1"
+          class="mt-10 text-[60px] font-400 text-left font-serif"
+          style="line-height: 1"
         >
-          <h1>We’ve cracked the code.</h1>
+          <h1>We've cracked the code.</h1>
         </div>
 
-        <p class="text-[#929292] mt-6">
+        <p class="text-gray-dark mt-6">
           Area provides real insights, without the data overload.
         </p>
       </div>
     </div>
 
-    <section class="sm:py-8 lg:py-12 bg-gray-50">
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <!-- Benefits Cards -->
+    <section class="sm:py-8 lg:py-12 bg-gray-light">
+      <div class="container-main">
         <div
           class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10 sm:gap-12 md:gap-16"
         >
@@ -200,9 +478,7 @@
                 />
               </svg>
             </div>
-            <h3
-              class="text-lg sm:text-xl font-semibold text-gray-900 mb-2 font-['Crimson Text']"
-            >
+            <h3 class="text-lg font-['Crimson'] sm:text-xl text-gray-900 mb-2">
               Amplify Insights
             </h3>
             <p class="text-sm text-gray-600 leading-relaxed">
@@ -226,9 +502,7 @@
                 />
               </svg>
             </div>
-            <h3
-              class="text-lg sm:text-xl font-semibold text-gray-900 mb-2 font-['Crimson Text']"
-            >
+            <h3 class="sm:text-xl text-gray-900 mb-2 text-lg font-['Crimson']">
               Control Your Global Presence
             </h3>
             <p class="text-sm text-gray-600 leading-relaxed">
@@ -252,9 +526,7 @@
                 />
               </svg>
             </div>
-            <h3
-              class="text-lg sm:text-xl font-semibold text-gray-900 mb-2 font-['Crimson Text']"
-            >
+            <h3 class="sm:text-xl text-gray-900 mb-2 text-lg font-['Crimson']">
               Remove Language Barriers
             </h3>
             <p class="text-sm text-gray-600 leading-relaxed">
@@ -278,9 +550,7 @@
                 />
               </svg>
             </div>
-            <h3
-              class="text-lg sm:text-xl font-semibold text-gray-900 mb-2 font-['Crimson Text']"
-            >
+            <h3 class="sm:text-xl text-gray-900 mb-2 text-lg font-['Crimson']">
               Visualize Growth
             </h3>
             <p class="text-sm text-gray-600 leading-relaxed">
@@ -292,33 +562,30 @@
       </div>
     </section>
 
-    <div class="max-w-7xl mb-10 mt-10 mx-auto px-4 sm:px-6 lg:px-8">
-  <picture>
-    <!-- Small screens (mobile) -->
-    <source media="(max-width: 767px)" srcset="./img/mountain-small.png" />
+    <!-- Dashboard Image -->
+    <div class="container-main mb-10 mt-16">
+      <picture>
+        <source media="(max-width: 767px)" srcset="./img/mountain-small.png" />
+        <source
+          media="(min-width: 768px) and (max-width: 1023px)"
+          srcset="./img/mountain-medium.png"
+        />
+        <img
+          src="./img/mountain-large.png"
+          alt="Dashboard preview"
+          class="w-full h-auto object-cover rounded-lg"
+        />
+      </picture>
+    </div>
 
-    <!-- Medium screens (tablet) -->
-    <source media="(min-width: 768px) and (max-width: 1023px)" srcset="./img/mountain-medium.png" />
-
-    <!-- Large screens (desktop) -->
-    <img
-      src="./img/mountain-large.png"
-      alt="Dashboard preview"
-      class="w-full h-auto object-cover rounded-lg"
-    />
-  </picture>
-</div>
-
-
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+    <!-- Big Picture Section -->
+    <div class="container-main py-20">
       <div class="flex flex-col lg:flex-row items-start gap-12">
-        <!-- Left Text Column -->
         <div class="lg:w-1/2 w-full lg:pr-10">
-          <!-- Top border aligned to text column -->
-          <div class="border-t border-gray-200 pt-6 mb-6"></div>
+          <div class="border-top pt-6 mb-6"></div>
 
           <h2
-            class="text-[42px] sm:text-[52px] lg:text-[60px] font-normal leading-tight mb-6 font-['Crimson'] text-gray-900"
+            class="text-[42px] sm:text-[52px] lg:text-[60px] font-normal leading-tight mb-6 font-serif text-gray-900"
           >
             See the Big Picture
           </h2>
@@ -367,16 +634,9 @@
               </span>
             </div>
           </div>
-<button
-  class="bg-lime-100 text-green-900 hover:bg-[#485C11] hover:text-white font-semibold px-8 py-3 rounded-full shadow-sm transition-colors duration-500 ease-in-out mt-10"
->
-  Discover More
-</button>
-
-
+          <button class="btn-secondary mt-10">Discover More</button>
         </div>
 
-        <!-- Right Image Column -->
         <div class="lg:w-1/2 w-full flex">
           <div class="rounded-2xl">
             <img
@@ -389,26 +649,22 @@
       </div>
     </div>
 
+    <!-- Why Choose Section -->
     <div
-      class="max-w-7xl border-t border-[#929292] mx-auto px-4 sm:px-6 lg:px-8 py-20 text-center justify-center"
+      id="specs"
+      class="container-main border-top py-20 text-center justify-center"
     >
-      <p class="text-[#485C11]">Specs</p>
-      <h1 class="text-[60px] font-['Crimson']">Why Choose Area?</h1>
-      <p class="text-[#6F6F6F] text-[15px]">
-        You need a solution that keeps up. That’s why we developed Area. A
-        developer-friendly approach to <br />
-        streamline your business.
+      <p style="color: var(--color-primary)">Specs</p>
+      <h1 class="text-[50px] font-serif">Why Choose Area?</h1>
+      <p class="text-gray-medium text-[15px]">
+        You need a solution that keeps up. That's why we developed Area. A
+        developer-friendly approach to streamline your business.
       </p>
-      <button
-  class="bg-lime-100 text-green-900 hover:bg-[#485C11] hover:text-white font-semibold px-8 py-3 rounded-full shadow-sm transition-colors duration-500 ease-in-out mt-10"
->
-  Discover More
-</button>
-
+      <button class="btn-secondary mt-10">Discover More</button>
     </div>
 
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <!-- Table Container -->
+    <!-- Comparison Table -->
+    <div class="container-main">
       <div class="overflow-x-auto lg:overflow-visible">
         <div
           class="inline-grid lg:grid grid-cols-3 gap-0 min-w-[840px] lg:min-w-0 lg:w-full"
@@ -417,20 +673,10 @@
           <div
             class="border border-gray-200 rounded-2xl overflow-hidden bg-white"
           >
-            <!-- Header -->
-            <div
-              class="p-8 text-center"
-              style="border-bottom: 1px solid #e9e9e9"
-            >
-              <h3
-                class="text-2xl font-medium"
-                style="font-family: 'DM Sans', sans-serif"
-              >
-                Area
-              </h3>
+            <div class="p-8 text-center border-b border-gray-200">
+              <h3 class="text-2xl font-medium">Area</h3>
             </div>
 
-            <!-- Features -->
             <div class="divide-y divide-gray-100">
               <div class="p-6 flex items-center gap-3">
                 <svg
@@ -446,9 +692,7 @@
                     d="M5 13l4 4L19 7"
                   ></path>
                 </svg>
-                <span
-                  class="text-sm text-gray-900"
-                  style="font-family: 'Roboto Mono', monospace"
+                <span class="text-sm text-gray-900 font-mono"
                   >Ultra-fast browsing</span
                 >
               </div>
@@ -467,9 +711,7 @@
                     d="M5 13l4 4L19 7"
                   ></path>
                 </svg>
-                <span
-                  class="text-sm text-gray-900"
-                  style="font-family: 'Roboto Mono', monospace"
+                <span class="text-sm text-gray-900 font-mono"
                   >Advanced AI insights</span
                 >
               </div>
@@ -488,9 +730,7 @@
                     d="M5 13l4 4L19 7"
                   ></path>
                 </svg>
-                <span
-                  class="text-sm text-gray-900"
-                  style="font-family: 'Roboto Mono', monospace"
+                <span class="text-sm text-gray-900 font-mono"
                   >Seamless integration</span
                 >
               </div>
@@ -509,9 +749,7 @@
                     d="M5 13l4 4L19 7"
                   ></path>
                 </svg>
-                <span
-                  class="text-sm text-gray-900"
-                  style="font-family: 'Roboto Mono', monospace"
+                <span class="text-sm text-gray-900 font-mono"
                   >Advanced AI insights</span
                 >
               </div>
@@ -530,9 +768,7 @@
                     d="M5 13l4 4L19 7"
                   ></path>
                 </svg>
-                <span
-                  class="text-sm text-gray-900"
-                  style="font-family: 'Roboto Mono', monospace"
+                <span class="text-sm text-gray-900 font-mono"
                   >Ultra-fast browsing</span
                 >
               </div>
@@ -551,9 +787,7 @@
                     d="M5 13l4 4L19 7"
                   ></path>
                 </svg>
-                <span
-                  class="text-sm text-gray-900"
-                  style="font-family: 'Roboto Mono', monospace"
+                <span class="text-sm text-gray-900 font-mono"
                   >Full UTF-8 support</span
                 >
               </div>
@@ -561,16 +795,11 @@
           </div>
 
           <!-- Column 2: WebSurge -->
-          <div class="  border-r border-b border-gray-200  bg-white">
-            <!-- Header -->
-            <div
-              class="p-8 text-center"
-              style="border-bottom: 1px solid #e9e9e9"
-            >
+          <div class="border-r border-b border-gray-200 bg-white">
+            <div class="p-8 text-center border-b border-gray-200">
               <h3
-                class="text-gray-500 p-[2.5px]"
+                class="text-gray-500 p-[2.5px] font-rethink"
                 style="
-                  font-family: 'Rethink Sans', sans-serif;
                   font-weight: 500;
                   font-size: 22.86px;
                   line-height: 1.2;
@@ -581,7 +810,6 @@
               </h3>
             </div>
 
-            <!-- Features -->
             <div class="divide-y divide-gray-100">
               <div class="p-6 flex items-center gap-3">
                 <svg
@@ -597,9 +825,7 @@
                     d="M5 13l4 4L19 7"
                   ></path>
                 </svg>
-                <span
-                  class="text-sm text-gray-900"
-                  style="font-family: 'Roboto Mono', monospace"
+                <span class="text-sm text-gray-900 font-mono"
                   >Fast browsing</span
                 >
               </div>
@@ -618,9 +844,7 @@
                     d="M5 13l4 4L19 7"
                   ></path>
                 </svg>
-                <span
-                  class="text-sm text-gray-900"
-                  style="font-family: 'Roboto Mono', monospace"
+                <span class="text-sm text-gray-900 font-mono"
                   >Basic AI recommendations</span
                 >
               </div>
@@ -639,9 +863,7 @@
                     d="M5 13l4 4L19 7"
                   ></path>
                 </svg>
-                <span
-                  class="text-sm text-gray-900"
-                  style="font-family: 'Roboto Mono', monospace"
+                <span class="text-sm text-gray-900 font-mono"
                   >Restricts customization</span
                 >
               </div>
@@ -660,9 +882,7 @@
                     d="M6 18L18 6M6 6l12 12"
                   ></path>
                 </svg>
-                <span
-                  class="text-sm text-gray-400"
-                  style="font-family: 'Roboto Mono', monospace"
+                <span class="text-sm text-gray-400 font-mono"
                   >Basic AI insights</span
                 >
               </div>
@@ -681,9 +901,7 @@
                     d="M5 13l4 4L19 7"
                   ></path>
                 </svg>
-                <span
-                  class="text-sm text-gray-900"
-                  style="font-family: 'Roboto Mono', monospace"
+                <span class="text-sm text-gray-900 font-mono"
                   >Fast browsing</span
                 >
               </div>
@@ -702,9 +920,7 @@
                     d="M6 18L18 6M6 6l12 12"
                   ></path>
                 </svg>
-                <span
-                  class="text-sm text-gray-400"
-                  style="font-family: 'Roboto Mono', monospace"
+                <span class="text-sm text-gray-400 font-mono"
                   >Potential display errors</span
                 >
               </div>
@@ -712,21 +928,13 @@
           </div>
 
           <!-- Column 3: HyperView -->
-          <div class=" border-gray-200 bg-white">
-            <!-- Header -->
-            <div
-              class="p-[32.2px] text-center"
-              style="border-bottom: 1px solid #e9e9e9"
-            >
-              <h3
-                class="text-2xl font-normal p-[px] text-gray-500"
-                style="font-family: 'Reddit Mono', monospace"
-              >
+          <div class="border-gray-200 bg-white">
+            <div class="p-[32.2px] text-center border-b border-gray-200">
+              <h3 class="text-2xl font-normal text-gray-500 font-reddit">
                 HyperView
               </h3>
             </div>
 
-            <!-- Features -->
             <div class="divide-y divide-gray-100">
               <div class="p-6 flex items-center gap-3">
                 <svg
@@ -742,9 +950,7 @@
                     d="M6 18L18 6M6 6l12 12"
                   ></path>
                 </svg>
-                <span
-                  class="text-sm text-gray-400"
-                  style="font-family: 'Roboto Mono', monospace"
+                <span class="text-sm text-gray-400 font-mono"
                   >Moderate speeds</span
                 >
               </div>
@@ -763,9 +969,7 @@
                     d="M6 18L18 6M6 6l12 12"
                   ></path>
                 </svg>
-                <span
-                  class="text-sm text-gray-400"
-                  style="font-family: 'Roboto Mono', monospace"
+                <span class="text-sm text-gray-400 font-mono"
                   >No AI assistance</span
                 >
               </div>
@@ -784,9 +988,7 @@
                     d="M6 18L18 6M6 6l12 12"
                   ></path>
                 </svg>
-                <span
-                  class="text-sm text-gray-400"
-                  style="font-family: 'Roboto Mono', monospace"
+                <span class="text-sm text-gray-400 font-mono"
                   >Steep learning curve</span
                 >
               </div>
@@ -805,9 +1007,7 @@
                     d="M6 18L18 6M6 6l12 12"
                   ></path>
                 </svg>
-                <span
-                  class="text-sm text-gray-400"
-                  style="font-family: 'Roboto Mono', monospace"
+                <span class="text-sm text-gray-400 font-mono"
                   >No AI assistance</span
                 >
               </div>
@@ -826,9 +1026,7 @@
                     d="M6 18L18 6M6 6l12 12"
                   ></path>
                 </svg>
-                <span
-                  class="text-sm text-gray-400"
-                  style="font-family: 'Roboto Mono', monospace"
+                <span class="text-sm text-gray-400 font-mono"
                   >Moderate speeds</span
                 >
               </div>
@@ -847,9 +1045,7 @@
                     d="M6 18L18 6M6 6l12 12"
                   ></path>
                 </svg>
-                <span
-                  class="text-sm text-gray-400"
-                  style="font-family: 'Roboto Mono', monospace"
+                <span class="text-sm text-gray-400 font-mono"
                   >Partial UTF-8 support</span
                 >
               </div>
@@ -859,12 +1055,9 @@
       </div>
     </div>
 
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
-      <div
-        class="flex flex-col xl:flex-row items-start gap-12  pb-12"
-       
-      >
-        <!-- Image Column -->
+    <!-- Testimonial Section -->
+    <div class="container-main py-20">
+      <div class="flex flex-col xl:flex-row items-start gap-12 pb-12">
         <div class="w-full xl:w-1/2">
           <div class="rounded-2xl overflow-hidden">
             <img
@@ -875,13 +1068,11 @@
           </div>
         </div>
 
-        <!-- Text Column with Border -->
         <div class="w-full xl:w-1/2 flex flex-col">
-          <div class="border-t" style="border-color: #e9e9e9"></div>
+          <div class="border-top"></div>
           <div class="pt-8 flex-1 flex flex-col justify-center">
             <p
-              class="text-[20px] sm:text-[24px] lg:text-[28px] text-gray-900 leading-relaxed mb-8"
-              style="font-family: 'Crimson Text', serif"
+              class="text-[20px] sm:text-[24px] lg:text-[28px] text-gray-900 leading-relaxed mb-8 font-serif"
             >
               "I was skeptical, but Area has completely transformed the way I
               manage my business. The data visualizations are so clear and
@@ -890,16 +1081,8 @@
             </p>
 
             <div>
-              <p
-                class="text-sm font-medium text-gray-900"
-                style="font-family: 'Roboto', sans-serif"
-              >
-                John Smith
-              </p>
-              <p
-                class="text-xs text-[#485C11] mt-1"
-                style="font-family: 'Roboto', sans-serif"
-              >
+              <p class="text-sm font-medium text-gray-900">John Smith</p>
+              <p class="text-xs mt-1" style="color: var(--color-primary)">
                 Head of Data
               </p>
             </div>
@@ -908,108 +1091,132 @@
       </div>
     </div>
 
-
-
-  <!-- Map Your Success Section -->
-<div
-  class="flex flex-col gap-[80px] max-w-[1200px] mx-auto border-t border-[#E9E9E9] pt-[80px] pb-[40px] px-4 sm:px-6 lg:px-8"
->
-  <!-- Header + Button -->
-  <div class="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-4 sm:gap-6">
-    <h1 class="text-[36px] sm:text-[48px] lg:text-[60px] font-['Crimson'] leading-tight">
-      Map Your Success
-    </h1>
-    <button
-      class="bg-lime-100 text-green-900 hover:bg-[#485C11] hover:text-white font-semibold px-8 py-3 rounded-full shadow-sm transition-colors duration-500 ease-in-out mt-4 sm:mt-0 self-start sm:self-auto"
-    >
-      Discover More
-    </button>
-  </div>
-
-  <!-- Cards -->
-  <div class="flex gap-5 overflow-x-auto md:grid md:grid-cols-2 lg:grid-cols-3 md:gap-6 scrollbar-none">
-    <!-- Card 1 -->
-    <div class="flex-none w-[300px] md:w-auto h-[300px] flex flex-col pt-5 px-4 border-t border-[#E9E9E9]">
-      <h4 class="text-[70px] lg:text-[80px] text-[#929292] mb-3 leading-none">01</h4>
-      <h3 class="text-[17px] lg:text-[18px] font-['Crimson'] mb-2">Get Started</h3>
-      <p class="text-[#6F6F6F] text-[14px] lg:text-[15px]">
-        With our intuitive setup, you're up and running in minutes.
-      </p>
-    </div>
-
-    <!-- Card 2 -->
-    <div class="flex-none w-[300px] md:w-auto h-[300px] flex flex-col pt-5 px-4 border-t border-[#E9E9E9]">
-      <h4 class="text-[70px] lg:text-[80px] text-[#929292] mb-3 leading-none">02</h4>
-      <h3 class="text-[17px] lg:text-[18px] font-['Crimson'] mb-2">Customize and Configure</h3>
-      <p class="text-[#6F6F6F] text-[14px] lg:text-[15px]">
-        Adapt Area to your specific requirements and preferences.
-      </p>
-    </div>
-
-    <!-- Card 3 -->
-    <div class="flex-none w-[300px] md:w-auto h-[300px] flex flex-col pt-5 px-4 border-t border-[#E9E9E9]">
-      <h4 class="text-[70px] lg:text-[80px] text-[#929292] mb-3 leading-none">03</h4>
-      <h3 class="text-[17px] lg:text-[18px] font-['Crimson'] mb-2">Grow Your Business</h3>
-      <p class="text-[#6F6F6F] text-[14px] lg:text-[15px]">
-        Make informed decisions to exceed your goals.
-      </p>
-    </div>
-  </div>
-</div>
-
-<!-- Responsive Image Section -->
-<div class="max-w-7xl mt-6 mb-10 mx-auto px-4 sm:px-6 lg:px-8">
-  <picture>
-    <!-- Mobile -->
-    <source media="(max-width: 767px)" srcset="./img/garden-small.png" />
-    <!-- Tablet -->
-    <source media="(min-width: 768px) and (max-width: 1023px)" srcset="./img/garden-medium.png" />
-    <!-- Desktop -->
-    <img
-      src="./img/garden-large.png"
-      alt="Dashboard preview"
-      class="w-full h-auto object-cover rounded-lg block"
-    />
-  </picture>
-</div>
-
-
-
-
-
-
+    <!-- Map Your Success Section -->
     <div
-      class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 border-t border-gray-200 border-b text-center"
+      id="how-to"
+      class="flex flex-col gap-[80px] max-w-[1200px] mx-auto border-top pt-[80px] pb-[40px] px-4 sm:px-6 lg:px-8"
     >
-      <h1 class="text-[40px] sm:text-[60px] font-['Crimson'] mb-4">
+      <div
+        class="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-4 sm:gap-6"
+      >
+        <h1
+          class="text-[36px] sm:text-[48px] lg:text-[60px] font-serif leading-tight"
+        >
+          Map Your Success
+        </h1>
+        <button class="btn-secondary mt-4 sm:mt-0 self-start sm:self-auto">
+          Discover More
+        </button>
+      </div>
+
+      <div
+        class="flex gap-5 overflow-x-auto md:grid md:grid-cols-2 lg:grid-cols-3 md:gap-6 scrollbar-none"
+      >
+        <div
+          class="flex-none w-[300px] md:w-auto h-[300px] flex flex-col pt-5 px-4 border-top"
+        >
+          <h4
+            class="text-[70px] lg:text-[80px] text-gray-dark mb-3 leading-none"
+          >
+            01
+          </h4>
+          <h3 class="text-[17px] lg:text-[18px] font-serif mb-2">
+            Get Started
+          </h3>
+          <p class="text-gray-medium text-[14px] lg:text-[15px]">
+            With our intuitive setup, you're up and running in minutes.
+          </p>
+        </div>
+
+        <div
+          class="flex-none w-[300px] md:w-auto h-[300px] flex flex-col pt-5 px-4 border-top"
+        >
+          <h4
+            class="text-[70px] lg:text-[80px] text-gray-dark mb-3 leading-none"
+          >
+            02
+          </h4>
+          <h3 class="text-[17px] lg:text-[18px] font-serif mb-2">
+            Customize and Configure
+          </h3>
+          <p class="text-gray-medium text-[14px] lg:text-[15px]">
+            Adapt Area to your specific requirements and preferences.
+          </p>
+        </div>
+
+        <div
+          class="flex-none w-[300px] md:w-auto h-[300px] flex flex-col pt-5 px-4 border-top"
+        >
+          <h4
+            class="text-[70px] lg:text-[80px] text-gray-dark mb-3 leading-none"
+          >
+            03
+          </h4>
+          <h3 class="text-[17px] lg:text-[18px] font-serif mb-2">
+            Grow Your Business
+          </h3>
+          <p class="text-gray-medium text-[14px] lg:text-[15px]">
+            Make informed decisions to exceed your goals.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Garden Image -->
+    <div class="container-main mt-6 mb-10">
+      <picture>
+        <source media="(max-width: 767px)" srcset="./img/garden-small.png" />
+        <source
+          media="(min-width: 768px) and (max-width: 1023px)"
+          srcset="./img/garden-medium.png"
+        />
+        <img
+          src="./img/garden-large.png"
+          alt="Dashboard preview"
+          class="w-full h-auto object-cover rounded-lg block"
+        />
+      </picture>
+    </div>
+
+    <!-- Connect Section -->
+    <div
+      id="contact"
+      class="container-main py-20 border-t border-gray-200 border-b text-center"
+    >
+      <h1 class="text-[40px] sm:text-[60px] font-serif mb-4">
         Connect with us
       </h1>
 
-      <p class="text-[#6F6F6F] text-[15px] mb-8">
+      <p class="text-gray-medium text-[15px] mb-8">
         Schedule a quick call to learn how Area can turn your regional data into
         a powerful advantage.
       </p>
 
-      <!-- Button with same max-width as paragraph -->
       <div class="inline-block w-full max-w-md">
-        <button
-          class="w-full flex items-center justify-center gap-2 text-white px-5 py-2.5 rounded-full bg-[#485C11] hover:bg-[#7C8F5C] transition-colors duration-300"
-        >
+        <button class="btn-primary w-full justify-center">
           Learn More
-          <span>
+          <svg
+          class="arrow-move"
+            width="8"
+            height="8"
+            viewBox="0 0 6 6"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
             <path
-  d="M5.01037 4.98754V1.04598L5.64939 1.08556L0.735155 6.00545L0 5.2703L4.91423 0.356063L4.96513 0.995083H1.0066V-0.00585938L6 0.00545071V4.98754H5.01037Z"
-  fill="white"
-/>
-    </svg>
-  </span>
-          </span>
+              d="M5.01037 4.98754V1.04598L5.64939 1.08556L0.735155 6.00545L0 5.2703L4.91423 0.356063L4.96513 0.995083H1.0066V-0.00585938L6 0.00545071V4.98754H5.01037Z"
+              fill="white"
+            />
+          </svg>
         </button>
       </div>
     </div>
 
-    <div class="max-w-7xl mx-auto px-4  sm:px-6 lg:px-8 py-20">
-      <div class="flex font-bold gap-[80px] mb-12">
+    <!-- Footer -->
+    <div class="container-main py-20">
+      <div
+        class="flex flex-col sm:flex-row font-bold gap-8 mb-12 justify-center sm:justify-start"
+      >
         <p>Benefits</p>
         <p>Specifications</p>
         <p>How-to</p>
@@ -1034,25 +1241,12 @@
         </div>
 
         <div
-          class="text-[#485C11] text-[12px]"
-          style="font-family: 'Roboto Mono', monospace"
+          class="font-mono text-[12px] sm:text-base"
+          style="color: var(--color-primary)"
         >
           All Rights Reserved
         </div>
       </div>
     </div>
-
-    <script>
-      const menuBtn = document.getElementById("menuu");
-      const mobileMenu = document.getElementById("mobile-menu");
-      const hamburgerIcon = document.getElementById("hamburger-icon");
-      const closeIcon = document.getElementById("close-icon");
-
-      menuBtn.addEventListener("click", () => {
-        mobileMenu.classList.toggle("hidden");
-        hamburgerIcon.classList.toggle("hidden");
-        closeIcon.classList.toggle("hidden");
-      });
-    </script>
   </body>
 </html>
