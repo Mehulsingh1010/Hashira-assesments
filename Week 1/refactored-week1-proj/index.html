@@ -8,7 +8,7 @@
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-     <link
+    <link
       href="https://fonts.googleapis.com/css2?family=Crimson+Text:wght@400;700&family=DM+Sans:wght@400;500;700&family=Roboto+Mono:wght@400;500;700&family=Rethink+Sans:wght@400;500;700&family=Reddit+Mono:wght@400;500;700&display=swap"
       rel="stylesheet"
     />
@@ -24,7 +24,7 @@
   <body class="m-0 p-0" style="font-family: 'DM Sans', sans-serif">
     <!-- Floating Nav Desktop -->
     <div
-      class="hidden md:flex bg-white/60 backdrop-blur-[30px] py-[20px] px-[24px] rounded-[100px] fixed left-1/2 -translate-x-1/2 top-[16px] z-50 justify-center items-center"
+      class="hidden md:flex bg-white/60 backdrop-blur-md py-[20px] px-[24px] rounded-[100px] fixed left-1/2 -translate-x-1/2 top-[16px] z-50 justify-center items-center"
     >
       <div class="flex items-center gap-[27px] font-bold text-[14px]">
         <a href="#benefits" class=" "> Benefits </a>
@@ -72,15 +72,15 @@
     <!-- Content Container -->
     <div class="max-w-[1280px] mx-auto px-[16px] md:px-[40px]">
       <!-- Navigation Bar -->
-      <nav class="flex  items-start justify-between h-[148px]">
+      <nav class="flex items-start justify-between h-[148px]">
         <div class="text-[30px] pt-[26px] font-medium">Area</div>
         <div class="pt-[20px]">
           <button
-            class="inline-flex items-center gap-[2px] bg-[#485C11] text-white px-[22px] py-[14px] rounded-full hover:bg-[#5a7015] transition-colors duration-300"
+            class="inline-flex items-center gap-[2px] bg-[#485C11] text-white px-[22px] py-[14px] rounded-full hover:bg-[#8E9C78] transition-colors duration-300 group"
           >
             Learn More
             <svg
-              class="w-[8px] h-[8px]"
+              class="w-[8px] h-[8px] transform transition-all duration-300 group-hover:-translate-y-2"
               viewBox="0 0 6 6"
               fill="none"
               xmlns="http://www.w3.org/2000/svg"
@@ -96,26 +96,22 @@
 
       <!-- Hero Section -->
       <div class="relative text-center md:h-[738px] overflow-hidden">
-        <!-- Heading -->
         <div>
           <h1
-            class="m-0 font-crimson font-[400] text-[76px] leading-[64.6px] tracking-[-3.4px] sm:text-[76px] sm:leading-[64.6px] sm:tracking-[-3.4px] md:text-[140px] md:leading-[112px] md:tracking-[-7px] lg:text-[160px] lg:leading-[136px] lg:tracking-[-8px] text-center"
+            class="m-0 font-crimson font-[400] text-[76px] leading-[64.6px] tracking-[-3.4px] sm:text-[76px] sm:leading-[64.6px] sm:tracking-[-3.4px] md:text-[140px] md:leading-[112px] md:tracking-[-7px] lg:text-[160px] lg:leading-[136px] lg:tracking-[-8px] text-center opacity-0 animate-fade-up"
           >
             Browse everything.
           </h1>
         </div>
-
-        <!-- Responsive Image positioned at the bottom -->
-        <div class="absolute bottom-0 left-0 w-full z-0">
+        <div
+          class="absolute bottom-0 left-0 w-full z-0 opacity-0 animate-fade-up delay-200"
+        >
           <picture>
-            <!-- Mobile: up to 767px -->
             <source media="(max-width: 767px)" srcset="./img/small-hero.png" />
-            <!-- Tablet: 768px to 1023px -->
             <source
               media="(min-width: 768px) and (max-width: 1023px)"
               srcset="./img/medium-hero.png"
             />
-            <!-- Desktop: 1024px and up -->
             <img
               src="./img/big-hero.png"
               alt="Hero Image"
@@ -125,69 +121,104 @@
         </div>
       </div>
 
+      <style>
+        .animate-fade-up {
+          animation: fadeUp 0.6s ease-out forwards;
+        }
 
-<!-- Trusted By Section -->
-<div class="flex flex-col items-center py-[50px] gap-[30px] w-full max-w-[1200px] mx-auto h-auto md:h-[235px]">
+        .delay-200 {
+          animation-delay: 0.2s;
+        }
+
+        @keyframes fadeUp {
+          0% {
+            opacity: 0;
+            transform: translateY(20px);
+          }
+          100% {
+            opacity: 1;
+            transform: translateY(0);
+          }
+        }
+      </style>
+
+      <!-- Trusted By Section -->
+     <div class="flex flex-col items-center py-[50px] gap-[30px] w-full max-w-[1200px] mx-auto h-auto md:h-[235px]">
   <div class="w-full h-[21px] font-['DM_Sans'] font-normal text-[15px] leading-[140%] tracking-[-0.005em] text-[#6F6F6F]">
     Trusted by:
   </div>
+
   <div class="flex flex-row flex-wrap justify-center items-center content-center gap-y-[20px] gap-x-[40px] w-full h-auto md:h-[84px] px-[20px]">
+
+    <!-- Image 1 -->
     <div class="flex flex-col justify-center items-start p-[20px] gap-[10px] w-[120px] md:w-[154px] h-[84px]">
-      <div class="w-full md:w-[114px] h-[44px] opacity-60 mix-blend-exclusion flex-grow self-stretch">
+      <div class="w-full md:w-[114px] h-[44px] flex-grow self-stretch">
         <img
           src="./img/1.png"
           alt="Image 1"
-          class="w-full h-full object-contain"
+          class="w-full h-full object-contain brightness-50 opacity-80 transition-all duration-300 hover:brightness-100"
         />
       </div>
     </div>
+
+    <!-- Image 2 -->
     <div class="flex flex-col justify-center items-start p-[20px] gap-[10px] w-[120px] md:w-[154px] h-[84px]">
-      <div class="w-full md:w-[114px] h-[44px] opacity-60 mix-blend-exclusion flex-grow self-stretch">
+      <div class="w-full md:w-[114px] h-[44px] flex-grow self-stretch">
         <img
           src="./img/2.png"
           alt="Image 2"
-          class="w-full h-full object-contain"
+          class="w-full h-full object-contain brightness-50 opacity-80 transition-all duration-300 hover:brightness-100"
         />
       </div>
     </div>
+
+    <!-- Image 3 -->
     <div class="flex flex-col justify-center items-start p-[20px] gap-[10px] w-[120px] md:w-[154px] h-[84px]">
-      <div class="w-full md:w-[114px] h-[44px] opacity-60 mix-blend-exclusion flex-grow self-stretch">
+      <div class="w-full md:w-[114px] h-[44px] flex-grow self-stretch">
         <img
           src="./img/3.png"
           alt="Image 3"
-          class="w-full h-full object-contain"
+          class="w-full h-full object-contain brightness-50 opacity-80 transition-all duration-300 hover:brightness-100"
         />
       </div>
     </div>
+
+    <!-- Image 4 -->
     <div class="flex flex-col justify-center items-start p-[20px] gap-[10px] w-[120px] md:w-[154px] h-[84px]">
-      <div class="w-full md:w-[114px] h-[44px] opacity-60 mix-blend-exclusion flex-grow self-stretch">
+      <div class="w-full md:w-[114px] h-[44px] flex-grow self-stretch">
         <img
           src="./img/4.png"
           alt="Image 4"
-          class="w-full h-full object-contain"
+          class="w-full h-full object-contain brightness-50 opacity-80 transition-all duration-300 hover:brightness-100"
         />
       </div>
     </div>
+
+    <!-- Image 5 -->
     <div class="flex flex-col justify-center items-start p-[20px] gap-[10px] w-[120px] md:w-[154px] h-[84px]">
-      <div class="w-full md:w-[114px] h-[44px] opacity-60 mix-blend-exclusion flex-grow self-stretch">
+      <div class="w-full md:w-[114px] h-[44px] flex-grow self-stretch">
         <img
           src="./img/5.png"
           alt="Image 5"
-          class="w-full h-full object-contain"
+          class="w-full h-full object-contain brightness-50 opacity-80 transition-all duration-300 hover:brightness-100"
         />
       </div>
     </div>
+
+    <!-- Image 6 -->
     <div class="flex flex-col justify-center items-start p-[20px] gap-[10px] w-[120px] md:w-[150px] h-[84px] md:h-[81.82px]">
-      <div class="w-full md:w-[110px] h-[41.82px] opacity-60 mix-blend-exclusion flex-grow self-stretch">
+      <div class="w-full md:w-[110px] h-[41.82px] flex-grow self-stretch">
         <img
           src="./img/6.png"
           alt="Image 6"
-          class="w-full h-full object-contain"
+          class="w-full h-full object-contain brightness-50 opacity-80 transition-all duration-300 hover:brightness-100"
         />
       </div>
     </div>
+
   </div>
 </div>
+
       <!-- benefits -->
       <div class="h-[1412px] border-t-[0.5px] border-[#E9E9E9]" id="benefits">
         <div>
@@ -374,7 +405,7 @@
 
             <div class="pt-[40px] pb-[80px]">
               <button
-                class="py-[14px] px-[22px] bg-[#DFECC6] text-black rounded-[1000px] text-[14px] font-bold"
+                class="py-[14px] px-[22px] bg-[#DFECC6] text-black rounded-[1000px] text-[14px] font-bold hover:text-white hover:bg-[#8E9C78] transition-colors duration-300"
               >
                 Discover more
               </button>
@@ -392,7 +423,7 @@
       </div>
       <!-- specs -->
       <div
-        class="text-center mx-auto px-[240px] border-t-[1px] border-[#929292]  pt-[80px]"
+        class="text-center mx-auto px-[240px] border-t-[1px] border-[#929292] pt-[80px]"
         id="specs"
       >
         <div class="text-[#485C11] text-[12px] font-['Roboto'] mx-auto">
@@ -409,208 +440,523 @@
         </div>
         <div class="mt-[40px] pb-[80px]">
           <button
-            class="py-[14px] px-[22px] bg-[#DFECC6] text-black rounded-[1000px] text-[14px] font-bold"
+            class="py-[14px] px-[22px] bg-[#DFECC6] text-black rounded-[1000px] text-[14px] font-bold hover:text-white hover:bg-[#8E9C78] transition-colors duration-300"
           >
             Discover more
           </button>
         </div>
-        <div class=" ">
-          
-        </div>
+        <div class=" "></div>
       </div>
       <!-- table -->
       <div class="pb-[120px]">
-      <div class="flex flex-row items-start w-full max-w-[1200px] h-[582px] overflow-x-scroll">
-        <!-- Column 1: Area -->
-        <div class="flex flex-col items-start min-w-[400px] w-[400px] h-[582px] bg-white border border-[#E9E9E9] rounded-[20px] flex-shrink-0 shadow-[0px_2px_8px_rgba(0,0,0,0.08)]">
-            <div class="flex flex-row justify-center items-start px-[30px] py-[40px] w-full h-24 border-b border-[#929292]">
-                <h3 class="text-[25.7143px] leading-[120%] flex items-center text-black" style="font-family: 'DM Sans', sans-serif; font-weight: 500; letter-spacing: -0.08em;">
-                    Area
-                </h3>
+        <div
+          class="flex flex-row items-start w-full max-w-[1200px] h-[582px] overflow-x-scroll"
+        >
+          <!-- Column 1: Area -->
+          <div
+            class="flex flex-col items-start min-w-[400px] w-[400px] h-[582px] bg-white border border-[#E9E9E9] rounded-[20px] flex-shrink-0 shadow-[0px_2px_8px_rgba(0,0,0,0.08)]"
+          >
+            <div
+              class="flex flex-row justify-center items-start px-[30px] py-[40px] w-full h-24 border-b border-[#929292]"
+            >
+              <h3
+                class="text-[25.7143px] leading-[120%] flex items-center text-black"
+                style="
+                  font-family: 'DM Sans', sans-serif;
+                  font-weight: 500;
+                  letter-spacing: -0.08em;
+                "
+              >
+                Area
+              </h3>
             </div>
 
-            <div class="flex flex-row items-center px-[30px] py-8 gap-2 w-full h-[81px] border-b-[0.5px] border-[#E9E9E9]">
-                <svg class="w-[14px] h-[14px] flex-shrink-0" fill="#485C11" viewBox="0 0 24 24">
-                    <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/>
-                </svg>
-                <span class="text-[12px] leading-[140%] text-center text-black" style="font-family: 'Roboto Mono', monospace; font-weight: 400; letter-spacing: -0.01em;">
-                    Ultra-fast browsing
-                </span>
+            <div
+              class="flex flex-row items-center px-[30px] py-8 gap-2 w-full h-[81px] border-b-[0.5px] border-[#E9E9E9]"
+            >
+              <svg
+                class="w-[14px] h-[14px] flex-shrink-0"
+                fill="#485C11"
+                viewBox="0 0 24 24"
+              >
+                <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z" />
+              </svg>
+              <span
+                class="text-[12px] leading-[140%] text-center text-black"
+                style="
+                  font-family: 'Roboto Mono', monospace;
+                  font-weight: 400;
+                  letter-spacing: -0.01em;
+                "
+              >
+                Ultra-fast browsing
+              </span>
             </div>
 
-            <div class="flex flex-row items-center px-[30px] py-8 gap-2 w-full h-[81px] border-b-[0.5px] border-[#E9E9E9]">
-                <svg class="w-[14px] h-[14px] flex-shrink-0" fill="#485C11" viewBox="0 0 24 24">
-                    <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/>
-                </svg>
-                <span class="text-[12px] leading-[140%] text-center text-black" style="font-family: 'Roboto Mono', monospace; font-weight: 400; letter-spacing: -0.01em;">
-                    Advanced AI insights
-                </span>
+            <div
+              class="flex flex-row items-center px-[30px] py-8 gap-2 w-full h-[81px] border-b-[0.5px] border-[#E9E9E9]"
+            >
+              <svg
+                class="w-[14px] h-[14px] flex-shrink-0"
+                fill="#485C11"
+                viewBox="0 0 24 24"
+              >
+                <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z" />
+              </svg>
+              <span
+                class="text-[12px] leading-[140%] text-center text-black"
+                style="
+                  font-family: 'Roboto Mono', monospace;
+                  font-weight: 400;
+                  letter-spacing: -0.01em;
+                "
+              >
+                Advanced AI insights
+              </span>
             </div>
 
-            <div class="flex flex-row items-center px-[30px] py-8 gap-2 w-full h-[81px] border-b-[0.5px] border-[#E9E9E9]">
-                <svg class="w-[14px] h-[14px] flex-shrink-0" fill="#485C11" viewBox="0 0 24 24">
-                    <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/>
-                </svg>
-                <span class="text-[12px] leading-[140%] text-center text-black" style="font-family: 'Roboto Mono', monospace; font-weight: 400; letter-spacing: -0.01em;">
-                    Seamless integration
-                </span>
+            <div
+              class="flex flex-row items-center px-[30px] py-8 gap-2 w-full h-[81px] border-b-[0.5px] border-[#E9E9E9]"
+            >
+              <svg
+                class="w-[14px] h-[14px] flex-shrink-0"
+                fill="#485C11"
+                viewBox="0 0 24 24"
+              >
+                <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z" />
+              </svg>
+              <span
+                class="text-[12px] leading-[140%] text-center text-black"
+                style="
+                  font-family: 'Roboto Mono', monospace;
+                  font-weight: 400;
+                  letter-spacing: -0.01em;
+                "
+              >
+                Seamless integration
+              </span>
             </div>
 
-            <div class="flex flex-row items-center px-[30px] py-8 gap-2 w-full h-[81px] border-b-[0.5px] border-[#E9E9E9]">
-                <svg class="w-[14px] h-[14px] flex-shrink-0" fill="#485C11" viewBox="0 0 24 24">
-                    <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/>
-                </svg>
-                <span class="text-[12px] leading-[140%] text-center text-black" style="font-family: 'Roboto Mono', monospace; font-weight: 400; letter-spacing: -0.01em;">
-                    Advanced AI insights
-                </span>
+            <div
+              class="flex flex-row items-center px-[30px] py-8 gap-2 w-full h-[81px] border-b-[0.5px] border-[#E9E9E9]"
+            >
+              <svg
+                class="w-[14px] h-[14px] flex-shrink-0"
+                fill="#485C11"
+                viewBox="0 0 24 24"
+              >
+                <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z" />
+              </svg>
+              <span
+                class="text-[12px] leading-[140%] text-center text-black"
+                style="
+                  font-family: 'Roboto Mono', monospace;
+                  font-weight: 400;
+                  letter-spacing: -0.01em;
+                "
+              >
+                Advanced AI insights
+              </span>
             </div>
 
-            <div class="flex flex-row items-center px-[30px] py-8 gap-2 w-full h-[81px] border-b-[0.5px] border-[#E9E9E9]">
-                <svg class="w-[14px] h-[14px] flex-shrink-0" fill="#485C11" viewBox="0 0 24 24">
-                    <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/>
-                </svg>
-                <span class="text-[12px] leading-[140%] text-center text-black" style="font-family: 'Roboto Mono', monospace; font-weight: 400; letter-spacing: -0.01em;">
-                    Ultra-fast browsing
-                </span>
+            <div
+              class="flex flex-row items-center px-[30px] py-8 gap-2 w-full h-[81px] border-b-[0.5px] border-[#E9E9E9]"
+            >
+              <svg
+                class="w-[14px] h-[14px] flex-shrink-0"
+                fill="#485C11"
+                viewBox="0 0 24 24"
+              >
+                <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z" />
+              </svg>
+              <span
+                class="text-[12px] leading-[140%] text-center text-black"
+                style="
+                  font-family: 'Roboto Mono', monospace;
+                  font-weight: 400;
+                  letter-spacing: -0.01em;
+                "
+              >
+                Ultra-fast browsing
+              </span>
             </div>
 
-            <div class="flex flex-row items-center px-[30px] py-8 gap-2 w-full h-[81px] border-b-[0.5px] border-[#E9E9E9]">
-                <svg class="w-[14px] h-[14px] flex-shrink-0" fill="#485C11" viewBox="0 0 24 24">
-                    <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/>
-                </svg>
-                <span class="text-[12px] leading-[140%] text-center text-black" style="font-family: 'Roboto Mono', monospace; font-weight: 400; letter-spacing: -0.01em;">
-                    Full UTF-8 support
-                </span>
+            <div
+              class="flex flex-row items-center px-[30px] py-8 gap-2 w-full h-[81px] border-b-[0.5px] border-[#E9E9E9]"
+            >
+              <svg
+                class="w-[14px] h-[14px] flex-shrink-0"
+                fill="#485C11"
+                viewBox="0 0 24 24"
+              >
+                <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z" />
+              </svg>
+              <span
+                class="text-[12px] leading-[140%] text-center text-black"
+                style="
+                  font-family: 'Roboto Mono', monospace;
+                  font-weight: 400;
+                  letter-spacing: -0.01em;
+                "
+              >
+                Full UTF-8 support
+              </span>
             </div>
+          </div>
+
+          <!-- Column 2: WebSurge -->
+          <div
+            class="flex flex-col items-start min-w-[400px] w-[400px] h-[582px] bg-white flex-shrink-0"
+          >
+            <div
+              class="flex flex-row justify-center items-start px-[30px] py-[40px] w-full h-24 border-b border-[#929292]"
+            >
+              <h3
+                class="text-[22.8571px] leading-[120%] flex items-center text-[#6F6F6F]"
+                style="
+                  font-family: 'Rethink Sans', sans-serif;
+                  font-weight: 500;
+                  letter-spacing: -0.08em;
+                "
+              >
+                WebSurge
+              </h3>
+            </div>
+
+            <div
+              class="flex flex-row items-center px-[30px] py-8 gap-2 w-full h-[81px] border-b-[0.5px] border-[#E9E9E9]"
+            >
+              <svg
+                class="w-[14px] h-[14px] flex-shrink-0"
+                fill="#6F6F6F"
+                viewBox="0 0 24 24"
+              >
+                <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z" />
+              </svg>
+              <span
+                class="text-[12px] leading-[140%] text-center text-black"
+                style="
+                  font-family: 'Roboto Mono', monospace;
+                  font-weight: 400;
+                  letter-spacing: -0.01em;
+                "
+              >
+                Fast browsing
+              </span>
+            </div>
+
+            <div
+              class="flex flex-row items-center px-[30px] py-8 gap-2 w-full h-[81px] border-b-[0.5px] border-[#E9E9E9]"
+            >
+              <svg
+                class="w-[14px] h-[14px] flex-shrink-0"
+                fill="#6F6F6F"
+                viewBox="0 0 24 24"
+              >
+                <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z" />
+              </svg>
+              <span
+                class="text-[12px] leading-[140%] text-center text-black"
+                style="
+                  font-family: 'Roboto Mono', monospace;
+                  font-weight: 400;
+                  letter-spacing: -0.01em;
+                "
+              >
+                Basic AI recommendations
+              </span>
+            </div>
+
+            <div
+              class="flex flex-row items-center px-[30px] py-8 gap-2 w-full h-[81px] border-b-[0.5px] border-[#E9E9E9]"
+            >
+              <svg
+                class="w-[14px] h-[14px] flex-shrink-0"
+                fill="#6F6F6F"
+                viewBox="0 0 24 24"
+              >
+                <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z" />
+              </svg>
+              <span
+                class="text-[12px] leading-[140%] text-center text-black"
+                style="
+                  font-family: 'Roboto Mono', monospace;
+                  font-weight: 400;
+                  letter-spacing: -0.01em;
+                "
+              >
+                Restricts customization
+              </span>
+            </div>
+
+            <div
+              class="flex flex-row items-center px-[30px] py-8 gap-2 w-full h-[81px] border-b-[0.5px] border-[#E9E9E9]"
+            >
+              <svg
+                class="w-[14px] h-[14px] flex-shrink-0"
+                fill="none"
+                stroke="#6F6F6F"
+                stroke-width="2"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  d="M6 18L18 6M6 6l12 12"
+                />
+              </svg>
+              <span
+                class="text-[12px] leading-[140%] text-center text-black"
+                style="
+                  font-family: 'Roboto Mono', monospace;
+                  font-weight: 400;
+                  letter-spacing: -0.01em;
+                "
+              >
+                Basic AI insights
+              </span>
+            </div>
+
+            <div
+              class="flex flex-row items-center px-[30px] py-8 gap-2 w-full h-[81px] border-b-[0.5px] border-[#E9E9E9]"
+            >
+              <svg
+                class="w-[14px] h-[14px] flex-shrink-0"
+                fill="#6F6F6F"
+                viewBox="0 0 24 24"
+              >
+                <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z" />
+              </svg>
+              <span
+                class="text-[12px] leading-[140%] text-center text-black"
+                style="
+                  font-family: 'Roboto Mono', monospace;
+                  font-weight: 400;
+                  letter-spacing: -0.01em;
+                "
+              >
+                Fast browsing
+              </span>
+            </div>
+
+            <div
+              class="flex flex-row items-center px-[30px] py-8 gap-2 w-full h-[81px] border-b-[0.5px] border-[#E9E9E9]"
+            >
+              <svg
+                class="w-[14px] h-[14px] flex-shrink-0"
+                fill="none"
+                stroke="#6F6F6F"
+                stroke-width="2"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  d="M6 18L18 6M6 6l12 12"
+                />
+              </svg>
+              <span
+                class="text-[12px] leading-[140%] text-center text-black"
+                style="
+                  font-family: 'Roboto Mono', monospace;
+                  font-weight: 400;
+                  letter-spacing: -0.01em;
+                "
+              >
+                Potential display errors
+              </span>
+            </div>
+          </div>
+
+          <!-- Column 3: HyperView -->
+          <div
+            class="flex flex-col items-start min-w-[400px] w-[400px] h-[582px] bg-white flex-shrink-0"
+          >
+            <div
+              class="flex flex-row justify-center items-start px-[30px] py-[40px] w-full h-24 border-b border-[#929292]"
+            >
+              <h3
+                class="text-[21.6541px] leading-[120%] flex items-center text-[#6F6F6F]"
+                style="
+                  font-family: 'Reddit Mono', monospace;
+                  font-weight: 500;
+                  letter-spacing: -0.08em;
+                "
+              >
+                HyperView
+              </h3>
+            </div>
+
+            <div
+              class="flex flex-row items-center px-[30px] py-8 gap-2 w-full h-[81px] border-b-[0.5px] border-l-[0.5px] border-[#E9E9E9]"
+            >
+              <svg
+                class="w-[14px] h-[14px] flex-shrink-0"
+                fill="none"
+                stroke="#6F6F6F"
+                stroke-width="2"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  d="M6 18L18 6M6 6l12 12"
+                />
+              </svg>
+              <span
+                class="text-[12px] leading-[140%] text-center text-black"
+                style="
+                  font-family: 'Roboto Mono', monospace;
+                  font-weight: 400;
+                  letter-spacing: -0.01em;
+                "
+              >
+                Moderate speeds
+              </span>
+            </div>
+
+            <div
+              class="flex flex-row items-center px-[30px] py-8 gap-2 w-full h-[81px] border-b-[0.5px] border-l-[0.5px] border-[#E9E9E9]"
+            >
+              <svg
+                class="w-[14px] h-[14px] flex-shrink-0"
+                fill="none"
+                stroke="#6F6F6F"
+                stroke-width="2"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  d="M6 18L18 6M6 6l12 12"
+                />
+              </svg>
+              <span
+                class="text-[12px] leading-[140%] text-center text-black"
+                style="
+                  font-family: 'Roboto Mono', monospace;
+                  font-weight: 400;
+                  letter-spacing: -0.01em;
+                "
+              >
+                No AI assistance
+              </span>
+            </div>
+
+            <div
+              class="flex flex-row items-center px-[30px] py-8 gap-2 w-full h-[81px] border-b-[0.5px] border-l-[0.5px] border-[#E9E9E9]"
+            >
+              <svg
+                class="w-[14px] h-[14px] flex-shrink-0"
+                fill="none"
+                stroke="#6F6F6F"
+                stroke-width="2"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  d="M6 18L18 6M6 6l12 12"
+                />
+              </svg>
+              <span
+                class="text-[12px] leading-[140%] text-center text-black"
+                style="
+                  font-family: 'Roboto Mono', monospace;
+                  font-weight: 400;
+                  letter-spacing: -0.01em;
+                "
+              >
+                Steep learning curve
+              </span>
+            </div>
+
+            <div
+              class="flex flex-row items-center px-[30px] py-8 gap-2 w-full h-[81px] border-b-[0.5px] border-l-[0.5px] border-[#E9E9E9]"
+            >
+              <svg
+                class="w-[14px] h-[14px] flex-shrink-0"
+                fill="none"
+                stroke="#6F6F6F"
+                stroke-width="2"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  d="M6 18L18 6M6 6l12 12"
+                />
+              </svg>
+              <span
+                class="text-[12px] leading-[140%] text-center text-black"
+                style="
+                  font-family: 'Roboto Mono', monospace;
+                  font-weight: 400;
+                  letter-spacing: -0.01em;
+                "
+              >
+                No AI assistance
+              </span>
+            </div>
+
+            <div
+              class="flex flex-row items-center px-[30px] py-8 gap-2 w-full h-[81px] border-b-[0.5px] border-l-[0.5px] border-[#E9E9E9]"
+            >
+              <svg
+                class="w-[14px] h-[14px] flex-shrink-0"
+                fill="none"
+                stroke="#6F6F6F"
+                stroke-width="2"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  d="M6 18L18 6M6 6l12 12"
+                />
+              </svg>
+              <span
+                class="text-[12px] leading-[140%] text-center text-black"
+                style="
+                  font-family: 'Roboto Mono', monospace;
+                  font-weight: 400;
+                  letter-spacing: -0.01em;
+                "
+              >
+                Moderate speeds
+              </span>
+            </div>
+
+            <div
+              class="flex flex-row items-center px-[30px] py-8 gap-2 w-full h-[81px] border-l-[0.5px] border-[#E9E9E9]"
+            >
+              <svg
+                class="w-[14px] h-[14px] flex-shrink-0"
+                fill="none"
+                stroke="#6F6F6F"
+                stroke-width="2"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  d="M6 18L18 6M6 6l12 12"
+                />
+              </svg>
+              <span
+                class="text-[12px] leading-[140%] text-center text-black"
+                style="
+                  font-family: 'Roboto Mono', monospace;
+                  font-weight: 400;
+                  letter-spacing: -0.01em;
+                "
+              >
+                Partial UTF-8 support
+              </span>
+            </div>
+          </div>
         </div>
-
-        <!-- Column 2: WebSurge -->
-        <div class="flex flex-col items-start min-w-[400px] w-[400px] h-[582px] bg-white flex-shrink-0">
-            <div class="flex flex-row justify-center items-start px-[30px] py-[40px] w-full h-24 border-b border-[#929292]">
-                <h3 class="text-[22.8571px] leading-[120%] flex items-center text-[#6F6F6F]" style="font-family: 'Rethink Sans', sans-serif; font-weight: 500; letter-spacing: -0.08em;">
-                    WebSurge
-                </h3>
-            </div>
-
-            <div class="flex flex-row items-center px-[30px] py-8 gap-2 w-full h-[81px] border-b-[0.5px] border-[#E9E9E9]">
-                <svg class="w-[14px] h-[14px] flex-shrink-0" fill="#6F6F6F" viewBox="0 0 24 24">
-                    <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/>
-                </svg>
-                <span class="text-[12px] leading-[140%] text-center text-black" style="font-family: 'Roboto Mono', monospace; font-weight: 400; letter-spacing: -0.01em;">
-                    Fast browsing
-                </span>
-            </div>
-
-            <div class="flex flex-row items-center px-[30px] py-8 gap-2 w-full h-[81px] border-b-[0.5px] border-[#E9E9E9]">
-                <svg class="w-[14px] h-[14px] flex-shrink-0" fill="#6F6F6F" viewBox="0 0 24 24">
-                    <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/>
-                </svg>
-                <span class="text-[12px] leading-[140%] text-center text-black" style="font-family: 'Roboto Mono', monospace; font-weight: 400; letter-spacing: -0.01em;">
-                    Basic AI recommendations
-                </span>
-            </div>
-
-            <div class="flex flex-row items-center px-[30px] py-8 gap-2 w-full h-[81px] border-b-[0.5px] border-[#E9E9E9]">
-                <svg class="w-[14px] h-[14px] flex-shrink-0" fill="#6F6F6F" viewBox="0 0 24 24">
-                    <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/>
-                </svg>
-                <span class="text-[12px] leading-[140%] text-center text-black" style="font-family: 'Roboto Mono', monospace; font-weight: 400; letter-spacing: -0.01em;">
-                    Restricts customization
-                </span>
-            </div>
-
-            <div class="flex flex-row items-center px-[30px] py-8 gap-2 w-full h-[81px] border-b-[0.5px] border-[#E9E9E9]">
-                <svg class="w-[14px] h-[14px] flex-shrink-0" fill="none" stroke="#6F6F6F" stroke-width="2" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/>
-                </svg>
-                <span class="text-[12px] leading-[140%] text-center text-black" style="font-family: 'Roboto Mono', monospace; font-weight: 400; letter-spacing: -0.01em;">
-                    Basic AI insights
-                </span>
-            </div>
-
-            <div class="flex flex-row items-center px-[30px] py-8 gap-2 w-full h-[81px] border-b-[0.5px] border-[#E9E9E9]">
-                <svg class="w-[14px] h-[14px] flex-shrink-0" fill="#6F6F6F" viewBox="0 0 24 24">
-                    <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/>
-                </svg>
-                <span class="text-[12px] leading-[140%] text-center text-black" style="font-family: 'Roboto Mono', monospace; font-weight: 400; letter-spacing: -0.01em;">
-                    Fast browsing
-                </span>
-            </div>
-
-            <div class="flex flex-row items-center px-[30px] py-8 gap-2 w-full h-[81px] border-b-[0.5px] border-[#E9E9E9]">
-                <svg class="w-[14px] h-[14px] flex-shrink-0" fill="none" stroke="#6F6F6F" stroke-width="2" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/>
-                </svg>
-                <span class="text-[12px] leading-[140%] text-center text-black" style="font-family: 'Roboto Mono', monospace; font-weight: 400; letter-spacing: -0.01em;">
-                    Potential display errors
-                </span>
-            </div>
-        </div>
-
-        <!-- Column 3: HyperView -->
-        <div class="flex flex-col items-start min-w-[400px] w-[400px] h-[582px] bg-white flex-shrink-0">
-            <div class="flex flex-row justify-center items-start px-[30px] py-[40px] w-full h-24 border-b border-[#929292]">
-                <h3 class="text-[21.6541px] leading-[120%] flex items-center text-[#6F6F6F]" style="font-family: 'Reddit Mono', monospace; font-weight: 500; letter-spacing: -0.08em;">
-                    HyperView
-                </h3>
-            </div>
-
-            <div class="flex flex-row items-center px-[30px] py-8 gap-2 w-full h-[81px] border-b-[0.5px] border-l-[0.5px] border-[#E9E9E9]">
-                <svg class="w-[14px] h-[14px] flex-shrink-0" fill="none" stroke="#6F6F6F" stroke-width="2" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/>
-                </svg>
-                <span class="text-[12px] leading-[140%] text-center text-black" style="font-family: 'Roboto Mono', monospace; font-weight: 400; letter-spacing: -0.01em;">
-                    Moderate speeds
-                </span>
-            </div>
-
-            <div class="flex flex-row items-center px-[30px] py-8 gap-2 w-full h-[81px] border-b-[0.5px] border-l-[0.5px] border-[#E9E9E9]">
-                <svg class="w-[14px] h-[14px] flex-shrink-0" fill="none" stroke="#6F6F6F" stroke-width="2" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/>
-                </svg>
-                <span class="text-[12px] leading-[140%] text-center text-black" style="font-family: 'Roboto Mono', monospace; font-weight: 400; letter-spacing: -0.01em;">
-                    No AI assistance
-                </span>
-            </div>
-
-            <div class="flex flex-row items-center px-[30px] py-8 gap-2 w-full h-[81px] border-b-[0.5px] border-l-[0.5px] border-[#E9E9E9]">
-                <svg class="w-[14px] h-[14px] flex-shrink-0" fill="none" stroke="#6F6F6F" stroke-width="2" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/>
-                </svg>
-                <span class="text-[12px] leading-[140%] text-center text-black" style="font-family: 'Roboto Mono', monospace; font-weight: 400; letter-spacing: -0.01em;">
-                    Steep learning curve
-                </span>
-            </div>
-
-            <div class="flex flex-row items-center px-[30px] py-8 gap-2 w-full h-[81px] border-b-[0.5px] border-l-[0.5px] border-[#E9E9E9]">
-                <svg class="w-[14px] h-[14px] flex-shrink-0" fill="none" stroke="#6F6F6F" stroke-width="2" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/>
-                </svg>
-                <span class="text-[12px] leading-[140%] text-center text-black" style="font-family: 'Roboto Mono', monospace; font-weight: 400; letter-spacing: -0.01em;">
-                    No AI assistance
-                </span>
-            </div>
-
-            <div class="flex flex-row items-center px-[30px] py-8 gap-2 w-full h-[81px] border-b-[0.5px] border-l-[0.5px] border-[#E9E9E9]">
-                <svg class="w-[14px] h-[14px] flex-shrink-0" fill="none" stroke="#6F6F6F" stroke-width="2" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/>
-                </svg>
-                <span class="text-[12px] leading-[140%] text-center text-black" style="font-family: 'Roboto Mono', monospace; font-weight: 400; letter-spacing: -0.01em;">
-                    Moderate speeds
-                </span>
-            </div>
-
-            <div class="flex flex-row items-center px-[30px] py-8 gap-2 w-full h-[81px] border-l-[0.5px] border-[#E9E9E9]">
-                <svg class="w-[14px] h-[14px] flex-shrink-0" fill="none" stroke="#6F6F6F" stroke-width="2" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/>
-                </svg>
-                <span class="text-[12px] leading-[140%] text-center text-black" style="font-family: 'Roboto Mono', monospace; font-weight: 400; letter-spacing: -0.01em;">
-                    Partial UTF-8 support
-                </span>
-            </div>
-        </div>
-    </div>
-    </div>
+      </div>
       <!-- Testimonial Section -->
       <div
         class="flex flex-col lg:flex-row gap-[20px] h-auto lg:h-[789.38px] pb-[120px]"
@@ -661,11 +1007,11 @@
 
             <!-- Button -->
             <button
-              class="inline-flex items-center gap-[2px] bg-[#485C11] text-white px-[22px] py-[14px] rounded-full hover:bg-[#5a7015] transition-colors duration-300"
+              class="inline-flex items-center gap-[2px] bg-[#485C11] text-white px-[22px] py-[14px] rounded-full hover:bg-[#8E9C78] transition-colors duration-300 group"
             >
               Learn More
               <svg
-                class="w-[8px] h-[8px]"
+                class="w-[8px] h-[8px] transform transition-all duration-300 group-hover:-translate-y-2"
                 viewBox="0 0 6 6"
                 fill="none"
                 xmlns="http://www.w3.org/2000/svg"
@@ -743,11 +1089,11 @@
         <div class="pt-[40px]"></div>
 
         <button
-          class="inline-flex justify-center items-center gap-[2px] text-center bg-[#485C11] text-white px-[22px] py-[14px] w-full rounded-full hover:bg-[#5a7015] transition-colors duration-300"
+          class="inline-flex justify-center items-center gap-[2px] text-center bg-[#485C11] text-white px-[22px] py-[14px] w-full rounded-full hover:bg-[#8E9C78] transition-colors duration-300 group"
         >
           Learn More
           <svg
-            class="w-[8px] h-[8px]"
+            class="w-[8px] h-[8px] transform transition-all duration-300 group-hover:-translate-y-2"
             viewBox="0 0 6 6"
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
@@ -761,7 +1107,7 @@
       </div>
 
       <!-- footer -->
-      <div class="pt-[40px] pb-[20px] border-t-[0.5px] border-[#E9E9E9] ">
+      <div class="pt-[40px] pb-[20px] border-t-[0.5px] border-[#E9E9E9]">
         <div class="flex font-bold gap-[27px]">
           <p>Benefits</p>
           <p>Specifications</p>
@@ -770,7 +1116,6 @@
 
         <div class="pt-[80px]"></div>
         <div class="flex items-end gap-[20px]">
-
           <div>
             <div id="logo" class="cursor-pointer">
               <svg
@@ -785,19 +1130,19 @@
                 />
               </svg>
             </div>
-
           </div>
 
-          <div class="gap-[16px] w-[953.2491455078125px] flex text-[#485C11] font-['Roboto']">
+          <div
+            class="gap-[16px] w-[953.2491455078125px] flex text-[#485C11] font-['Roboto']"
+          >
             <p>© Area.</p>
             <p>2025</p>
           </div>
-          <div><p class="text-[#485C11] font-['Roboto']">All Rights Reserved</p></div>
+          <div>
+            <p class="text-[#485C11] font-['Roboto']">All Rights Reserved</p>
+          </div>
         </div>
       </div>
-
-
-      
     </div>
     <!-- //last one -->
 
