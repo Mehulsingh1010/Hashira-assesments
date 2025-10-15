@@ -24,7 +24,7 @@
   <body class="m-0 p-0" style="font-family: 'DM Sans', sans-serif">
     <!-- Floating Nav Desktop -->
     <div
-      class="hidden md:flex bg-white/60 backdrop-blur-md py-[20px] px-[24px] rounded-[100px] fixed left-1/2 -translate-x-1/2 top-[16px] z-50 justify-center items-center"
+      class="text-nowrap hidden md:flex bg-white/60 backdrop-blur-md py-[20px] px-[24px] rounded-[100px] fixed left-1/2 -translate-x-1/2 top-[16px] z-50 justify-center items-center"
     >
       <div class="flex items-center gap-[27px] font-bold text-[14px]">
         <a href="#benefits" class=" "> Benefits </a>
@@ -220,7 +220,7 @@
 </div>
 
       <!-- benefits -->
-      <div class="h-[1412px] border-t-[0.5px] border-[#E9E9E9]" id="benefits">
+      <div class="border-t-[0.5px] border-[#E9E9E9]" id="benefits">
         <div>
           <div class="pt-[80px] text-[12px] text-[#485C11]">Benefits</div>
           <div class="text-[60px] pt-[40px] font-['Crimson']">
@@ -423,30 +423,30 @@
       </div>
       <!-- specs -->
       <div
-        class="text-center mx-auto px-[240px] border-t-[1px] border-[#929292] pt-[80px]"
-        id="specs"
-      >
-        <div class="text-[#485C11] text-[12px] font-['Roboto'] mx-auto">
-          Specs
-        </div>
-        <div class="pt-[40px]">
-          <h1 class="font-['Crimson'] text-[60px]">Why Choose Area?</h1>
-        </div>
-        <div class="pt-[40px]">
-          <p class="text-[#6F6F6F]">
-            You need a solution that keeps up. That's why we developed Area. A
-            developer-friendly approach to streamline your business.
-          </p>
-        </div>
-        <div class="mt-[40px] pb-[80px]">
-          <button
-            class="py-[14px] px-[22px] bg-[#DFECC6] text-black rounded-[1000px] text-[14px] font-bold hover:text-white hover:bg-[#8E9C78] transition-colors duration-300"
-          >
-            Discover more
-          </button>
-        </div>
-        <div class=" "></div>
-      </div>
+  class="text-center mx-auto border-t-[1px] border-[#929292] pt-[80px]"
+  id="specs"
+>
+  <div class="text-[#485C11] text-[12px] font-['Roboto'] mx-auto px-4 sm:px-8 md:px-16 lg:px-24 xl:px-32">
+    Specs
+  </div>
+  <div class="pt-[40px] px-4 sm:px-8 md:px-16 lg:px-24 xl:px-32">
+    <h1 class="font-['Crimson'] text-[60px]">Why Choose Area?</h1>
+  </div>
+  <div class="pt-[40px] px-4 sm:px-8 md:px-16 lg:px-24 xl:px-32">
+    <p class="text-[#6F6F6F] max-w-[720px] mx-auto text-[15px]">
+      You need a solution that keeps up. That's why we developed Area. A
+      developer-friendly approach to streamline your business.
+    </p>
+  </div>
+  <div class="mt-[40px] pb-[80px] px-4 sm:px-8 md:px-16 lg:px-24 xl:px-32">
+    <button
+      class="py-[14px] px-[22px] bg-[#DFECC6] text-black rounded-[1000px] text-[14px] font-bold hover:text-white hover:bg-[#8E9C78] transition-colors duration-300"
+    >
+      Discover more
+    </button>
+  </div>
+</div>
+
       <!-- table -->
       <div class="pb-[120px]">
         <div
@@ -972,9 +972,9 @@
         <div
           class="w-full lg:w-[50%] flex items-center border-t-[0.5px] border-[#E9E9E9]"
         >
-          <div class="max-w-[600px]">
+          <div class="max-w-[600px] py-[139.69px]">
             <p
-              class="font-['Crimson_Text'] font-[400] text-[40px] leading-[105%] tracking-[-0.04em] pl-[50px] mt-[139.69px] mb-[40px]"
+              class="font-['Crimson_Text'] font-[400] text-[40px] leading-[105%] tracking-[-0.04em] pl-[50px]  mb-[40px]"
             >
               "I was skeptical, but Area has completely transformed the way I
               manage my business. The data visualizations are so clear and
@@ -991,81 +991,115 @@
         </div>
       </div>
 
-      <div id="how-to">
-        <div
-          class="max-w-[1200px] mx-auto border-t-[0.5px] border-[#E9E9E9] pt-[80px] pb-[80px]"
+     <style>
+  /* Desktop - default (unchanged) */
+
+  /* Tablet - 800px - keep 3 cards in a row */
+  @media (max-width: 800px) and (min-width: 601px) {
+    #how-to > div.flex {
+      flex-wrap: nowrap; /* Prevent wrapping, keep cards in one row */
+      justify-content: center; /* center cards if needed */
+    }
+    #how-to > div.flex > div {
+      width: 386.6666564941406px; /* same width */
+      /* keep original padding and borders */
+    }
+  }
+
+  /* Mobile - 375px - stack cards vertically */
+  @media (max-width: 600px) {
+    #how-to > div.flex {
+      flex-wrap: wrap;
+      flex-direction: column;
+      align-items: center;
+    }
+    #how-to > div.flex > div {
+      width: auto; /* full width inside container */
+      max-width: 386.6666564941406px; /* keep max width so it doesn’t get too wide */
+      border-top-width: 0.5px; /* keep border */
+      padding-right: 30px;
+      padding-left: 0; /* avoid horizontal scroll */
+      margin-bottom: 40px; /* add some spacing between stacked cards */
+    }
+  }
+</style>
+
+<div id="how-to">
+  <div
+    class="max-w-[1200px] mx-auto border-t-[0.5px] border-[#E9E9E9] pt-[80px] pb-[80px]"
+  >
+    <div
+      class="flex flex-col lg:flex-row justify-between items-end gap-[20px] h-[54px]"
+    >
+      <!-- Heading -->
+      <h1
+        class="text-[40px] sm:text-[50px] lg:text-[60px] font-['Crimson'] font-[400] leading-none"
+      >
+        Map Your Success
+      </h1>
+
+      <!-- Button -->
+      <button
+        class="inline-flex items-center gap-[2px] bg-[#485C11] text-white px-[22px] py-[14px] rounded-full hover:bg-[#8E9C78] transition-colors duration-300 group"
+      >
+        Learn More
+        <svg
+          class="w-[8px] h-[8px] transform transition-all duration-300 group-hover:-translate-y-2"
+          viewBox="0 0 6 6"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
         >
-          <div
-            class="flex flex-col lg:flex-row justify-between items-end gap-[20px] h-[54px]"
-          >
-            <!-- Heading -->
-            <h1
-              class="text-[40px] sm:text-[50px] lg:text-[60px] font-['Crimson'] font-[400] leading-none"
-            >
-              Map Your Success
-            </h1>
+          <path
+            d="M5.01037 4.98754V1.04598L5.64939 1.08556L0.735155 6.00545L0 5.2703L4.91423 0.356063L4.96513 0.995083H1.0066V-0.00585938L6 0.00545071V4.98754H5.01037Z"
+            fill="white"
+          />
+        </svg>
+      </button>
+    </div>
+  </div>
 
-            <!-- Button -->
-            <button
-              class="inline-flex items-center gap-[2px] bg-[#485C11] text-white px-[22px] py-[14px] rounded-full hover:bg-[#8E9C78] transition-colors duration-300 group"
-            >
-              Learn More
-              <svg
-                class="w-[8px] h-[8px] transform transition-all duration-300 group-hover:-translate-y-2"
-                viewBox="0 0 6 6"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d="M5.01037 4.98754V1.04598L5.64939 1.08556L0.735155 6.00545L0 5.2703L4.91423 0.356063L4.96513 0.995083H1.0066V-0.00585938L6 0.00545071V4.98754H5.01037Z"
-                  fill="white"
-                />
-              </svg>
-            </button>
-          </div>
-        </div>
+  <div class="flex gap-[20px] pb-[120px] flex-wrap justify-center">
+    <!-- Box 1 -->
+    <div
+      class="w-[386.6666564941406px] border-t border-[#E1E1E1] pr-[30px] pb-[20px] pt-[60px]"
+    >
+      <p class="text-[80px] text-[#929292] leading-none">01</p>
+      <div class="pt-[60px]"></div>
+      <p class="font-['Crimson'] text-[18px]">Get Started</p>
+      <div class="pt-[20px]"></div>
+      <p class="text-[15px] text-[#6F6F6F]">
+        With our intuitive setup, you’re up and running in minutes.
+      </p>
+    </div>
 
-        <div class="flex gap-[20px] pb-[120px] flex-wrap justify-center">
-          <!-- Box 1 -->
-          <div
-            class="w-[386.6666564941406px] border-t border-[#E1E1E1] pr-[30px] pb-[20px] pt-[60px]"
-          >
-            <p class="text-[80px] text-[#929292] leading-none">01</p>
-            <div class="pt-[60px]"></div>
-            <p class="font-['Crimson'] text-[18px]">Get Started</p>
-            <div class="pt-[20px]"></div>
-            <p class="text-[15px] text-[#6F6F6F]">
-              With our intuitive setup, you’re up and running in minutes.
-            </p>
-          </div>
+    <!-- Box 2 -->
+    <div
+      class="w-[386.6666564941406px] border-t border-[#E1E1E1] pr-[30px] pb-[20px] pt-[60px]"
+    >
+      <p class="text-[80px] text-[#929292] leading-none">02</p>
+      <div class="pt-[60px]"></div>
+      <p class="font-['Crimson'] text-[18px]">Customize and Configure</p>
+      <div class="pt-[20px]"></div>
+      <p class="text-[15px] text-[#6F6F6F]">
+        Adapt Area to your specific requirements and preferences.
+      </p>
+    </div>
 
-          <!-- Box 2 -->
-          <div
-            class="w-[386.6666564941406px] border-t border-[#E1E1E1] pr-[30px] pb-[20px] pt-[60px]"
-          >
-            <p class="text-[80px] text-[#929292] leading-none">02</p>
-            <div class="pt-[60px]"></div>
-            <p class="font-['Crimson'] text-[18px]">Customize and Configure</p>
-            <div class="pt-[20px]"></div>
-            <p class="text-[15px] text-[#6F6F6F]">
-              Adapt Area to your specific requirements and preferences.
-            </p>
-          </div>
+    <!-- Box 3 -->
+    <div
+      class="w-[386.6666564941406px] border-t border-[#E1E1E1] pr-[30px] pb-[20px] pt-[60px]"
+    >
+      <p class="text-[80px] text-[#929292] leading-none">03</p>
+      <div class="pt-[60px]"></div>
+      <p class="font-['Crimson'] text-[18px]">Grow Your Business</p>
+      <div class="pt-[20px]"></div>
+      <p class="text-[15px] text-[#6F6F6F]">
+        Make informed decisions to exceed your goals.
+      </p>
+    </div>
+  </div>
+</div>
 
-          <!-- Box 3 -->
-          <div
-            class="w-[386.6666564941406px] border-t border-[#E1E1E1] pr-[30px] pb-[20px] pt-[60px]"
-          >
-            <p class="text-[80px] text-[#929292] leading-none">03</p>
-            <div class="pt-[60px]"></div>
-            <p class="font-['Crimson'] text-[18px]">Grow Your Business</p>
-            <div class="pt-[20px]"></div>
-            <p class="text-[15px] text-[#6F6F6F]">
-              Make informed decisions to exceed your goals.
-            </p>
-          </div>
-        </div>
-      </div>
 
       <div>
         <div class="pb-[20px]">
@@ -1074,40 +1108,47 @@
       </div>
 
       <!-- connect -->
-      <div
-        class="py-[120px] px-[300px] text-center border-t-[0.5px] border-[#E9E9E9]"
-        id="contact"
-      >
-        <h1 class="text-[60px] font-['Crimson']">Connect with us</h1>
-        <div class="pt-[40px]"></div>
-        <div>
-          <p class="text-[#6F6F6F] text-[15px]">
-            Schedule a quick call to learn how Area can turn your regional data
-            into a powerful advantage.
-          </p>
-        </div>
-        <div class="pt-[40px]"></div>
+    <div
+  id="contact"
+  class="text-center border-t-[0.5px] border-[#E9E9E9] 
+         px-4 sm:px-20 md:px-40 lg:px-[300px] 
+         py-20 lg:py-[120px]"
+>
+  <h1 class="text-[40px] sm:text-[50px] lg:text-[60px] font-['Crimson']">
+    Connect with us
+  </h1>
+  
+  <div class="pt-10"></div>
+  
+  <p class="text-[#6F6F6F] text-[14px] sm:text-[15px] max-w-3xl mx-auto">
+    Schedule a quick call to learn how Area can turn your regional data into a powerful advantage.
+  </p>
+  
+  <div class="pt-10"></div>
+  
+  <button
+    class="inline-flex justify-center items-center gap-[6px] bg-[#485C11] text-white 
+           px-6 py-3 rounded-full hover:bg-[#8E9C78] transition-colors duration-300 group 
+           w-full sm:w-auto mx-auto"
+  >
+    Learn More
+    <svg
+      class="w-2 h-2 transform transition-all duration-300 group-hover:-translate-y-2"
+      viewBox="0 0 6 6"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        d="M5.01037 4.98754V1.04598L5.64939 1.08556L0.735155 6.00545L0 5.2703L4.91423 0.356063L4.96513 0.995083H1.0066V-0.00585938L6 0.00545071V4.98754H5.01037Z"
+        fill="white"
+      />
+    </svg>
+  </button>
+</div>
 
-        <button
-          class="inline-flex justify-center items-center gap-[2px] text-center bg-[#485C11] text-white px-[22px] py-[14px] w-full rounded-full hover:bg-[#8E9C78] transition-colors duration-300 group"
-        >
-          Learn More
-          <svg
-            class="w-[8px] h-[8px] transform transition-all duration-300 group-hover:-translate-y-2"
-            viewBox="0 0 6 6"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              d="M5.01037 4.98754V1.04598L5.64939 1.08556L0.735155 6.00545L0 5.2703L4.91423 0.356063L4.96513 0.995083H1.0066V-0.00585938L6 0.00545071V4.98754H5.01037Z"
-              fill="white"
-            />
-          </svg>
-        </button>
-      </div>
 
       <!-- footer -->
-      <div class="pt-[40px] pb-[20px] border-t-[0.5px] border-[#E9E9E9]">
+     <div class="pt-[40px] pb-[20px] border-t-[0.5px] border-[#E9E9E9]">
         <div class="flex font-bold gap-[27px]">
           <p>Benefits</p>
           <p>Specifications</p>
@@ -1132,15 +1173,24 @@
             </div>
           </div>
 
-          <div
-            class="gap-[16px] w-[953.2491455078125px] flex text-[#485C11] font-['Roboto']"
-          >
-            <p>© Area.</p>
-            <p>2025</p>
-          </div>
-          <div>
-            <p class="text-[#485C11] font-['Roboto']">All Rights Reserved</p>
-          </div>
+          <div class="flex items-end justify-between w-full">
+  <!-- Left side: logo + © Area. 2025 -->
+  <div class="flex items-center gap-[20px]">
+    <div id="logo" class="cursor-pointer">
+      <!-- SVG logo here -->
+    </div>
+    <div
+      class="gap-[16px] flex text-[#485C11] font-['Roboto'] text-[12px]"
+    >
+      <p>© Area.</p>
+      <p>2025</p>
+    </div>
+  </div>
+
+  <!-- Right side -->
+  <p class="text-[#485C11] text-[12px] font-['Roboto']">All Rights Reserved</p>
+</div>
+
         </div>
       </div>
     </div>
