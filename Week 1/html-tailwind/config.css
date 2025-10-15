@@ -24,12 +24,8 @@ body {
 
 /* Reusable utility classes */
 .container-main {
-  max-width: 1280px;
-  margin-left: auto;
-  margin-right: auto;
-  padding-left: 1rem;
-  padding-right: 1rem;
-  background-color: white;
+  padding-left: 40px;
+  padding-right: 40px;
 }
 
 @media (min-width: 640px) {

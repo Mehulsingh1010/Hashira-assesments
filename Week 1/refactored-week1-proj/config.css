@@ -1,0 +1,210 @@
+/* CSS Variables for colors and spacing */
+:root {
+  --color-primary: #485c11;
+  --color-primary-hover: #7c8f5c;
+  --color-primary-dark: #3d4a0d;
+  --color-lime: #ecfccb;
+  --color-green-dark: #14532d;
+  --color-gray-light: #ffffff;
+  --color-gray-medium: #6f6f6f;
+  --color-gray-dark: #929292;
+  --color-border: #e9e9e9;
+
+  --font-primary: "DM Sans", sans-serif;
+  --font-serif: "Crimson Text", serif;
+  --font-mono: "Roboto Mono", monospace;
+  --font-rethink: "Rethink Sans", sans-serif;
+  --font-reddit: "Reddit Mono", monospace;
+}
+
+/* Base body font */
+body {
+  font-family: var(--font-primary);
+}
+
+/* Reusable utility classes */
+.container-main {
+  padding-left: 40px;
+  padding-right: 40px;
+}
+
+@media (min-width: 640px) {
+  .container-main {
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .container-main {
+    padding-left: 2rem;
+    padding-right: 2rem;
+  }
+}
+
+.font-serif {
+  font-family: var(--font-serif);
+}
+
+.font-mono {
+  font-family: var(--font-mono);
+}
+
+.font-rethink {
+  font-family: var(--font-rethink);
+}
+
+.font-reddit {
+  font-family: var(--font-reddit);
+}
+
+.btn-primary:hover {
+  background-color: var(--color-primary-hover);
+}
+
+.btn-primary:hover .arrow-move {
+  transform: translate(1px, -5px);
+}
+
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: white;
+  padding: 0.625rem 1.25rem;
+  border-radius: 9999px;
+  background-color: var(--color-primary);
+  transition: background-color 300ms;
+}
+
+.arrow-move {
+  transition: transform 300ms ease;
+}
+
+.btn-secondary {
+  background-color: var(--color-lime);
+  color: var(--color-green-dark);
+  font-weight: 600;
+  padding: 0.75rem 2rem;
+  border-radius: 9999px;
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  transition: all 500ms ease-in-out;
+}
+
+.btn-secondary:hover {
+  background-color: var(--color-primary);
+  color: white;
+}
+
+.border-top {
+  border-top: 1px solid var(--color-border);
+}
+
+.text-gray-medium {
+  color: var(--color-gray-medium);
+}
+
+.text-gray-dark {
+  color: var(--color-gray-dark);
+}
+
+.bg-gray-light {
+  background-color: var(--color-gray-light);
+}
+
+/* Smooth scroll */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Hide scrollbar but keep scroll */
+::-webkit-scrollbar {
+  display: none; /* Chrome, Safari, Edge */
+}
+
+html {
+  scrollbar-width: none; /* Firefox */
+}
+
+body {
+  -ms-overflow-style: none; /* IE and older Edge */
+}
+html {
+  scroll-behavior: smooth;
+}
+
+.nav-link::after {
+  content: "";
+  display: block;
+  height: 2px;
+  width: 0;
+  background-color: #485c11;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  transition: width 0.3s;
+}
+.nav-link:hover::after,
+.nav-link.active::after {
+  width: 100%;
+}
+
+.hero-text .word {
+  display: inline-block;
+  opacity: 0;
+  transform: translateY(30px);
+  animation: fadeInUp 1s ease-out forwards;
+}
+
+.hero-text .word:nth-child(1) {
+  animation-delay: 0.2s;
+}
+
+.hero-text .word:nth-child(2) {
+  animation-delay: 0.5s;
+}
+
+@keyframes fadeInUp {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.hero-image {
+  opacity: 0;
+  transform: translateY(40px);
+  animation: fadeInUp 1s ease-out 0.8s forwards;
+}
+
+.footer-link {
+  position: relative;
+  display: inline-block;
+  padding-bottom: 2px;
+  transition: color 0.3s;
+}
+
+.footer-link::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  height: 2px;
+  width: 0;
+  background-color: black;
+  transition: width 0.3s, background-color 0.3s;
+}
+
+.footer-link:hover::after {
+  width: 100%;
+}
+
+/* White underline when video is on */
+.video-on .footer-link::after {
+  background-color: white;
+}
+
+/* White text when video is on */
+.video-on .footer-link {
+  color: white;
+}
