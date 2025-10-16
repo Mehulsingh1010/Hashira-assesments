@@ -208,3 +208,94 @@ html {
 .video-on .footer-link {
   color: white;
 }
+ @keyframes fadeInUp {
+    0% {
+      opacity: 0;
+      transform: translateY(40px);
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .fade-in-up {
+    animation: fadeInUp 0.8s ease-out forwards;
+  }
+
+  .fade-in-up-delayed {
+    animation: fadeInUp 1s ease-out forwards;
+    animation-delay: 0.2s;
+  }
+
+.hamburger {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      cursor: pointer;
+      background: none;
+      border: none;
+      padding: 0;
+      width: 24px;
+      height: 24px;
+    }
+
+    .hamburger span {
+      width: 24px;
+      height: 2px;
+      background-color: black;
+      transition: all 0.3s ease;
+      display: block;
+    }
+
+    .hamburger.open span:nth-child(1) {
+      transform: rotate(45deg) translate(6px, 9px);
+    }
+
+    .hamburger.open span:nth-child(2) {
+      opacity: 0;
+    }
+
+    .hamburger.open span:nth-child(3) {
+      transform: rotate(-45deg) translate(5px, -8px);
+    }
+
+    .mobile-menu-enter {
+      animation: slideDown 0.3s ease-out forwards;
+    }
+
+    .mobile-menu-exit {
+      animation: slideUp 0.3s ease-in forwards;
+    }
+
+    @keyframes slideDown {
+      from {
+        opacity: 0;
+        transform: translateY(-20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes slideUp {
+      from {
+        opacity: 1;
+        transform: translateY(0);
+      }
+      to {
+        opacity: 0;
+        transform: translateY(-20px);
+      }
+    }
+
+    .nav-link {
+      text-decoration: none;
+      color: inherit;
+      transition: color 0.2s ease;
+    }
+
+    .nav-link:hover span {
+      opacity: 0.7;
+    }
