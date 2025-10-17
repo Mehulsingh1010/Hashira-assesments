@@ -105,16 +105,32 @@
 
         <!-- Hamburger -->
         <div class="tbs:hidden">
-          <button id="menuToggle" class="hamburger">
+          <button id="menuToggle" class="hamburger relative w-[18px] h-[18px]">
             <svg
+              id="hamburgerIcon"
               width="18"
               height="13"
               viewBox="0 0 18 13"
               fill="none"
               xmlns="http://www.w3.org/2000/svg"
+              class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 transition-all duration-300 ease-in-out"
             >
               <path
                 d="M0 0.666504H18V2.6665H0V0.666504ZM0 5.6665H18V7.6665H0V5.6665ZM0 10.6665H18V12.6665H0V10.6665Z"
+                fill="black"
+              />
+            </svg>
+            <svg
+              id="closeIcon"
+              width="14"
+              height="14"
+              viewBox="0 0 14 14"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+              class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 transition-all duration-300 ease-in-out opacity-0 scale-0"
+            >
+              <path
+                d="M8.46 7L14 12.54V14H12.54L7 8.46L1.46 14H0V12.54L5.54 7L0 1.46V0H1.46L7 5.54L12.54 0H14V1.46L8.46 7Z"
                 fill="black"
               />
             </svg>
@@ -196,6 +212,8 @@
     <script>
       const menuToggle = document.getElementById("menuToggle");
       const mobileMenu = document.getElementById("mobileMenu");
+      const hamburgerIcon = document.getElementById("hamburgerIcon");
+      const closeIcon = document.getElementById("closeIcon");
       let isOpen = false;
 
       menuToggle.addEventListener("click", () => {
@@ -206,10 +224,21 @@
           mobileMenu.classList.add("mobile-menu-enter");
           mobileMenu.classList.remove("mobile-menu-exit");
           menuToggle.classList.add("open");
+
+          // Animate icons
+          hamburgerIcon.classList.add("opacity-0", "scale-0", "rotate-90");
+          closeIcon.classList.remove("opacity-0", "scale-0");
+          closeIcon.classList.add("opacity-100", "scale-100", "rotate-0");
         } else {
           mobileMenu.classList.remove("mobile-menu-enter");
           mobileMenu.classList.add("mobile-menu-exit");
           menuToggle.classList.remove("open");
+
+          // Animate icons
+          hamburgerIcon.classList.remove("opacity-0", "scale-0", "rotate-90");
+          hamburgerIcon.classList.add("opacity-100", "scale-100");
+          closeIcon.classList.remove("opacity-100", "scale-100", "rotate-0");
+          closeIcon.classList.add("opacity-0", "scale-0", "-rotate-90");
 
           setTimeout(() => {
             mobileMenu.classList.add("hidden");
@@ -223,6 +252,13 @@
           mobileMenu.classList.add("mobile-menu-exit");
           mobileMenu.classList.remove("mobile-menu-enter");
           menuToggle.classList.remove("open");
+
+          // Animate icons back
+          hamburgerIcon.classList.remove("opacity-0", "scale-0", "rotate-90");
+          hamburgerIcon.classList.add("opacity-100", "scale-100");
+          closeIcon.classList.remove("opacity-100", "scale-100", "rotate-0");
+          closeIcon.classList.add("opacity-0", "scale-0", "-rotate-90");
+
           setTimeout(() => {
             mobileMenu.classList.add("hidden");
           }, 300);
@@ -244,11 +280,11 @@
 
           <!-- Entire green + image container with fade-in -->
           <div
-            class="fade-in-up-delayed h-[362px] relative w-full h-96 bg-midgreen rounded-3xl flex items-center justify-center"
+            class="fade-in-up-delayed h-[362px] relative w-full bg-midgreen rounded-3xl flex items-center justify-center"
           >
             <!-- Device Frame iPad -->
             <div
-              class="w-[907px] h-[644px] border-[20px] bg-black border-black rounded-[24px] overflow-hidden -mt-[15px]"
+              class="w-[907px] h-[644px] mb-[-15px] border-[20px] bg-black border-black rounded-[24px] overflow-hidden -mt-[15px]"
             >
               <img
                 src="./img/big.png"
@@ -279,7 +315,7 @@
           >
             <!-- Tablet Frame (modeled like PC frame) -->
             <div
-              class="w-[676.55px] h-[453.1px] mb-[-16px] border-[16px] bg-black border-black rounded-[24px]"
+              class="w-[676.55px] h-[453.1px] mb-[-32px] border-[16px] bg-black border-black rounded-[24px]"
             >
               <img src="./img/big.png" alt="Tablet" class="w-full h-full" />
             </div>
@@ -1299,7 +1335,7 @@
       <!-- Benefits Section - Tablet -->
       <section class="hidden tbs:block pc:hidden w-full">
         <div class="w-full px-[20px]">
-          <div class="w-[720px] mx-auto flex flex-col gap-[60px]">
+          <div class="w-[720px] mx-auto flex flex-col pb-[120px] gap-[60px]">
             <!-- Headline and icons -->
             <div class="flex flex-col gap-[50px] border-t border-divider pt-20">
               <!-- Text -->
@@ -1450,15 +1486,14 @@
             </div>
 
             <!-- Hero Image -->
-            <div
-              class="w-full h-[600px] pb-[120px] rounded-3xl overflow-hidden"
-            >
-              <img
-                src="./img/mountain-large.png"
-                alt="Benefits"
-                class="w-full h-full object-cover"
-              />
-            </div>
+            <div class="w-full h-[600px]  rounded-3xl overflow-hidden">
+  <img
+    src="./img/mountain-large.png"
+    alt="Benefits"
+    class="w-full h-[600px] object-cover rounded-3xl"
+  />
+</div>
+
           </div>
         </div>
       </section>
@@ -1468,7 +1503,7 @@
         <div class="w-full">
           <div class="w-[343px] mx-auto flex flex-col gap-[60px]">
             <!-- Headline and icons -->
-            <div class="flex flex-col gap-[50px] border-t border-divider pt-20">
+            <div class="flex flex-col gap-[50px] border-t border-divider pb-[100px] pt-20">
               <!-- Text -->
               <div class="flex flex-col gap-[30px]">
                 <p
@@ -1619,15 +1654,14 @@
               </div>
 
               <!-- Hero Image -->
-              <div
-                class="w-[343px] h-[600px] pb-[100px] rounded-3xl overflow-hidden"
-              >
-                <img
-                  src="./img/mountain-large.png"
-                  alt="Benefits"
-                  class="w-full h-full object-cover"
-                />
-              </div>
+             <div class="w-[343px] h-[600px] pb-[100px] rounded-3xl overflow-hidden">
+  <img
+    src="./img/mountain-large.png"
+    alt="Benefits"
+    class="w-full h-[600px] object-cover rounded-3xl"
+  />
+</div>
+
             </div>
           </div>
         </div>
@@ -1640,7 +1674,7 @@
         <div class="w-[1200px] mx-auto flex flex-row gap-5">
           <!-- Text section -->
           <div
-            class="flex flex-col gap-[40px] border-t border-divider pt-[60px] pb-20 w-[590px] flex-shrink-0"
+            class="flex flex-col gap-[40px] border-t border-divider pt-[60px]  w-[590px] flex-shrink-0"
           >
             <!-- Title -->
             <div class="flex flex-col gap-[40px]">
@@ -2133,7 +2167,7 @@
                   </div>
 
                   <div
-                    class="flex flex-row items-center px-[30px] py-8 gap-2 w-full h-[81px] border-b-[0.5px] border-[#E9E9E9]"
+                    class="flex flex-row items-center px-[30px] py-8 gap-2 w-full h-[81px]"
                   >
                     <svg
                       class="w-[14px] h-[14px] flex-shrink-0"
@@ -2695,7 +2729,7 @@
                   </div>
 
                   <div
-                    class="flex flex-row items-center px-5 py-8 gap-2 w-full h-[79px] border-b border-[0.5px] border-[#E9E9E9]"
+                    class="flex flex-row items-center px-5 py-8 gap-2 w-full h-[79px]"
                   >
                     <svg
                       class="w-[14px] h-[14px] flex-shrink-0"
@@ -3223,7 +3257,7 @@
                   </div>
 
                   <div
-                    class="flex flex-row items-center px-[30px] py-8 gap-2 w-full h-[81px] border-b-[0.5px] border-[#E9E9E9]"
+                    class="flex flex-row items-center px-[30px] py-8 gap-2 w-full h-[81px]"
                   >
                     <svg
                       class="w-[14px] h-[14px] flex-shrink-0"
@@ -3246,7 +3280,7 @@
                   </div>
 
                   <div
-                    class="flex flex-row items-center px-[30px] py-8 gap-2 w-full h-[81px] border-b-[0.5px] border-[#E9E9E9]"
+                    class="flex flex-row items-center px-[30px] py-8 gap-2 w-full h-[81px]"
                   >
                     <svg
                       class="w-[14px] h-[14px] flex-shrink-0"
