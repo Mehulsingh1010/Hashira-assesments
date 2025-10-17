@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+  </head>
+  <body class="bg-white">
+    <!-- <div class="ml-10 mt-10">
+      <div class="h-[70px] w-[31.750835418701172px] bg relative">
+        <div
+          class="pl-[12.34px] pr-[14.41px] pb-[5.05px] bg-white relative z-10"
+        >
+          <div class="h-[9.949994087219238px] w-[5px] bg-black"></div>
+        </div>
+
+        <div
+          class="h-[20.88px] items-center justify-center flex w-[12.57px]"
+          style="transform: rotate(18deg)"
+        >
+          <div class="h-[23.7px] w-[5px] bg-black ml-[-1.4px] mb-[2.8px]"></div>
+        </div>
+
+        <div
+          class="absolute bottom-0 left-[2.75px] h-[24.99998664855957px] w-[9.674991607666016px] items-center justify-center flex"
+          style="transform: skew(-10deg)"
+        >
+          <div class="h-[25px] w-[5px] bg-black"></div>
+        </div>
+
+        <div
+          class="absolute right-0 bottom-0 h-[54.999969482421875px] w-[14.412489891052246px]"
+        >
+          <div
+            class="absolute bottom-0 left-[4px] h-[25px] w-[5px] bg-black ml-[1/2px]"
+          ></div>
+          <div
+            class="absolute top-0 left-[1.5px] h-[29.878px] w-[5px] bg-black"
+          ></div>
+          <div
+            class="absolute bg-black right-[3.5px] top-[7px] h-[12px] w-[5px]"
+            style="transform: rotate(-40deg)"
+          ></div>
+        </div>
+      </div>
+    </div> -->
+
+
+
+     <section class="pc:block w-full py-[50px] ">
+        <div class="w-full px-[20px]">
+            <div class="flex flex-col items-start gap-[30px] w-[1200px] mx-auto">
+                <!-- Trusted by text -->
+                <p class="text-[15px] font-normal tracking-[-0.005em] text-gray-600">
+                    Trusted by:
+                </p>
+
+
+                
+
+                <div class="flex flex-row flex-wrap justify-center items-center gap-x-10 gap-y-5 w-full">
+                    <div class="flex flex-col justify-center items-start p-5 w-[154px] h-[84px] bg-white">
+                        <!-- <img src="./Week 1//refactored-week1-proj/img/1.png" alt="logo" class="  w-[114px] h-[44px] object-cover opacity-60 mix-blend-exclusion"> -->
+                        <svg width="114" height="44" viewBox="0 0 114 44" fill="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<g style="mix-blend-mode:exclusion" opacity="0.6">
+<rect width="114" height="44" fill="url(#pattern0_0_129)"/>
+</g>
+<defs>
+<pattern id="pattern0_0_129" patternContentUnits="objectBoundingBox" width="1" height="1">
+<use xlink:href="#image0_0_129" transform="matrix(0.00665457 0 0 0.0172414 0.167272 0)"/>
+</pattern>
+<image id="image0_0_129" width="100" height="58" preserveAspectRatio="none" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGQAAAA6CAYAAABGZvzTAAAAAXNSR0IArs4c6QAABP9JREFUeF7lnNtV3DAQQOWF/4QOQgehg1BBmN0CgAqACoAKQirI5h921hWEVBBSQeggW4EUxpF99uGHJI9m/dDX7jmy9biaGWlm5ETtqSDiJ2oaAJ5jdwERP8RuY+39KwBYhbaXhD7Y5rk0TW+11nf0Dq31zWw2e2jzvrJnEfG9UupKKXWtlKLfkuVVKfVijFkmSfITAOi/UxEHsg7D9vAVAI6deutYyUrED6WUpGTU9W6ulLp3ASMKJE3TK631tjSwAukgjHVQdwBwX0dODEiapudaa1op24UNSMdh5ON++W86y9WYCJAaGNRJFiA9gZFDIZtyWgYlOpDHx8ezg4MDrBHT1kB6BqMWSlQgiPhRKUXGtW6X0wpIT2EU6gsATtYXazQgjjBaqayew8g5PADATf4nChAPGMFA7DmDpI+ksO/lBADI2Ct2IAGr1ltlDQwGcXgGgFN2IAEwvCVkgDBy6aZd1zObhATCCAFCO7azvuuo7f4bY75Op9NrFiAtYHgBQcRvb+eWi6HBsOMhp+RRayAtYTgDGTiMfI2dtALCAMMJCCJ+sV7bgQrH/2FprS+DgVjj+ovBo1q7yyrxDg8WCtmRICDMO51KIGOCYVfZ3BsIM4xKlTVCGNl5JAQIqSnO0/GOhIwUhj+QSDudDSAjhqGMMamzhESCsaGyxgyDJsLZqEeEUQBpCGINdme1PjBK+GiUEIFV+zqZTO4qwrujALE2yNNaIAIwMjE1xmSu5y6Uw8PDd1pr8pVleWOCJbOllUAkYFDu0nbETHACaptCRMobuxXszxwAyk/qUjBsoD84yy/2ZCEiBcCkJOWYkh52JOTp6eliMpmQVzVmoawLipJ1FgYNfrFYPCRJQtmPsUsmHdTIBhAmZ6FL57NgjEvFfdYRBJJJxw6QxWIxT5LkPPYkvGXvNe7uYvfB5f2I+IfBeVrblNb6fjabZXnOG0BsNjrpTIly1HV1JWRHl5TCuD7hxUqVNGDbq0JiBfi0IQSj1I5mQKztIPGUKmTMyY505vyRD7wiIZx7XupTSRGR7lBQVE66LLXWv6UbrWmPvAYSO8zSvN7Chkiqqw5N/kZXjDHfkySh7PyYdrRSMjaMOiL+3cMtoy6xyYxr5I1NI4xMQmwEkICMtZAdIxWyigjECUYOhKJ/FAUcYylg2M0NuUm4VZYzjBxIjE70Ae4GjEhAvHeTpLLGCKR01TLPhTeMXELopqrkGWTf0lOpQhiBBMEYo1Gv1eeMQGjTtgxZeflJPboTLaRzzM80GlcmIJcAUHbb2Gk4GRApL69Tj+JUaoTBZNRbwShO6kJBqThT3fxWJxgMQG4AoPUnQnKVRbdkSW1JfxOkeTrb1SDjSpFJp2+NhKosTu914X4XjI61m2L3p713OiFAOGEUKsuK65C2v94wQlQWN4wNINa4SwX13dd5WM3imrHP4z4SEgPGDhDGSzg+88BdN3in4wokFowdIFZs++xsDIbhqrJiwigFYjtGN11jR846Ixl5R5okhIJY0+k06i3gynScPYZ1vUFxrdo6IBIwKiVka8WQpHTlU3k7sLhg1KksKRiNQPLtsDHmTiKBzlc0OGHUANmJm/j206e+cwYhfeHHGHPdITAsror1ySpRWaIwnCRkm67N4aKg1meryjgvgDYtppXNDqFvTDm5Q5peuAWEXEf53XtxGEFAfAbY17qkDfaVxPcPotPd876US8UAAAAASUVORK5CYII="/>
+</defs>
+</svg>
+                    </div>
+                    
+                    <div class="flex flex-col justify-center items-start p-5 w-[154px] h-[84px]">
+                        <img src="./Week 1//refactored-week1-proj/img/2.png" alt="logo" class="w-[114px] h-[44px] object-cover opacity-60 mix-blend-exclusion">
+                    </div>
+                    <div class="flex flex-col justify-center items-start p-5 w-[154px] h-[84px]">
+                        <img src="./Week 1//refactored-week1-proj/img/3.png" alt="logo" class="w-[114px] h-[44px] object-cover opacity-60 mix-blend-exclusion">
+                    </div>
+                    <div class="flex flex-col justify-center items-start p-5 w-[154px] h-[84px]">
+                      
+                        <img src="./Week 1//refactored-week1-proj/img/4.png" alt="logo" class="w-[114px] h-[44px] object-cover opacity-60 mix-blend-exclusion">
+                    </div>
+                    <div class="flex flex-col justify-center items-start p-5 w-[154px] h-[84px]">
+                        <img src="./Week 1//refactored-week1-proj/img/5.png" alt="logo" class="w-[114px] h-[44px] object-cover opacity-60 mix-blend-exclusion">
+                    </div>
+                    <div class="flex flex-col justify-center items-start p-5 w-[154px] h-[84px]">
+                        <img src="./Week 1//refactored-week1-proj/img/6.png" alt="logo" class="w-[114px] h-[44px] object-cover opacity-60 mix-blend-exclusion">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+  </body>
+</html>
