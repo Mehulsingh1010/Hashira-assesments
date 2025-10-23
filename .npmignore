@@ -1,0 +1,8 @@
+src/
+public/
+node_modules/
+tailwind.config.js
+postcss.config.js
+vite.config.ts
+tsconfig*.json
+*.log
