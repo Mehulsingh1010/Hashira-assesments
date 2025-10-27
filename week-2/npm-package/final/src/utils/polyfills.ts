@@ -1,6 +1,3 @@
-/**
- * Custom polyfills for older browser support
- */
 
 // Polyfill for String.prototype.includes
 if (!String.prototype.includes) {

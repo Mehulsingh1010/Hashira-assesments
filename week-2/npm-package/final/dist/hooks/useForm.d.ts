@@ -1,7 +1,3 @@
-/**
- * Custom hook to access form context
- * Provides access to form state and methods
- */
 export declare const useForm: () => {
     values: import("..").FormValues;
     errors: Record<string, string>;

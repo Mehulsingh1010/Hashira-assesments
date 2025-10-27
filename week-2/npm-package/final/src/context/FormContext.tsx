@@ -26,13 +26,10 @@ export const FormProvider: React.FC<FormProviderProps> = ({
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [isSubmitted, setIsSubmitted] = useState(false)
   
-  // Use ref to store field validators to avoid triggering re-renders
   const fieldValidatorsRef = useRef<Record<string, () => Promise<boolean>>>({})
   
-  // Callback to be set by Button component
   const onSubmitSuccessRef = useRef<(() => void) | null>(null)
 
-  // ---- Field Setters ----
   const setFieldValue = useCallback((field: string, value: any) => {
     setValues((prev) => ({ ...prev, [field]: value }))
   }, [])
@@ -53,26 +50,21 @@ export const FormProvider: React.FC<FormProviderProps> = ({
     setTouched((prev) => ({ ...prev, [field]: isTouched }))
   }, [])
 
-  // Register field validator - doesn't trigger re-renders
   const registerField = useCallback((field: string, validator: () => Promise<boolean>) => {
     fieldValidatorsRef.current[field] = validator
   }, [])
 
-  // Unregister field validator - doesn't trigger re-renders
   const unregisterField = useCallback((field: string) => {
     delete fieldValidatorsRef.current[field]
   }, [])
 
-  // ---- Validation ----
   const validateField = useCallback(
     async (field: string): Promise<boolean> => {
-      // Use the registered validator if available
       const validator = fieldValidatorsRef.current[field]
       if (validator) {
         return await validator()
       }
 
-      // Fallback to basic required validation
       const value = values[field]
       let error = ""
 
@@ -103,7 +95,6 @@ export const FormProvider: React.FC<FormProviderProps> = ({
     const newTouched: Record<string, boolean> = {}
     let allValid = true
 
-    // Get all fields that need validation
     const allFields = new Set([
       ...requiredFields,
       ...Object.keys(fieldValidatorsRef.current),
@@ -116,11 +107,9 @@ export const FormProvider: React.FC<FormProviderProps> = ({
     })
     setTouched((prev) => ({ ...prev, ...newTouched }))
 
-    // Run all field validators in parallel
     const validationPromises = Array.from(allFields).map(async (field) => {
       const validator = fieldValidatorsRef.current[field]
       if (validator) {
-        // Use the field's own validator (includes both required and custom validation)
         try {
           const isValid = await validator()
           if (!isValid) allValid = false
@@ -131,7 +120,6 @@ export const FormProvider: React.FC<FormProviderProps> = ({
           return false
         }
       } else {
-        // Fallback to basic required validation
         const value = values[field]
         let error = ""
 
@@ -194,7 +182,7 @@ export const FormProvider: React.FC<FormProviderProps> = ({
         e.preventDefault()
         e.stopPropagation()
         
-        // Note: Validation is handled by the Button component
+        // Validation is handled by the Button component
         // This just calls the onSubmit callback after validation passed
         try {
           await onSubmitCallback(values)

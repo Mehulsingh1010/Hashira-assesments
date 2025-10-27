@@ -4,10 +4,10 @@ import { validate, type ValidationConfig, type ValidationResult } from "../utils
 import { debounce } from "../utils/debounce"
 import { useFormContext } from "../context/FormContext"
 
-/**
- * Custom hook for field-level validation with debouncing
- * Made fieldName optional with default value
- */
+
+//  * Custom hook for field-level validation with debouncing
+//  * Made fieldName optional with default value
+
 export const useFieldValidation = (fieldName?: string, config?: ValidationConfig) => {
   const formContext = useFormContext()
   const name = fieldName || "field"

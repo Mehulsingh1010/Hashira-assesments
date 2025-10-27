@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/ban-ts-comment */
 // @ts-nocheck
 // LoginPage.jsx
 "use client";
@@ -8,12 +9,77 @@ import {
   Button,
   FormGroup,
   Checkbox,
-} from "form-validator-widget-hashira";
+} from "mehul-form-validator-widget";
+
+// function LoginContent({ onNavigate }) {
+//   return (
+//     <>
+//       <FormGroup>
+//         <TextField
+//           name="email"
+//           label="Email Address"
+//           type="email"
+//           placeholder="your.email@example.com"
+//           required
+//           validation={{ type: "email" }}
+//         />
+//       </FormGroup>
+
+//       <FormGroup>
+//         <PasswordField
+//           name="password"
+//           label="Password"
+//           required
+//         />
+//       </FormGroup>
+
+//       <Checkbox
+//         name="terms"
+//         label="I agree to the terms and conditions"
+//         required
+//       />
+
+//       <Button
+//         type="submit"
+//         showSuccessModal={false}
+//         fullWidth
+//       >
+//         Sign In
+//       </Button>
+
+//       <p className="text-center text-sm text-stone-600 mt-6">
+//         Don't have an account?{" "}
+//         <button
+//           onClick={(e) => {
+//             e.preventDefault();
+//             onNavigate("register");
+//           }}
+//           className="text-stone-800 font-semibold underline hover:no-underline"
+//         >
+//           Register here
+//         </button>
+//       </p>
+//     </>
+//   );
+// }
 
 function LoginContent({ onNavigate }) {
+  const retroTheme = {
+    primaryColor: "#ff6b9d",
+    errorColor: "#ff4757",
+    backgroundColor: "#fffbf0",
+    textColor: "#2d3436",
+    borderColor: "#6c5ce7",
+    borderRadius: "4px",
+    spacing: "24px"
+  };
+
   return (
     <>
-      <FormGroup>
+      <FormGroup
+        theme={retroTheme}
+        spacing="relaxed"
+      >
         <TextField
           name="email"
           label="Email Address"
@@ -21,14 +87,25 @@ function LoginContent({ onNavigate }) {
           placeholder="your.email@example.com"
           required
           validation={{ type: "email" }}
+          theme={retroTheme}
+          containerClassName="retro-field"
+          inputClassName="retro-input"
+          labelClassName="retro-label font-mono"
         />
       </FormGroup>
 
-      <FormGroup>
+      <FormGroup
+        theme={retroTheme}
+        spacing="relaxed"
+      >
         <PasswordField
           name="password"
           label="Password"
           required
+          theme={retroTheme}
+          containerClassName="retro-field"
+          inputClassName="retro-input"
+          labelClassName="retro-label font-mono"
         />
       </FormGroup>
 
@@ -36,24 +113,28 @@ function LoginContent({ onNavigate }) {
         name="terms"
         label="I agree to the terms and conditions"
         required
+        theme={retroTheme}
+        className="retro-checkbox font-mono"
       />
 
       <Button
         type="submit"
         showSuccessModal={false}
         fullWidth
+        theme={retroTheme}
+        className="retro-button"
       >
-        Sign In
+        ✨ Sign In ✨
       </Button>
 
-      <p className="text-center text-sm text-stone-600 mt-6">
+      <p className="text-center text-sm text-stone-600 mt-6 font-mono">
         Don't have an account?{" "}
         <button
           onClick={(e) => {
             e.preventDefault();
             onNavigate("register");
           }}
-          className="text-stone-800 font-semibold underline hover:no-underline"
+          className="text-purple-600 font-bold underline hover:no-underline hover:text-pink-500 transition-colors"
         >
           Register here
         </button>
@@ -61,8 +142,8 @@ function LoginContent({ onNavigate }) {
     </>
   );
 }
-
 export default function LoginPage({ onNavigate, onLogin }) {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const handleSubmit = async (values: { email: any; }) => {
     console.log("Login submitted:", values);
     

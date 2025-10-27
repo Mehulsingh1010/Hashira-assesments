@@ -30,7 +30,7 @@ export const FormGroup: React.FC<FormGroupProps> = ({
   }
 
   const styles = {
-    container: {
+   container: {
       marginBottom: spacingMap[spacing],
       padding: "18px 20px",
       borderRadius: theme.borderRadius,
@@ -41,7 +41,7 @@ export const FormGroup: React.FC<FormGroupProps> = ({
         : "0 1px 4px rgba(0,0,0,0.03)",
       transition: "all 0.25s ease",
       position: "relative" as const,
-      overflow: "hidden" as const,
+      overflow: "visible" as const,
     },
     header: {
       marginBottom: description ? "10px" : "6px",

@@ -1,9 +1,9 @@
 import { useFormContext } from "../context/FormContext"
 
-/**
- * Custom hook to access form context
- * Provides access to form state and methods
- */
+
+//  Custom hook to access form context
+//  Provides access to form state and methods
+
 export const useForm = () => {
   const context = useFormContext()
 

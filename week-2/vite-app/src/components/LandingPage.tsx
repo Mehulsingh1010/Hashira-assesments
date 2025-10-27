@@ -1,9 +1,9 @@
+/* eslint-disable @typescript-eslint/ban-ts-comment */
 // @ts-nocheck
 // LandingPage.jsx
 export default function LandingPage({ onNavigate }) {
   return (
     <div className="min-h-screen bg-stone-50 flex items-center justify-center p-5 relative overflow-hidden">
-      {/* Doodle Background */}
       <div className="absolute inset-0 opacity-50 pointer-events-none">
          <div 
         className="absolute inset-0 bg-cover bg-center bg-no-repeat opacity-20"

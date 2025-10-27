@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/ban-ts-comment */
 // @ts-nocheck
 // TeacherCard.jsx
 "use client";
@@ -7,7 +8,7 @@ import {
   Button,
   FormGroup,
   Radio,
-} from "form-validator-widget-hashira";
+} from "mehul-form-validator-widget";
 
 function SurveyFormContent({ teacherName }) {
   return (

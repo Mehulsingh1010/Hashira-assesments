@@ -75,7 +75,7 @@ export const Button: React.FC<ButtonProps> = ({
       if (now - lastClickTime.current < delay) {
         e.preventDefault()
         e.stopPropagation()
-        console.log("⏳ Please wait before clicking again.")
+        console.log(" Please wait before clicking again.")
         return
       }
       lastClickTime.current = now
