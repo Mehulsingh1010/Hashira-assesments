@@ -1,0 +1,1 @@
+Invoke-RestMethod -Uri "httplocalhost:3000/vehicle" -Method Get 
