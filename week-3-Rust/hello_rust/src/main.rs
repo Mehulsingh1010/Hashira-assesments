@@ -1,5 +1,5 @@
-use std::io;
-use rand::{rng, Rng};
+// use std::io;
+// use rand::{rng, Rng};
 
 
 
@@ -104,7 +104,34 @@ fn main() {
     //             println!("Error reading input: {}", error);
     //         }
     //     }
-    // }
+
+            println!("enums");
+
+     #[derive(Debug)]
+    enum Ip {
+        V4,
+        V6,
+    }
+
+    #[derive(Debug)]
+    struct IpAddr {
+        kind: Ip,
+        address: String,
+    }
+
+    let home = IpAddr {
+        kind: Ip::V4,
+        address: String::from("127.0.0.1"),
+    };
+
+    let loopback = IpAddr {
+        kind: Ip::V6,
+        address: String::from("::1"),
+    };
+
+
+
+  println!(" home : {:#?}",loopback);
 
     
 }

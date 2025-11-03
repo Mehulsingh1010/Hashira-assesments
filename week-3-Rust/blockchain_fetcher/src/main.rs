@@ -16,7 +16,7 @@ async fn main() {
     match fetch_transactions(&address).await {
         Ok(txs) => {
             println!("✅ Successfully fetched {} transactions.", txs.len());
-            println!("note that : 1 ETH= 10*18 ");
+            println!("note that : 1 ETH= 10**18 Wei ");
 
             let mut total_in: f64 = 0.0;
             let mut total_out: f64 = 0.0;
