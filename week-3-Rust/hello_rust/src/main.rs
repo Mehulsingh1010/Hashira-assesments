@@ -1,6 +1,6 @@
 // use std::io;
 // use rand::{rng, Rng};
-
+// use serde::Serialize;
 
 
 fn main() {
@@ -105,35 +105,128 @@ fn main() {
     //         }
     //     }
 
-            println!("enums");
+    // println!("enums");
 
-     #[derive(Debug)]
-    enum Ip {
-        V4,
-        V6,
-    }
+//     #[derive(Debug)]
+//     enum Ip {
+//         V4,
+//         V6,
+//     }
 
-    #[derive(Debug)]
-    struct IpAddr {
-        kind: Ip,
-        address: String,
-    }
+//     #[derive(Debug)]
+//     struct IpAddr {
+//         kind: Ip,
+//         address: String,
+//     }
 
-    let home = IpAddr {
-        kind: Ip::V4,
-        address: String::from("127.0.0.1"),
-    };
+//     let home = IpAddr {
+//         kind: Ip::V4,
+//         address: String::from("127.0.0.1"),
+//     };
 
-    let loopback = IpAddr {
-        kind: Ip::V6,
-        address: String::from("::1"),
-    };
+//     let loopback = IpAddr {
+//         kind: Ip::V6,
+//         address: String::from("::1"),
+//     };
 
 
 
-  println!(" home : {:#?}",loopback);
+//   println!(" home : {:#?}",loopback);
+
+
+    // #[derive(Debug)]
+    //  enum IpAddr {
+    //     V4(String),
+    //     V6(String),
+    // }
+
+    // let home = IpAddr::V4(String::from("127.0.0.1"));
+
+
+    // println!("{:#?}",home);
+
+    //enumerate examples :
+
+    // for (index, val) in ["a","b","c"].iter().enumerate(){
+    //     println!("{}: {}",index,val);
+    // }
+
+
+    // loops in rust
+
+    //1: Loop :
+    // let mut count =0;
+
+    // loop{
+    //     count+=1;
+    //     println!("Count = {}", count);
+
+    //     if count==5 {
+    //         println!("Running out after 5 scores");
+    //         break;
+    //     }
+    // }
+
+    //2: While loop
+    // while count< 5{
+    //     println!("count {}!",count);
+    //     count+=1;
+    // }
+    // println!("done");
+
+    //3: for loop
+
+    // let numbers=[1,2,3,5];
+
+    // for num in numbers.iter(){
+    //     println!("The number is {}",num);
+    // }
+
+    //these dots represent bounds 
+    // for i in 1..10 {
+    //     if i == 3 {
+    //         continue; 
+    //     }
+    //     if i == 7 {
+    //         break; 
+    //     }
+    //     println!("i = {}", i);
+    // }
+    
+// #[derive(Serialize, Debug)]
+// struct User {
+//     name: String,
+//     age: u32,
+//     active: bool,
+// }
+
+//     let user = User {
+//         name: "Messi".to_string(),
+//         age: 27,
+//         active: true,
+//     };
+
+    // Serialize to JSON string
+    // println!("Non Serialized JSON: {:?}", user);
+
+    // let json_str = serde_json::to_string(&user).unwrap();
+
+    // println!("Serialized JSON: {}",json_str);
+
+
+
+    let arr=[1,2,3,4,5];
+
+    let parts=&arr[1..=3];
+
+    println!("{:#?}",parts);
+
+
+
 
     
+
+
 }
 
 
