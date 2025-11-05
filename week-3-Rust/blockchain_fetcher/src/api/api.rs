@@ -31,7 +31,7 @@ pub async fn fetch_transactions(address: &str) -> Result<Vec<Transaction>, Strin
         .map_err(|e| format!("JSON Parse Error: {}", e))?;
 
     if api.status != "1" {
-        return Ok(vec![]); 
+        return Ok(vec![]);
     }
 
     Ok(api.result)

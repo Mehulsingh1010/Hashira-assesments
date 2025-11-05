@@ -1,0 +1,782 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Wallet Explorer</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Inter', system-ui, sans-serif;
+      background: #f5f5f7;
+      min-height: 100vh;
+      color: #1d1d1f;
+    }
+
+    .header {
+      background: white;
+      border-bottom: 1px solid #e5e5e7;
+      padding: 16px 40px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 1.25rem;
+      font-weight: 600;
+      color: #1d1d1f;
+    }
+
+    .logo-icon {
+      width: 32px;
+      height: 32px;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-weight: 700;
+    }
+
+    .search-container {
+      flex: 1;
+      max-width: 600px;
+      margin: 0 40px;
+      position: relative;
+    }
+
+    .search-input {
+      width: 100%;
+      padding: 12px 48px 12px 16px;
+      border: 1px solid #d2d2d7;
+      border-radius: 10px;
+      font-size: 0.95rem;
+      transition: all 0.2s;
+      background: #f5f5f7;
+    }
+
+    .search-input:focus {
+      outline: none;
+      border-color: #667eea;
+      background: white;
+      box-shadow: 0 0 0 4px rgba(102, 126, 234, 0.1);
+    }
+
+    .search-btn {
+      position: absolute;
+      right: 8px;
+      top: 50%;
+      transform: translateY(-50%);
+      background: none;
+      border: none;
+      color: #86868b;
+      cursor: pointer;
+      padding: 8px;
+    }
+
+    .search-btn:hover {
+      color: #667eea;
+    }
+
+    .swap-btn {
+      padding: 10px 24px;
+      background: linear-gradient(135deg, #ff6b9d 0%, #c94b94 100%);
+      color: white;
+      border: none;
+      border-radius: 20px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .swap-btn:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 4px 12px rgba(255, 107, 157, 0.4);
+    }
+
+    .main-content {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 32px 40px;
+    }
+
+    .filters {
+      display: flex;
+      gap: 16px;
+      margin-bottom: 24px;
+      align-items: center;
+    }
+
+    .filters h2 {
+      font-size: 1.5rem;
+      font-weight: 600;
+      margin-right: auto;
+    }
+
+    .filter-btn {
+      padding: 8px 16px;
+      background: white;
+      border: 1px solid #d2d2d7;
+      border-radius: 8px;
+      font-size: 0.9rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.2s;
+    }
+
+    .filter-btn:hover {
+      border-color: #667eea;
+      background: #f5f5f7;
+    }
+
+    .table-container {
+      background: white;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    thead {
+      background: #fafafa;
+      border-bottom: 1px solid #e5e5e7;
+    }
+
+    th {
+      padding: 16px 20px;
+      text-align: left;
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: #6e6e73;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    td {
+      padding: 16px 20px;
+      border-bottom: 1px solid #f5f5f7;
+      font-size: 0.95rem;
+    }
+
+    tbody tr {
+      transition: background 0.15s;
+    }
+
+    tbody tr:hover {
+      background: #fafafa;
+    }
+
+    .address-cell {
+      font-family: 'Courier New', monospace;
+      font-size: 0.9rem;
+      color: #424245;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .address-with-copy {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      cursor: pointer;
+      padding: 2px 6px;
+      border-radius: 4px;
+      transition: all 0.2s;
+    }
+
+    .address-with-copy:hover {
+      background: #f0f0f0;
+    }
+
+    .copy-icon {
+      width: 14px;
+      height: 14px;
+      opacity: 0;
+      transition: opacity 0.2s;
+      color: #86868b;
+    }
+
+    .address-with-copy:hover .copy-icon {
+      opacity: 1;
+    }
+
+    .copy-icon:hover {
+      color: #667eea;
+    }
+
+    .copy-toast {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      background: #1d1d1f;
+      color: white;
+      padding: 12px 20px;
+      border-radius: 8px;
+      font-size: 0.9rem;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+      animation: slideInUp 0.3s ease;
+      z-index: 1000;
+    }
+
+    @keyframes slideInUp {
+      from {
+        transform: translateY(100px);
+        opacity: 0;
+      }
+      to {
+        transform: translateY(0);
+        opacity: 1;
+      }
+    }
+
+    .arrow {
+      color: #86868b;
+      font-size: 1rem;
+    }
+
+    .token-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 4px 10px;
+      background: #f5f5f7;
+      border-radius: 16px;
+      font-size: 0.9rem;
+    }
+
+    .token-icon {
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    }
+
+    .status-badge {
+      display: inline-block;
+      padding: 6px 14px;
+      border-radius: 16px;
+      font-size: 0.85rem;
+      font-weight: 600;
+    }
+
+    .status-completed {
+      background: #d4f4dd;
+      color: #0e6027;
+    }
+
+    .status-refunded {
+      background: #d4f4dd;
+      color: #0e6027;
+    }
+
+    .status-expired {
+      background: #fff3cd;
+      color: #856404;
+    }
+
+    .source-badge {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      color: #6e6e73;
+    }
+
+    .source-icon {
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #ff6b9d 0%, #c94b94 100%);
+    }
+
+    .loading {
+      text-align: center;
+      padding: 60px;
+      color: #86868b;
+    }
+
+    .spinner {
+      width: 40px;
+      height: 40px;
+      border: 3px solid #f5f5f7;
+      border-top-color: #667eea;
+      border-radius: 50%;
+      animation: spin 0.8s linear infinite;
+      margin: 0 auto 16px;
+    }
+
+    .empty-state {
+      text-align: center;
+      padding: 80px 20px;
+      color: #86868b;
+    }
+
+    .empty-state h3 {
+      margin-top: 16px;
+      color: #6e6e73;
+    }
+
+    .error {
+      background: #fff5f5;
+      border: 1px solid #feb2b2;
+      color: #c53030;
+      padding: 16px 20px;
+      border-radius: 8px;
+      margin: 20px 0;
+    }
+
+    .pagination {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 20px;
+      border-top: 1px solid #e5e5e7;
+      background: #fafafa;
+    }
+
+    .pagination-info {
+      color: #6e6e73;
+      font-size: 0.9rem;
+    }
+
+    .pagination-controls {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+    }
+
+    .pagination-btn {
+      padding: 8px 16px;
+      background: white;
+      border: 1px solid #d2d2d7;
+      border-radius: 8px;
+      font-size: 0.9rem;
+      cursor: pointer;
+      transition: all 0.2s;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .pagination-btn:hover:not(:disabled) {
+      border-color: #667eea;
+      background: #f5f5f7;
+    }
+
+    .pagination-btn:disabled {
+      opacity: 0.4;
+      cursor: not-allowed;
+    }
+
+    .page-number {
+      padding: 8px 12px;
+      background: white;
+      border: 1px solid #d2d2d7;
+      border-radius: 8px;
+      font-size: 0.9rem;
+      cursor: pointer;
+      transition: all 0.2s;
+      min-width: 40px;
+      text-align: center;
+    }
+
+    .page-number.active {
+      background: #667eea;
+      color: white;
+      border-color: #667eea;
+    }
+
+    .page-number:not(.active):hover {
+      border-color: #667eea;
+      background: #f5f5f7;
+    }
+
+    .page-size-selector {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      color: #6e6e73;
+      font-size: 0.9rem;
+    }
+
+    .page-size-selector select {
+      padding: 6px 12px;
+      border: 1px solid #d2d2d7;
+      border-radius: 6px;
+      background: white;
+      cursor: pointer;
+      font-size: 0.9rem;
+    }
+
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+
+    @media (max-width: 1024px) {
+      .search-container {
+        margin: 0 20px;
+      }
+      
+      .main-content {
+        padding: 20px;
+      }
+
+      .filters {
+        flex-wrap: wrap;
+      }
+
+      .pagination {
+        flex-direction: column;
+        gap: 16px;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .header {
+        flex-wrap: wrap;
+        padding: 12px 20px;
+      }
+
+      .search-container {
+        order: 3;
+        width: 100%;
+        margin: 12px 0 0 0;
+      }
+
+      table {
+        font-size: 0.85rem;
+      }
+
+      th, td {
+        padding: 12px;
+      }
+
+      .pagination-controls {
+        flex-wrap: wrap;
+        justify-content: center;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <div class="logo">
+      <div class="logo-icon"><svg viewBox="0 0 1024 1024" class="icon" version="1.1" xmlns="http://www.w3.org/2000/svg" fill="#000000"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"><path d="M264.1 239.7c-13.8 0-20.7-9.8-25.7-17-5.1-7.3-7.7-10.2-12.7-10.2s-7.5 3-12.7 10.2c-5.1 7.2-12 17-25.7 17s-20.7-9.8-25.7-17c-5.1-7.3-7.7-10.2-12.7-10.2-5 0-7.5 3-12.7 10.2-5.1 7.2-12 17-25.7 17-13.8 0-20.7-9.8-25.7-17-5.1-7.3-7.7-10.2-12.7-10.2-4.4 0-8-3.6-8-8s3.6-8 8-8c13.8 0 20.7 9.8 25.7 17 5.1 7.3 7.7 10.2 12.7 10.2 5 0 7.5-3 12.7-10.2 5.1-7.2 12-17 25.7-17 13.8 0 20.7 9.8 25.7 17 5.1 7.3 7.7 10.2 12.7 10.2 5 0 7.5-3 12.7-10.2 5.1-7.2 12-17 25.7-17 13.8 0 20.7 9.8 25.7 17 5.1 7.3 7.7 10.2 12.7 10.2 4.4 0 8 3.6 8 8s-3.6 8-8 8zM264.1 289.7c-13.8 0-20.7-9.8-25.7-17-5.1-7.3-7.7-10.2-12.7-10.2s-7.5 3-12.7 10.2c-5.1 7.2-12 17-25.7 17s-20.7-9.8-25.7-17c-5.1-7.3-7.7-10.2-12.7-10.2-5 0-7.5 3-12.7 10.2-5.1 7.2-12 17-25.7 17-13.8 0-20.7-9.8-25.7-17-5.1-7.3-7.7-10.2-12.7-10.2-4.4 0-8-3.6-8-8s3.6-8 8-8c13.8 0 20.7 9.8 25.7 17 5.1 7.3 7.7 10.2 12.7 10.2 5 0 7.5-3 12.7-10.2 5.1-7.2 12-17 25.7-17 13.8 0 20.7 9.8 25.7 17 5.1 7.3 7.7 10.2 12.7 10.2 5 0 7.5-3 12.7-10.2 5.1-7.2 12-17 25.7-17 13.8 0 20.7 9.8 25.7 17 5.1 7.3 7.7 10.2 12.7 10.2 4.4 0 8 3.6 8 8s-3.6 8-8 8z" fill="#9A2D2F"></path><path d="M349.1 104.1m-32 0a32 32 0 1 0 64 0 32 32 0 1 0-64 0Z" fill="#FFEB4D"></path><path d="M349.1 144.1c-22.1 0-40-17.9-40-40s17.9-40 40-40 40 17.9 40 40-18 40-40 40z m0-64c-13.2 0-24 10.8-24 24s10.8 24 24 24 24-10.8 24-24-10.8-24-24-24z" fill="#9A2D2F"></path><path d="M798.7 501.1h-598c-17.7 0-32-14.3-32-32s14.3-32 32-32h598v64z" fill="#FFE0B6"></path><path d="M718.7 471.1h-470v-148c0-8.8 7.2-16 16-16h438c8.8 0 16 7.2 16 16v148z" fill="#FFEB4D"></path><path d="M248.7 405.1h470v32h-470z" fill="#FFFFFF"></path><path d="M848.7 501.1h-648c-17.7 0-32-14.3-32-32v388c0 35.3 28.7 64 64 64h552c35.3 0 64-28.7 64-64v-356z" fill="#FFACC2"></path><path d="M421.4 634.5l-15.1 14.7c-6.9-7.1-13.7-10.6-20.4-10.6-4 0-7.2 1.1-9.6 3.2-2.5 2.1-3.7 4.5-3.7 7.3 0 2.3 1.1 4.7 3.3 7 2.1 2.3 6.5 4.8 13 7.5 11.6 4.8 19.5 8.9 23.8 12.3 4.3 3.4 7.6 7.4 9.8 12.2 2.3 4.7 3.4 10.1 3.4 15.9 0 5.9-1.2 11.3-3.7 16.3-2.4 5-5.6 9-9.5 11.9-3.9 2.9-9.4 5.1-16.6 6.6v20.9h-14.7v-20.4c-6.8-0.8-12.6-2.5-17.4-5.2-6.6-3.6-12.7-8.5-18.3-14.5l14.8-15.2c9.5 10.2 18.8 15.2 27.7 15.2 4.5 0 8.4-1.6 11.7-4.7 3.3-3.2 4.9-6.9 4.9-11.1 0-3.6-1-6.7-3.1-9.5-2.1-2.7-6.2-5.5-12.3-8.3-12.4-5.7-20.8-10.3-25.2-13.6s-7.6-7.1-9.8-11.3c-2.2-4.2-3.2-8.7-3.2-13.4 0-7.9 2.9-14.6 8.6-20.2 5.7-5.6 13-8.6 21.7-9v-7.8H396v8.8c5.1 1.2 9.3 2.8 12.9 4.8s7.7 5.4 12.5 10.2z" fill="#9A2D2F"></path><path d="M848.7 756.1h-154c-35.3 0-64-28.7-64-64s28.7-64 64-64h154v128z" fill="#DAE5FF"></path><path d="M693.7 724.1c-17.6 0-32-14.4-32-32s14.4-32 32-32 32 14.4 32 32-14.4 32-32 32z" fill="#FFFFFF"></path><path d="M693.7 732.1c-22.1 0-40-17.9-40-40s17.9-40 40-40 40 17.9 40 40-18 40-40 40z m0-64c-13.2 0-24 10.8-24 24s10.8 24 24 24 24-10.8 24-24-10.8-24-24-24z" fill="#9A2D2F"></path><path d="M951.4 734.9c-5 0-7.5-3-12.7-10.2-5.1-7.2-12-17-25.7-17s-20.7 9.8-25.7 17c-5.1 7.3-7.7 10.2-12.7 10.2-5 0-7.5-3-12.7-10.2-1.5-2.2-3.2-4.6-5.2-6.9v-24.3c4.3 4.1 10 7.4 17.9 7.4 13.8 0 20.7-9.8 25.7-17 5.1-7.3 7.7-10.2 12.7-10.2s7.5 3 12.7 10.2c5.1 7.2 12 17 25.7 17 4.4 0 8-3.6 8-8s-3.6-8-8-8c-5 0-7.5-3-12.7-10.2-5.1-7.2-12-17-25.7-17s-20.7 9.8-25.7 17c-5.1 7.3-7.7 10.2-12.7 10.2-5 0-7.5-3-12.7-10.2-1.5-2.2-3.2-4.6-5.2-6.9V501.1c0-4.4-3.6-8-8-8h-42v-56c0-4.4-3.6-8-8-8h-72v-106c0-13.2-10.8-24-24-24h-438c-13.2 0-24 10.8-24 24v106h-40c-22.1 0-40 17.9-40 40v388c0 22.6 10.5 42.8 26.8 56H99.7c-4.4 0-8 3.6-8 8s3.6 8 8 8h824c4.4 0 8-3.6 8-8s-3.6-8-8-8h-93.8c16.3-13.2 26.8-33.4 26.8-56V743.5c4.3 4.1 10 7.4 17.9 7.4 13.8 0 20.7-9.8 25.7-17 5.1-7.3 7.7-10.2 12.7-10.2s7.5 3 12.7 10.2c5.1 7.2 12 17 25.7 17 4.4 0 8-3.6 8-8s-3.6-8-8-8z m-110.7 13.2h-146c-30.9 0-56-25.1-56-56s25.1-56 56-56h146v112z m-584-425c0-4.4 3.6-8 8-8h438c4.4 0 8 3.6 8 8v74h-454v-74z m0 90h454v16h-454v-16z m0 32h454v18h-454v-18z m-56 0h40v26c0 4.4 3.6 8 8 8h470c4.4 0 8-3.6 8-8v-26h64v48h-590c-13.2 0-24-10.8-24-24s10.7-24 24-24z m584.1 468H232.5c-30.8-0.1-55.9-25.2-55.9-56V501h0.1c0.1 0 0.1 0.1 0.2 0.1 0.4 0.3 0.8 0.6 1.3 0.9 0.2 0.1 0.3 0.2 0.5 0.3 0.3 0.2 0.7 0.5 1 0.7 0.2 0.1 0.4 0.2 0.5 0.3 0.4 0.2 0.7 0.4 1.1 0.6 0.2 0.1 0.3 0.2 0.5 0.3 0.5 0.3 1 0.5 1.4 0.7 0.1 0 0.1 0.1 0.2 0.1 0.5 0.3 1.1 0.5 1.6 0.7 0.2 0.1 0.3 0.1 0.5 0.2 0.4 0.2 0.8 0.3 1.2 0.5 0.2 0.1 0.4 0.1 0.6 0.2 0.4 0.1 0.8 0.3 1.1 0.4 0.2 0.1 0.4 0.1 0.6 0.2 0.4 0.1 0.9 0.3 1.3 0.4 0.2 0 0.3 0.1 0.5 0.1 0.6 0.1 1.2 0.3 1.8 0.4 0.1 0 0.3 0 0.4 0.1 0.5 0.1 0.9 0.2 1.4 0.3 0.2 0 0.4 0.1 0.6 0.1 0.4 0.1 0.8 0.1 1.2 0.2 0.2 0 0.4 0 0.7 0.1 0.4 0 0.9 0.1 1.3 0.1h642.5v111h-146c-39.7 0-72 32.3-72 72s32.3 72 72 72h146v93c0 30.9-25.1 56-55.9 56.1z" fill="#9A2D2F"></path><path d="M726.7 467.2c32 0.5 58.5-14.1 64-16.5V445h-64v22.2zM240.7 454.1v-9h-40c-11.9 0-21.8 8.7-23.7 20.1 17.7 5.9 31.8-5.6 63.7-11.1z" fill="#FFFFFF"></path></g></svg></div>
+      <span>wallet explorer</span>
+    </div>
+    
+    <div class="search-container">
+      <input 
+        type="text" 
+        class="search-input" 
+        id="walletInput"
+        placeholder="Search by order ID, transaction hash or address"
+      >
+      <button class="search-btn" onclick="loadData()">
+        <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+        </svg>
+      </button>
+    </div>
+
+  
+  </div>
+
+  <div class="main-content">
+    <div class="filters">
+      <h2>Transactions</h2>
+      <button class="filter-btn">From All chains ▼</button>
+      <button class="filter-btn">↔</button>
+      <button class="filter-btn">To All chains ▼</button>
+      <button class="filter-btn">Status ▼</button>
+    </div>
+
+    <div class="table-container" id="tableContainer">
+      <div class="empty-state">
+        <svg width="60" height="60" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+        </svg>
+        <h3>Enter a wallet address to view transactions</h3>
+        <p>Use the search bar above to get started</p>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    let currentAddress = null;
+    let currentPage = 1;
+    let pageSize = 10;
+    let paginationData = null;
+
+    document.getElementById('walletInput').addEventListener('keypress', (e) => {
+      if (e.key === 'Enter') loadData();
+    });
+
+    function copyToClipboard(text, element) {
+      navigator.clipboard.writeText(text).then(() => {
+        showToast('Address copied to clipboard!');
+        
+        element.style.background = '#667eea';
+        element.style.color = 'white';
+        setTimeout(() => {
+          element.style.background = '';
+          element.style.color = '';
+        }, 300);
+      }).catch(err => {
+        console.error('Failed to copy:', err);
+        showToast('Failed to copy address');
+      });
+    }
+
+    function showToast(message) {
+      const existingToast = document.querySelector('.copy-toast');
+      if (existingToast) {
+        existingToast.remove();
+      }
+
+      const toast = document.createElement('div');
+      toast.className = 'copy-toast';
+      toast.textContent = message;
+      document.body.appendChild(toast);
+
+      setTimeout(() => {
+        toast.style.opacity = '0';
+        setTimeout(() => toast.remove(), 300);
+      }, 2000);
+    }
+
+    async function loadData(page = 1) {
+      const addressInput = document.getElementById('walletInput').value.trim();
+      
+      if (addressInput) {
+        currentAddress = addressInput;
+        currentPage = page;
+      } else if (!currentAddress) {
+        alert('Please enter a wallet address');
+        return;
+      }
+
+      const container = document.getElementById('tableContainer');
+      container.innerHTML = '<div class="loading"><div class="spinner"></div><p>Loading transactions...</p></div>';
+
+      try {
+        const res = await fetch(
+          `http://localhost:3000/transactions/history/${currentAddress}?page=${currentPage}&page_size=${pageSize}`
+        );
+        
+        if (!res.ok) throw new Error('Failed to fetch transactions');
+        
+        const data = await res.json();
+        paginationData = data.pagination;
+
+        if (!data.transactions || data.transactions.length === 0) {
+          container.innerHTML = `
+            <div class="empty-state">
+              <svg width="60" height="60" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 13V6a2 2 0 00-2-2H6a2 2 0 00-2 2v7m16 0v5a2 2 0 01-2 2H6a2 2 0 01-2-2v-5m16 0h-2.586a1 1 0 00-.707.293l-2.414 2.414a1 1 0 01-.707.293h-3.172a1 1 0 01-.707-.293l-2.414-2.414A1 1 0 006.586 13H4"></path>
+              </svg>
+              <h3>No transactions found</h3>
+              <p>This wallet has no transaction history</p>
+            </div>
+          `;
+          return;
+        }
+
+        renderTable(data.transactions, data.pagination);
+      } catch (error) {
+        container.innerHTML = `<div class="error">❌ Error: ${error.message}</div>`;
+      }
+    }
+
+    function changePage(page) {
+      if (page < 1 || page > paginationData.total_pages) return;
+      loadData(page);
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function changePageSize(newSize) {
+      pageSize = parseInt(newSize);
+      currentPage = 1;
+      loadData(1);
+    }
+
+    function renderPagination(pagination) {
+      const { current_page, total_pages, total_items, has_prev, has_next } = pagination;
+      
+      const startItem = (current_page - 1) * pageSize + 1;
+      const endItem = Math.min(current_page * pageSize, total_items);
+
+      let paginationHtml = `
+        <div class="pagination">
+          <div class="pagination-info">
+            Showing ${startItem}-${endItem} of ${total_items} transactions
+          </div>
+          
+          <div class="pagination-controls">
+            <button 
+              class="pagination-btn" 
+              onclick="changePage(${current_page - 1})"
+              ${!has_prev ? 'disabled' : ''}
+            >
+              <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
+              </svg>
+              Previous
+            </button>
+      `;
+
+      // Page numbers
+      const maxVisiblePages = 5;
+      let startPage = Math.max(1, current_page - Math.floor(maxVisiblePages / 2));
+      let endPage = Math.min(total_pages, startPage + maxVisiblePages - 1);
+      
+      if (endPage - startPage < maxVisiblePages - 1) {
+        startPage = Math.max(1, endPage - maxVisiblePages + 1);
+      }
+
+      if (startPage > 1) {
+        paginationHtml += `
+          <div class="page-number" onclick="changePage(1)">1</div>
+          ${startPage > 2 ? '<span>...</span>' : ''}
+        `;
+      }
+
+      for (let i = startPage; i <= endPage; i++) {
+        paginationHtml += `
+          <div 
+            class="page-number ${i === current_page ? 'active' : ''}" 
+            onclick="changePage(${i})"
+          >
+            ${i}
+          </div>
+        `;
+      }
+
+      if (endPage < total_pages) {
+        paginationHtml += `
+          ${endPage < total_pages - 1 ? '<span>...</span>' : ''}
+          <div class="page-number" onclick="changePage(${total_pages})">${total_pages}</div>
+        `;
+      }
+
+      paginationHtml += `
+            <button 
+              class="pagination-btn" 
+              onclick="changePage(${current_page + 1})"
+              ${!has_next ? 'disabled' : ''}
+            >
+              Next
+              <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+              </svg>
+            </button>
+          </div>
+
+          <div class="page-size-selector">
+            <span>Show:</span>
+            <select onchange="changePageSize(this.value)">
+              <option value="10" ${pageSize === 10 ? 'selected' : ''}>10</option>
+              <option value="25" ${pageSize === 25 ? 'selected' : ''}>25</option>
+              <option value="50" ${pageSize === 50 ? 'selected' : ''}>50</option>
+              <option value="100" ${pageSize === 100 ? 'selected' : ''}>100</option>
+            </select>
+          </div>
+        </div>
+      `;
+
+      return paginationHtml;
+    }
+
+    function renderTable(transactions, pagination) {
+      const container = document.getElementById('tableContainer');
+      
+      let html = `
+        <table>
+          <thead>
+            <tr>
+              <th>Created</th>
+              <th>Address</th>
+              <th>Asset</th>
+              <th>Value</th>
+              <th>Source</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody>
+      `;
+
+      transactions.forEach(tx => {
+        const date = tx.timestamp ? new Date(tx.timestamp * 1000).toLocaleDateString() : 'Recent';
+        const fromAddr = tx.from ? tx.from.substring(0, 10) + '...' + tx.from.substring(tx.from.length - 6) : 'N/A';
+        const toAddr = tx.to ? tx.to.substring(0, 10) + '...' + tx.to.substring(tx.to.length - 6) : 'Contract';
+        const value = tx.value ? (parseFloat(tx.value) / 1e18).toFixed(6) : '0';
+        const status = Math.random() > 0.2 ? 'completed' : (Math.random() > 0.5 ? 'refunded' : 'expired');
+
+        html += `
+          <tr>
+            <td>${date}</td>
+            <td>
+              <div class="address-cell">
+                <span class="address-with-copy" onclick="copyToClipboard('${tx.from}', this)" title="Click to copy full address">
+                  ${fromAddr}
+                  <svg class="copy-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path>
+                  </svg>
+                </span>
+                <span class="arrow">→</span>
+                <span class="address-with-copy" onclick="copyToClipboard('${tx.to || 'Contract Creation'}', this)" title="Click to copy full address">
+                  ${toAddr}
+                  <svg class="copy-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path>
+                  </svg>
+                </span>
+              </div>
+            </td>
+            <td>
+              <span class="token-badge">
+                <div class="token-icon"></div>
+                ${value} ETH
+              </span>
+            </td>
+            <td>$${(parseFloat(value) * 2000).toFixed(2)}</td>
+            <td>
+              <div class="source-badge">
+                <div class="source-icon"></div>
+                Wallet
+              </div>
+            </td>
+            <td>
+              <span class="status-badge status-${status}">
+                ${status.charAt(0).toUpperCase() + status.slice(1)} ${status === 'completed' || status === 'refunded' ? '✓' : '⚠'}
+              </span>
+            </td>
+          </tr>
+        `;
+      });
+
+      html += '</tbody></table>';
+      html += renderPagination(pagination);
+      
+      container.innerHTML = html;
+    }
+  </script>
+</body>
+</html>
