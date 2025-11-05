@@ -1,5 +1,5 @@
 import React from "react";
-import type { ThemeConfig } from "../types";
+import "../styles/globals.css";
 export interface CheckboxProps {
     name: string;
     label?: string;
@@ -7,8 +7,11 @@ export interface CheckboxProps {
     checked?: boolean;
     onChange?: (checked: boolean) => void;
     disabled?: boolean;
-    theme?: Partial<ThemeConfig>;
     required?: boolean;
+    className?: string;
+    containerClassName?: string;
+    labelClassName?: string;
+    errorClassName?: string;
 }
 export declare const Checkbox: React.FC<CheckboxProps>;
 //# sourceMappingURL=Checkbox.d.ts.map

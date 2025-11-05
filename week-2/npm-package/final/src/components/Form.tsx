@@ -4,16 +4,14 @@ import type React from "react"
 import { FormProvider } from "../context/FormContext"
 import { useFormContext } from "../context/FormContext"
 import type { FormValues } from "../types"
-import type { ThemeConfig } from "../types"
-import { defaultTheme } from "../styles/theme"
+import "../styles/globals.css"
 
 export interface FormProps {
   children: React.ReactNode
   onSubmit: (values: FormValues) => Promise<void> | void
   initialValues?: FormValues
-  theme?: Partial<ThemeConfig>
   className?: string
-  style?: React.CSSProperties
+  containerClassName?: string
   /** Define which fields are required for validation */
   requiredFields?: string[]
 }
@@ -22,20 +20,10 @@ export const Form: React.FC<FormProps> = ({
   children,
   onSubmit,
   initialValues = {},
-  theme: customTheme,
-  className,
-  style,
+  className = "",
+  containerClassName = "",
   requiredFields = [],
 }) => {
-  const theme = { ...defaultTheme, ...customTheme }
-
-  const formStyles: React.CSSProperties = {
-    display: "flex",
-    flexDirection: "column",
-    gap: theme.spacing,
-    ...style,
-  }
-
   return (
     <FormProvider 
       onSubmit={onSubmit} 
@@ -43,8 +31,8 @@ export const Form: React.FC<FormProps> = ({
       requiredFields={requiredFields}
     >
       <FormContent 
-        formStyles={formStyles} 
         className={className}
+        containerClassName={containerClassName}
         onSubmit={onSubmit}
       >
         {children}
@@ -55,25 +43,31 @@ export const Form: React.FC<FormProps> = ({
 
 function FormContent({
   children,
-  formStyles,
   className,
+  containerClassName,
   onSubmit,
 }: {
   children: React.ReactNode
-  formStyles: React.CSSProperties
   className?: string
+  containerClassName?: string
   onSubmit: (values: FormValues) => Promise<void> | void
 }) {
   const { handleSubmit } = useFormContext()
 
+  const formClasses = `
+    form-container
+    ${className}
+  `.trim().replace(/\s+/g, ' ')
+
   return (
-    <form 
-      style={formStyles} 
-      className={className} 
-      onSubmit={handleSubmit(onSubmit)}
-      noValidate // Disable browser validation to use custom validation
-    >
-      {children}
-    </form>
+    <div className={containerClassName}>
+      <form 
+        className={formClasses}
+        onSubmit={handleSubmit(onSubmit)}
+        noValidate // Disable browser validation to use custom validation
+      >
+        {children}
+      </form>
+    </div>
   )
 }

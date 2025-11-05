@@ -2,8 +2,7 @@
 
 import React, { useCallback, useRef, useState } from "react"
 import { useFormContext } from "../context/FormContext"
-import type { ThemeConfig } from "../types"
-import { defaultTheme } from "../styles/theme"
+import "../styles/globals.css" // Import global CSS
 
 export interface ButtonProps {
   type?: "button" | "submit" | "reset"
@@ -13,10 +12,8 @@ export interface ButtonProps {
   disabled?: boolean
   loading?: boolean
   variant?: "primary" | "secondary" | "danger"
-  theme?: Partial<ThemeConfig>
   fullWidth?: boolean
   size?: "small" | "medium" | "large"
-  style?: React.CSSProperties
   enableThrottle?: boolean
   throttleDelay?: number
   showErrorSummary?: boolean
@@ -24,6 +21,8 @@ export interface ButtonProps {
   successMessage?: string
   onSuccess?: () => void
   submissionDelay?: number
+  className?: string
+  containerClassName?: string
 }
 
 export const Button: React.FC<ButtonProps> = ({
@@ -34,10 +33,8 @@ export const Button: React.FC<ButtonProps> = ({
   disabled = false,
   loading: externalLoading = false,
   variant = "primary",
-  theme: customTheme,
   fullWidth = false,
   size = "medium",
-  style: customStyle,
   enableThrottle,
   throttleDelay,
   showErrorSummary = true,
@@ -45,8 +42,9 @@ export const Button: React.FC<ButtonProps> = ({
   successMessage = "Form submitted successfully!",
   onSuccess,
   submissionDelay = 2000,
+  className = "",
+  containerClassName = "",
 }) => {
-  const theme = { ...defaultTheme, ...customTheme }
   const formContext = (() => {
     try {
       return useFormContext()
@@ -66,121 +64,92 @@ export const Button: React.FC<ButtonProps> = ({
   const lastClickTime = useRef(0)
   const isLoading = externalLoading || isSubmitting
 
-  const handleClick = useCallback(async (e: React.MouseEvent<HTMLButtonElement>) => {
-    if (disabled || isLoading) return
+  const handleClick = useCallback(
+    async (e: React.MouseEvent<HTMLButtonElement>) => {
+      if (disabled || isLoading) return
 
-    // Throttling
-    if (shouldThrottle) {
-      const now = Date.now()
-      if (now - lastClickTime.current < delay) {
-        e.preventDefault()
-        e.stopPropagation()
-        console.log(" Please wait before clicking again.")
-        return
-      }
-      lastClickTime.current = now
-    }
-
-    if (isSubmitButton && formContext) {
-      e.preventDefault()
-      setShowErrors(false)
-      setErrorSummary([])
-
-      try {
-        const isValid = await formContext.validateForm()
-        if (!isValid) {
-          if (showErrorSummary) {
-            const errors = Object.entries(formContext.errors)
-              .filter(([_, error]) => error)
-              .map(([field, error]) => `${field}: ${error}`)
-            setErrorSummary(errors)
-            setShowErrors(true)
-          }
+      // Throttling
+      if (shouldThrottle) {
+        const now = Date.now()
+        if (now - lastClickTime.current < delay) {
+          e.preventDefault()
+          e.stopPropagation()
+          console.log("⏱ Please wait before clicking again.")
           return
         }
-
-        setIsSubmitting(true)
-        await new Promise((r) => setTimeout(r, submissionDelay))
-        await formContext.submitForm?.()
-        setIsSubmitting(false)
-        if (showSuccessModal) setShowSuccess(true)
-        onSuccess?.()
-      } catch (err) {
-        console.error("Form submission error:", err)
-        setIsSubmitting(false)
-        setErrorSummary(["An unexpected error occurred during submission."])
-        setShowErrors(true)
+        lastClickTime.current = now
       }
-    } else {
-      onClick?.()
-    }
-  }, [
-    disabled,
-    isLoading,
-    shouldThrottle,
-    delay,
-    isSubmitButton,
-    formContext,
-    submissionDelay,
-    showErrorSummary,
-    showSuccessModal,
-    onSuccess,
-  ])
 
-  const variantStyles = {
-    primary: { backgroundColor: theme.primaryColor, color: "#fff" },
-    secondary: { backgroundColor: "#f3f4f6", color: theme.textColor },
-    danger: { backgroundColor: theme.errorColor, color: "#fff" },
-  }[variant]
+      if (isSubmitButton && formContext) {
+        e.preventDefault()
+        setShowErrors(false)
+        setErrorSummary([])
 
-  const sizeStyles =
-    size === "small"
-      ? { padding: "6px 12px", fontSize: 12 }
-      : size === "large"
-      ? { padding: "14px 24px", fontSize: 16 }
-      : { padding: "10px 16px", fontSize: 14 }
+        try {
+          const isValid = await formContext.validateForm()
+          if (!isValid) {
+            if (showErrorSummary) {
+              const errors = Object.entries(formContext.errors)
+                .filter(([_, error]) => error)
+                .map(([field, error]) => `${field}: ${error}`)
+              setErrorSummary(errors)
+              setShowErrors(true)
+            }
+            return
+          }
+
+          setIsSubmitting(true)
+          await new Promise((r) => setTimeout(r, submissionDelay))
+          await formContext.submitForm?.()
+          setIsSubmitting(false)
+          if (showSuccessModal) setShowSuccess(true)
+          onSuccess?.()
+        } catch (err) {
+          console.error("Form submission error:", err)
+          setIsSubmitting(false)
+          setErrorSummary(["An unexpected error occurred during submission."])
+          setShowErrors(true)
+        }
+      } else {
+        onClick?.()
+      }
+    },
+    [
+      disabled,
+      isLoading,
+      shouldThrottle,
+      delay,
+      isSubmitButton,
+      formContext,
+      submissionDelay,
+      showErrorSummary,
+      showSuccessModal,
+      onSuccess,
+      onClick,
+    ]
+  )
+
+  const buttonClasses = `
+    form-button
+    form-button-${variant}
+    form-button-${size}
+    ${fullWidth ? 'form-button-full-width' : ''}
+    ${isLoading ? 'form-button-loading' : ''}
+    ${disabled ? 'form-button-disabled' : ''}
+    ${className}
+  `.trim().replace(/\s+/g, ' ')
 
   return (
-    <>
-      <style>{`
-        @keyframes spin { from { transform: rotate(0); } to { transform: rotate(360deg); } }
-        @keyframes scaleIn { from { transform: scale(0); } to { transform: scale(1); } }
-        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-      `}</style>
-
+    <div className={`form-button-container ${containerClassName}`}>
       <button
         type={type}
         onClick={handleClick}
         disabled={disabled || isLoading}
-        style={{
-          ...variantStyles,
-          ...sizeStyles,
-          width: fullWidth ? "100%" : "auto",
-          border: "none",
-          borderRadius: theme.borderRadius,
-          cursor: disabled || isLoading ? "not-allowed" : "pointer",
-          fontWeight: 600,
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-          gap: 8,
-          opacity: disabled || isLoading ? 0.6 : 1,
-          transition: "all 0.2s ease-in-out",
-          ...customStyle,
-        }}
+        className={buttonClasses}
       >
         {isLoading ? (
           <>
-            <div
-              style={{
-                width: 16,
-                height: 16,
-                border: "2px solid rgba(255,255,255,0.3)",
-                borderTop: "2px solid #fff",
-                borderRadius: "50%",
-                animation: "spin 0.6s linear infinite",
-              }}
-            />
+            <div className="form-button-spinner" />
             <span>Processing...</span>
           </>
         ) : (
@@ -190,19 +159,9 @@ export const Button: React.FC<ButtonProps> = ({
 
       {/* Error Summary */}
       {showErrorSummary && showErrors && errorSummary.length > 0 && (
-        <div
-          style={{
-            marginTop: 12,
-            padding: 16,
-            backgroundColor: "#fef2f2",
-            border: "1px solid #fecaca",
-            borderRadius: theme.borderRadius,
-            color: "#991b1b",
-            fontSize: 13,
-          }}
-        >
+        <div className="form-button-error-summary">
           <strong>⚠️ Please fix the following errors:</strong>
-          <ul style={{ marginTop: 8, paddingLeft: 20 }}>
+          <ul>
             {errorSummary.map((err, i) => (
               <li key={i}>{err}</li>
             ))}
@@ -212,60 +171,21 @@ export const Button: React.FC<ButtonProps> = ({
 
       {/* Success Modal */}
       {showSuccess && (
-        <div
-          style={{
-            position: "fixed",
-            top: 0,
-            left: 0,
-            right: 0,
-            bottom: 0,
-            backgroundColor: "rgba(0,0,0,0.5)",
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            zIndex: 9999,
-            animation: "fadeIn 0.25s ease",
-          }}
+        <div 
+          className="form-button-modal-overlay"
           onClick={() => setShowSuccess(false)}
         >
           <div
-            style={{
-              background: "#fff",
-              padding: 32,
-              borderRadius: 12,
-              textAlign: "center",
-              animation: "scaleIn 0.3s ease-out",
-              maxWidth: 400,
-              width: "90%",
-            }}
+            className="form-button-modal-content"
             onClick={(e) => e.stopPropagation()}
           >
-            <div
-              style={{
-                width: 64,
-                height: 64,
-                background: "#dcfce7",
-                borderRadius: "50%",
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                margin: "0 auto 16px",
-              }}
-            >
-              <span style={{ color: "#16a34a", fontSize: 32 }}>✓</span>
+            <div className="form-button-modal-icon">
+              <span>✓</span>
             </div>
-            <h2 style={{ fontSize: 22, marginBottom: 8 }}>Success!</h2>
-            <p style={{ color: "#6b7280", marginBottom: 24 }}>{successMessage}</p>
+            <h2 className="form-button-modal-title">Success!</h2>
+            <p className="form-button-modal-message">{successMessage}</p>
             <button
-              style={{
-                padding: "10px 24px",
-                border: "none",
-                backgroundColor: theme.primaryColor,
-                color: "#fff",
-                borderRadius: theme.borderRadius,
-                fontWeight: 600,
-                cursor: "pointer",
-              }}
+              className="form-button form-button-primary form-button-medium"
               onClick={(e) => {
                 e.stopPropagation()
                 setTimeout(() => setShowSuccess(false), 150)
@@ -276,6 +196,6 @@ export const Button: React.FC<ButtonProps> = ({
           </div>
         </div>
       )}
-    </>
+    </div>
   )
 }

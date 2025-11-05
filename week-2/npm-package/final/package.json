@@ -1,6 +1,6 @@
 {
   "name": "mehul-form-validator-widget",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "A reusable, customizable Form Validator Widget for React with TypeScript. 25+ components with validation, debouncing, throttling, and micro-animations.",
   "keywords": [
     "form",
@@ -36,6 +36,7 @@
     "type-check": "tsc --noEmit"
   },
   "dependencies": {
+    "@tailwindcss/vite": "^4.1.16",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "lucide-react": "^0.454.0",
@@ -67,7 +68,7 @@
     "sass-embedded": "latest",
     "stylus": "latest",
     "sugarss": "latest",
-    "tailwindcss": "4.1.16",
+    "tailwindcss": "^4.1.16",
     "terser": "latest",
     "tsx": "latest",
     "typescript": "^5",

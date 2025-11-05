@@ -2,9 +2,7 @@
 
 import React, { useCallback, useEffect, useState } from "react"
 import { useFormContext } from "../context/FormContext"
-import type { ThemeConfig } from "../types"
-import { defaultTheme } from "../styles/theme"
-
+import "../styles/globals.css"
 export interface RadioOption {
   label: string
   value: string
@@ -20,7 +18,13 @@ export interface RadioProps {
   required?: boolean
   direction?: "horizontal" | "vertical"
   helperText?: string
-  theme?: Partial<ThemeConfig>
+  className?: string
+  containerClassName?: string
+  labelClassName?: string
+  errorClassName?: string
+  style?: React.CSSProperties
+  containerStyle?: React.CSSProperties
+  labelStyle?: React.CSSProperties
 }
 
 export const Radio: React.FC<RadioProps> = ({
@@ -32,10 +36,14 @@ export const Radio: React.FC<RadioProps> = ({
   required = false,
   direction = "vertical",
   helperText,
-  theme: customTheme,
+  className = "",
+  containerClassName = "",
+  labelClassName = "",
+  errorClassName = "",
+  style,
+  containerStyle,
+  labelStyle,
 }) => {
-  const theme = { ...defaultTheme, ...customTheme }
-
   // Try using FormContext safely
   const formContext = (() => {
     try {
@@ -51,6 +59,8 @@ export const Radio: React.FC<RadioProps> = ({
   const error = formContext?.errors?.[name]
   const touched = formContext?.touched?.[name]
   const [isTouched, setIsTouched] = useState(false)
+
+  const displayError = error && (touched || isTouched)
 
   // Validation
   const validateRadioInternal = useCallback(async (): Promise<boolean> => {
@@ -88,89 +98,72 @@ export const Radio: React.FC<RadioProps> = ({
     [formContext, name, onChange],
   )
 
+  // Build class names
+  const radioGroupClasses = [
+    "form-radio-group",
+    direction === "vertical" ? "form-radio-group-vertical" : "form-radio-group-horizontal",
+    displayError && "form-radio-error",
+    className
+  ].filter(Boolean).join(" ")
+
+  const labelClasses = [
+    "form-label",
+    labelClassName
+  ].filter(Boolean).join(" ")
+
   return (
     <div
-      style={{
-        marginBottom: "16px",
-        display: "flex",
-        flexDirection: "column",
-        gap: "8px",
-      }}
+      className={`form-radio-container ${containerClassName}`}
+      style={containerStyle}
     >
       {label && (
-        <label
-          style={{
-            fontSize: "14px",
-            fontWeight: 600,
-            color: theme.textColor,
-          }}
-        >
-          {label}
-          {required && <span style={{ color: theme.errorColor }}> *</span>}
-        </label>
+        <div className="form-label-wrapper">
+          <label className={labelClasses} style={labelStyle}>
+            {label}
+          </label>
+          {required && (
+            <span className="form-required-badge" title="Required field">
+              *
+            </span>
+          )}
+        </div>
       )}
 
       <div
         role="radiogroup"
         aria-label={label}
         aria-required={required}
-        aria-invalid={!!(error && (touched || isTouched))}
-        style={{
-          display: "flex",
-          flexDirection: direction === "vertical" ? "column" : "row",
-          gap: direction === "vertical" ? "10px" : "24px",
-        }}
+        aria-invalid={!!displayError}
+        className={radioGroupClasses}
+        style={style}
       >
         {options.map((option) => {
           const isSelected = selectedValue === option.value
           const isDisabled = disabled || option.disabled
 
+          const optionClasses = [
+            "form-radio-option",
+            isDisabled && "form-radio-disabled"
+          ].filter(Boolean).join(" ")
+
+          const circleClasses = [
+            "form-radio-circle",
+            isSelected && "form-radio-selected"
+          ].filter(Boolean).join(" ")
+
+          const dotClasses = [
+            "form-radio-dot",
+            isSelected && "form-radio-selected"
+          ].filter(Boolean).join(" ")
+
           return (
             <label
               key={option.value}
               htmlFor={`${name}-${option.value}`}
-              style={{
-                display: "flex",
-                alignItems: "center",
-                gap: "8px",
-                cursor: isDisabled ? "not-allowed" : "pointer",
-                opacity: isDisabled ? 0.6 : 1,
-                userSelect: "none",
-                transition: "all 0.2s ease",
-              }}
+              className={optionClasses}
             >
-              <div
-                style={{
-                  position: "relative",
-                  width: "20px",
-                  height: "20px",
-                  borderRadius: "50%",
-                  border: `2px solid ${
-                    isSelected ? theme.primaryColor : "#d1d5db"
-                  }`,
-                  backgroundColor: "#fff",
-                  transition: "all 0.25s ease",
-                  boxShadow: isSelected
-                    ? `0 0 0 3px ${theme.primaryColor}25`
-                    : "none",
-                }}
-              >
-                <div
-                  style={{
-                    position: "absolute",
-                    top: "50%",
-                    left: "50%",
-                    transform: `translate(-50%, -50%) scale(${
-                      isSelected ? 1 : 0
-                    })`,
-                    width: "10px",
-                    height: "10px",
-                    borderRadius: "50%",
-                    backgroundColor: theme.primaryColor,
-                    transition:
-                      "transform 0.25s cubic-bezier(0.4, 0, 0.2, 1)",
-                  }}
-                />
+              <div className={circleClasses}>
+                <div className={dotClasses} />
               </div>
               <input
                 type="radio"
@@ -180,15 +173,9 @@ export const Radio: React.FC<RadioProps> = ({
                 checked={isSelected}
                 disabled={isDisabled}
                 onChange={() => !isDisabled && handleChange(option.value)}
-                style={{ position: "absolute", opacity: 0, pointerEvents: "none" }}
+                className="form-radio-input"
               />
-              <span
-                style={{
-                  fontSize: "14px",
-                  color: theme.textColor,
-                  transition: "color 0.2s ease",
-                }}
-              >
+              <span className="form-radio-text">
                 {option.label}
               </span>
             </label>
@@ -196,18 +183,18 @@ export const Radio: React.FC<RadioProps> = ({
         })}
       </div>
 
-      {error && (touched || isTouched) && (
-        <div role="alert" style={{ fontSize: "12px", color: theme.errorColor }}>
-          {error}
+      {displayError && (
+        <div role="alert" className={`form-error-text ${errorClassName}`}>
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
+            <path d="M8 0a8 8 0 100 16A8 8 0 008 0zm0 11a1 1 0 110 2 1 1 0 010-2zm0-8a1 1 0 00-1 1v5a1 1 0 002 0V4a1 1 0 00-1-1z"/>
+          </svg>
+          <span>{error}</span>
         </div>
       )}
 
-      {helperText && !(error && (touched || isTouched)) && (
-        <div style={{ fontSize: "12px", color: "#6b7280" }}>{helperText}</div>
+      {helperText && !displayError && (
+        <span className="form-helper-text">{helperText}</span>
       )}
     </div>
   )
 }
-
-
-

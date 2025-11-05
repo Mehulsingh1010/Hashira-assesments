@@ -2,8 +2,7 @@
 
 import React, { useCallback, useState } from "react"
 import { useFormContext } from "../context/FormContext"
-import type { ThemeConfig } from "../types"
-import { defaultTheme } from "../styles/theme"
+import "../styles/globals.css"
 
 export interface CheckboxProps {
   name: string
@@ -12,8 +11,11 @@ export interface CheckboxProps {
   checked?: boolean
   onChange?: (checked: boolean) => void
   disabled?: boolean
-  theme?: Partial<ThemeConfig>
   required?: boolean
+  className?: string
+  containerClassName?: string
+  labelClassName?: string
+  errorClassName?: string
 }
 
 export const Checkbox: React.FC<CheckboxProps> = ({
@@ -23,15 +25,19 @@ export const Checkbox: React.FC<CheckboxProps> = ({
   checked: externalChecked,
   onChange,
   disabled = false,
-  theme: customTheme,
   required = false,
+  className = "",
+  containerClassName = "",
+  labelClassName = "",
+  errorClassName = "",
 }) => {
   const formContext = useFormContext()
-  const theme = { ...defaultTheme, ...customTheme }
 
   const fieldValue = formContext.values[name]
   const checked = externalChecked !== undefined ? externalChecked : fieldValue
   const error = formContext.errors[name]
+  const isTouched = formContext.touched[name]
+  
   const [isHovered, setIsHovered] = useState(false)
   const [isFocused, setIsFocused] = useState(false)
 
@@ -42,86 +48,33 @@ export const Checkbox: React.FC<CheckboxProps> = ({
       formContext.setFieldTouched(name, true)
       onChange?.(newChecked)
     },
-    [name, formContext, onChange],
+    [name, formContext, onChange]
   )
 
-  const styles = {
-    container: {
-      display: "flex",
-      alignItems: "center",
-      gap: "10px",
-      marginBottom: theme.spacing,
-      cursor: disabled ? "not-allowed" : "pointer",
-      opacity: disabled ? 0.6 : 1,
-      transition: "opacity 0.3s ease",
-    },
-    checkboxWrapper: {
-      position: "relative" as const,
-      width: "22px",
-      height: "22px",
-      display: "flex",
-      alignItems: "center",
-      justifyContent: "center",
-    },
-    checkboxBase: {
-      appearance: "none" as const,
-      WebkitAppearance: "none" as const,
-      width: "22px",
-      height: "22px",
-      borderRadius: "6px",
-      border: `2px solid ${
-        error ? theme.errorColor : isFocused ? theme.primaryColor : theme.borderColor
-      }`,
-      backgroundColor: checked ? theme.primaryColor : theme.backgroundColor,
-      transition: "all 0.3s cubic-bezier(0.4, 0, 0.2, 1)",
-      cursor: disabled ? "not-allowed" : "pointer",
-      boxShadow: isHovered
-        ? `0 0 0 4px ${theme.primaryColor}15`
-        : isFocused
-        ? `0 0 0 4px ${theme.primaryColor}20`
-        : "none",
-      outline: "none",
-      position: "relative" as const,
-    },
-    checkmark: {
-      position: "absolute" as const,
-      top: "50%",
-      left: "50%",
-      transform: checked ? "translate(-50%, -50%) scale(1)" : "translate(-50%, -50%) scale(0)",
-      opacity: checked ? 1 : 0,
-      color: theme.backgroundColor,
-      transition: "all 0.25s cubic-bezier(0.34, 1.56, 0.64, 1)",
-      pointerEvents: "none" as const,
-    },
-    label: {
-      fontSize: theme.fontSize || "14px",
-      color: theme.textColor,
-      cursor: disabled ? "not-allowed" : "pointer",
-      userSelect: "none" as const,
-      fontWeight: 500,
-      transition: "color 0.2s ease",
-    },
-    requiredMark: {
-      color: theme.errorColor,
-      marginLeft: "4px",
-      fontWeight: 600,
-    },
-    errorText: {
-      fontSize: "12px",
-      color: theme.errorColor,
-      marginTop: "4px",
-      animation: "fadeIn 0.3s ease",
-    },
-  }
+  const checkboxClasses = `
+    form-checkbox-input
+    ${checked ? 'form-checkbox-checked' : ''}
+    ${error && isTouched ? 'form-checkbox-error' : ''}
+    ${isFocused ? 'form-checkbox-focused' : ''}
+    ${isHovered ? 'form-checkbox-hovered' : ''}
+    ${disabled ? 'form-checkbox-disabled' : ''}
+    ${className}
+  `.trim().replace(/\s+/g, ' ')
+
+  const containerClasses = `
+    form-checkbox-container
+    ${disabled ? 'form-checkbox-container-disabled' : ''}
+    ${containerClassName}
+  `.trim().replace(/\s+/g, ' ')
 
   return (
-    <div>
+    <div className="form-checkbox-wrapper">
       <div
-        style={styles.container}
-        onMouseEnter={() => setIsHovered(true)}
+        className={containerClasses}
+        onMouseEnter={() => !disabled && setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
       >
-        <div style={styles.checkboxWrapper}>
+        <div className="form-checkbox-box-wrapper">
           <input
             type="checkbox"
             name={name}
@@ -132,10 +85,12 @@ export const Checkbox: React.FC<CheckboxProps> = ({
             onChange={handleChange}
             onFocus={() => setIsFocused(true)}
             onBlur={() => setIsFocused(false)}
-            style={styles.checkboxBase}
+            className={checkboxClasses}
+            aria-invalid={!!(error && isTouched)}
+            aria-describedby={error && isTouched ? `${name}-error` : undefined}
           />
           <svg
-            style={styles.checkmark}
+            className={`form-checkbox-checkmark ${checked ? 'form-checkbox-checkmark-visible' : ''}`}
             width="14"
             height="14"
             viewBox="0 0 24 24"
@@ -148,38 +103,33 @@ export const Checkbox: React.FC<CheckboxProps> = ({
             <polyline points="20 6 9 17 4 12" />
           </svg>
         </div>
+        
         {label && (
-          <label htmlFor={name} style={styles.label}>
+          <label 
+            htmlFor={name} 
+            className={`form-checkbox-label ${labelClassName}`}
+          >
             {label}
-            {required && <span style={styles.requiredMark}>*</span>}
+            {required && (
+              <span className="form-checkbox-required-mark">*</span>
+            )}
           </label>
         )}
       </div>
 
-      {error && <div style={styles.errorText}>{error}</div>}
-
-      <style>
-        {`
-          @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(-3px); }
-            to { opacity: 1; transform: translateY(0); }
-          }
-          input[type="checkbox"]:checked {
-            animation: fillPulse 0.3s ease forwards;
-          }
-          @keyframes fillPulse {
-            0% {
-              box-shadow: 0 0 0 0 ${theme.primaryColor}40;
-            }
-            50% {
-              box-shadow: 0 0 0 6px ${theme.primaryColor}20;
-            }
-            100% {
-              box-shadow: 0 0 0 0 ${theme.primaryColor}00;
-            }
-          }
-        `}
-      </style>
+      {/* Error Message */}
+      {error && isTouched && (
+        <div 
+          id={`${name}-error`}
+          role="alert"
+          className={`form-checkbox-error-text ${errorClassName}`}
+        >
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
+            <path d="M8 0a8 8 0 100 16A8 8 0 008 0zm0 11a1 1 0 110 2 1 1 0 010-2zm0-8a1 1 0 00-1 1v5a1 1 0 002 0V4a1 1 0 00-1-1z"/>
+          </svg>
+          <span>{error}</span>
+        </div>
+      )}
     </div>
   )
 }

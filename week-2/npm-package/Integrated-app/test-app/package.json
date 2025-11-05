@@ -11,7 +11,7 @@
   },
   "dependencies": {
     "@tailwindcss/vite": "^4.1.16",
-    "mehul-form-validator-widget": "^1.0.3",
+    "mehul-form-validator-widget": "1.0.4",
     "react": "^19.1.1",
     "react-dom": "^19.1.1",
     "tailwindcss": "^4.1.16"

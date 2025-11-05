@@ -5,9 +5,6 @@ import { debounce } from "../utils/debounce"
 import { useFormContext } from "../context/FormContext"
 
 
-//  * Custom hook for field-level validation with debouncing
-//  * Made fieldName optional with default value
-
 export const useFieldValidation = (fieldName?: string, config?: ValidationConfig) => {
   const formContext = useFormContext()
   const name = fieldName || "field"
@@ -42,7 +39,6 @@ export const useFieldValidation = (fieldName?: string, config?: ValidationConfig
         formContext.setFieldError(name, "")
       }
 
-      // Also trigger debounced validation for consistency
       debouncedValidate(value, (debouncedResult) => {
         if (!debouncedResult.isValid) {
           formContext.setFieldError(name, debouncedResult.error || "Validation failed")

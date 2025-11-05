@@ -1,5 +1,5 @@
 import type React from "react";
-import type { ThemeConfig } from "../types";
+import "../styles/globals.css";
 export interface Option {
     value: string | number;
     label: string;
@@ -12,12 +12,13 @@ export interface MultiSelectProps {
     required?: boolean;
     disabled?: boolean;
     helperText?: string;
-    theme?: Partial<ThemeConfig>;
     className?: string;
     containerClassName?: string;
     labelClassName?: string;
     errorClassName?: string;
     style?: React.CSSProperties;
+    containerStyle?: React.CSSProperties;
+    labelStyle?: React.CSSProperties;
     maxSelection?: number;
 }
 export declare const MultiSelect: React.FC<MultiSelectProps>;

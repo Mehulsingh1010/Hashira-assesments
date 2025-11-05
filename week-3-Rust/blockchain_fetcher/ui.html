@@ -13,41 +13,42 @@
 
     body {
       font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Inter', system-ui, sans-serif;
-      background: #f5f5f7;
+      background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
       min-height: 100vh;
       color: #1d1d1f;
     }
 
     .header {
-      background: white;
-      border-bottom: 1px solid #e5e5e7;
-      padding: 16px 40px;
+      color: white;
+      padding: 20px 40px;
+      background-color: white;
       display: flex;
       align-items: center;
       justify-content: space-between;
       position: sticky;
       top: 0;
       z-index: 100;
+      box-shadow: 0 4px 20px rgba(102, 126, 234, 0.3);
     }
 
     .logo {
       display: flex;
       align-items: center;
-      gap: 8px;
-      font-size: 1.25rem;
-      font-weight: 600;
-      color: #1d1d1f;
+      gap: 12px;
+      font-size: 1.4rem;
+      font-weight: 700;
+      color:black;
+      letter-spacing: -0.5px;
     }
 
     .logo-icon {
-      width: 32px;
-      height: 32px;
-      border-radius: 8px;
+      width: 40px;
+      height: 40px;
+      border-radius: 10px;
       display: flex;
       align-items: center;
       justify-content: center;
-      color: white;
-      font-weight: 700;
+      font-size: 1.5rem;
     }
 
     .search-container {
@@ -60,56 +61,123 @@
     .search-input {
       width: 100%;
       padding: 12px 48px 12px 16px;
-      border: 1px solid #d2d2d7;
-      border-radius: 10px;
+      border: none;
+      border-radius: 12px;
       font-size: 0.95rem;
-      transition: all 0.2s;
-      background: #f5f5f7;
+      transition: all 0.3s;
+      background: rgba(255, 255, 255, 0.95);
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
     }
 
     .search-input:focus {
       outline: none;
-      border-color: #667eea;
       background: white;
-      box-shadow: 0 0 0 4px rgba(102, 126, 234, 0.1);
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
     }
 
     .search-btn {
       position: absolute;
-      right: 8px;
+      right: 12px;
       top: 50%;
       transform: translateY(-50%);
       background: none;
       border: none;
-      color: #86868b;
+      color: #667eea;
       cursor: pointer;
       padding: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: transform 0.2s;
     }
 
     .search-btn:hover {
-      color: #667eea;
-    }
-
-    .swap-btn {
-      padding: 10px 24px;
-      background: linear-gradient(135deg, #ff6b9d 0%, #c94b94 100%);
-      color: white;
-      border: none;
-      border-radius: 20px;
-      font-weight: 600;
-      cursor: pointer;
-      transition: all 0.2s;
-    }
-
-    .swap-btn:hover {
-      transform: translateY(-1px);
-      box-shadow: 0 4px 12px rgba(255, 107, 157, 0.4);
+      transform: translateY(-50%) scale(1.1);
     }
 
     .main-content {
       max-width: 1400px;
       margin: 0 auto;
       padding: 32px 40px;
+    }
+
+    /* Added skeleton loader styles for smooth loading animation */
+    .skeleton {
+      background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+      background-size: 200% 100%;
+      animation: loading 1.5s infinite;
+      border-radius: 8px;
+    }
+
+    @keyframes loading {
+      0% { background-position: 200% 0; }
+      100% { background-position: -200% 0; }
+    }
+
+    .summary-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 16px;
+      margin-bottom: 32px;
+    }
+
+    .summary-card {
+      background: white;
+      border-radius: 14px;
+      padding: 24px;
+      border: 1px solid #e5e5e7;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+      transition: all 0.3s ease;
+    }
+
+    .summary-card:hover {
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+      transform: translateY(-2px);
+    }
+
+    .summary-card.skeleton {
+      padding: 0;
+      height: 140px;
+    }
+
+    .summary-label {
+      font-size: 0.8rem;
+      color: #6e6e73;
+      text-transform: uppercase;
+      letter-spacing: 0.6px;
+      margin-bottom: 12px;
+      font-weight: 700;
+    }
+
+    .summary-value {
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: #1d1d1f;
+      font-family: 'SF Mono', Monaco, 'Courier New', monospace;
+      word-break: break-all;
+      margin-bottom: 8px;
+    }
+
+    .summary-value.positive {
+      color: #0e6027;
+      background: linear-gradient(135deg, #0e6027 0%, #107c41 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .summary-value.negative {
+      color: #c53030;
+      background: linear-gradient(135deg, #c53030 0%, #e53e3e 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .summary-subtext {
+      font-size: 0.85rem;
+      color: #86868b;
+      font-weight: 500;
     }
 
     .filters {
@@ -120,34 +188,18 @@
     }
 
     .filters h2 {
-      font-size: 1.5rem;
-      font-weight: 600;
+      font-size: 1.6rem;
+      font-weight: 700;
       margin-right: auto;
-    }
-
-    .filter-btn {
-      padding: 8px 16px;
-      background: white;
-      border: 1px solid #d2d2d7;
-      border-radius: 8px;
-      font-size: 0.9rem;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      transition: all 0.2s;
-    }
-
-    .filter-btn:hover {
-      border-color: #667eea;
-      background: #f5f5f7;
+      color: #1d1d1f;
     }
 
     .table-container {
       background: white;
-      border-radius: 12px;
+      border-radius: 16px;
       overflow: hidden;
-      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+      transition: all 0.3s ease;
     }
 
     table {
@@ -156,7 +208,7 @@
     }
 
     thead {
-      background: #fafafa;
+      background: linear-gradient(135deg, #f9f9fb 0%, #f5f5f7 100%);
       border-bottom: 1px solid #e5e5e7;
     }
 
@@ -164,7 +216,7 @@
       padding: 16px 20px;
       text-align: left;
       font-size: 0.85rem;
-      font-weight: 600;
+      font-weight: 700;
       color: #6e6e73;
       text-transform: uppercase;
       letter-spacing: 0.5px;
@@ -185,7 +237,7 @@
     }
 
     .address-cell {
-      font-family: 'Courier New', monospace;
+      font-family: 'SF Mono', Monaco, 'Courier New', monospace;
       font-size: 0.9rem;
       color: #424245;
       display: flex;
@@ -198,8 +250,8 @@
       align-items: center;
       gap: 4px;
       cursor: pointer;
-      padding: 2px 6px;
-      border-radius: 4px;
+      padding: 2px 8px;
+      border-radius: 6px;
       transition: all 0.2s;
     }
 
@@ -227,19 +279,20 @@
       position: fixed;
       bottom: 24px;
       right: 24px;
-      background: #1d1d1f;
+      background: linear-gradient(135deg, #1d1d1f 0%, #424245 100%);
       color: white;
-      padding: 12px 20px;
-      border-radius: 8px;
+      padding: 14px 24px;
+      border-radius: 10px;
       font-size: 0.9rem;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
       animation: slideInUp 0.3s ease;
       z-index: 1000;
+      font-weight: 600;
     }
 
     @keyframes slideInUp {
       from {
-        transform: translateY(100px);
+        transform: translateY(120px);
         opacity: 0;
       }
       to {
@@ -250,17 +303,19 @@
 
     .arrow {
       color: #86868b;
-      font-size: 1rem;
+      font-size: 0.9rem;
     }
 
     .token-badge {
       display: inline-flex;
       align-items: center;
-      gap: 6px;
-      padding: 4px 10px;
-      background: #f5f5f7;
-      border-radius: 16px;
+      gap: 8px;
+      padding: 6px 12px;
+      background: linear-gradient(135deg, #f0f0ff 0%, #f5e6ff 100%);
+      border-radius: 8px;
       font-size: 0.9rem;
+      font-weight: 600;
+      color: #667eea;
     }
 
     .token-icon {
@@ -273,18 +328,18 @@
     .status-badge {
       display: inline-block;
       padding: 6px 14px;
-      border-radius: 16px;
+      border-radius: 8px;
       font-size: 0.85rem;
-      font-weight: 600;
+      font-weight: 700;
     }
 
     .status-completed {
-      background: #d4f4dd;
+      background: #dcf5e3;
       color: #0e6027;
     }
 
     .status-refunded {
-      background: #d4f4dd;
+      background: #dcf5e3;
       color: #0e6027;
     }
 
@@ -298,6 +353,7 @@
       align-items: center;
       gap: 6px;
       color: #6e6e73;
+      font-weight: 600;
     }
 
     .source-icon {
@@ -309,18 +365,22 @@
 
     .loading {
       text-align: center;
-      padding: 60px;
+      padding: 60px 20px;
       color: #86868b;
     }
 
     .spinner {
-      width: 40px;
-      height: 40px;
-      border: 3px solid #f5f5f7;
+      width: 50px;
+      height: 50px;
+      border: 4px solid #e5e5e7;
       border-top-color: #667eea;
       border-radius: 50%;
       animation: spin 0.8s linear infinite;
-      margin: 0 auto 16px;
+      margin: 0 auto 20px;
+    }
+
+    @keyframes spin {
+      to { transform: rotate(360deg); }
     }
 
     .empty-state {
@@ -332,29 +392,38 @@
     .empty-state h3 {
       margin-top: 16px;
       color: #6e6e73;
+      font-size: 1.2rem;
+      font-weight: 600;
+    }
+
+    .empty-state p {
+      margin-top: 8px;
+      color: #a1a1a6;
     }
 
     .error {
-      background: #fff5f5;
-      border: 1px solid #feb2b2;
+      background: linear-gradient(135deg, #fff5f5 0%, #ffe0e0 100%);
+      border: 2px solid #feb2b2;
       color: #c53030;
       padding: 16px 20px;
-      border-radius: 8px;
+      border-radius: 10px;
       margin: 20px 0;
+      font-weight: 600;
     }
 
     .pagination {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding: 20px;
+      padding: 24px 20px;
       border-top: 1px solid #e5e5e7;
-      background: #fafafa;
+      background: linear-gradient(135deg, #fafafa 0%, #f5f5f7 100%);
     }
 
     .pagination-info {
       color: #6e6e73;
       font-size: 0.9rem;
+      font-weight: 600;
     }
 
     .pagination-controls {
@@ -374,11 +443,15 @@
       display: flex;
       align-items: center;
       gap: 6px;
+      font-weight: 600;
     }
 
     .pagination-btn:hover:not(:disabled) {
+      background: #667eea;
+      color: white;
       border-color: #667eea;
-      background: #f5f5f7;
+      transform: translateY(-1px);
+      box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
     }
 
     .pagination-btn:disabled {
@@ -396,17 +469,20 @@
       transition: all 0.2s;
       min-width: 40px;
       text-align: center;
+      font-weight: 600;
     }
 
     .page-number.active {
-      background: #667eea;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
       color: white;
-      border-color: #667eea;
+      border-color: transparent;
+      box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
     }
 
     .page-number:not(.active):hover {
       border-color: #667eea;
       background: #f5f5f7;
+      transform: translateY(-1px);
     }
 
     .page-size-selector {
@@ -415,19 +491,39 @@
       gap: 8px;
       color: #6e6e73;
       font-size: 0.9rem;
+      font-weight: 600;
     }
 
     .page-size-selector select {
-      padding: 6px 12px;
+      padding: 8px 12px;
       border: 1px solid #d2d2d7;
-      border-radius: 6px;
+      border-radius: 8px;
       background: white;
       cursor: pointer;
       font-size: 0.9rem;
+      font-weight: 600;
+      transition: all 0.2s;
     }
 
-    @keyframes spin {
-      to { transform: rotate(360deg); }
+    .page-size-selector select:hover {
+      border-color: #667eea;
+    }
+
+    /* Skeleton table rows for loading state */
+    .skeleton-row {
+      display: grid;
+      grid-template-columns: repeat(6, 1fr);
+      gap: 12px;
+      padding: 16px 20px;
+      border-bottom: 1px solid #f5f5f7;
+    }
+
+    .skeleton-cell {
+      height: 16px;
+      background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+      background-size: 200% 100%;
+      animation: loading 1.5s infinite;
+      border-radius: 4px;
     }
 
     @media (max-width: 1024px) {
@@ -447,12 +543,21 @@
         flex-direction: column;
         gap: 16px;
       }
+
+      .summary-container {
+        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      }
     }
 
     @media (max-width: 768px) {
       .header {
         flex-wrap: wrap;
         padding: 12px 20px;
+        gap: 12px;
+      }
+
+      .logo {
+        font-size: 1.1rem;
       }
 
       .search-container {
@@ -473,6 +578,14 @@
         flex-wrap: wrap;
         justify-content: center;
       }
+
+      .summary-container {
+        grid-template-columns: 1fr;
+      }
+
+      .skeleton-row {
+        grid-template-columns: repeat(3, 1fr);
+      }
     }
   </style>
 </head>
@@ -488,7 +601,7 @@
         type="text" 
         class="search-input" 
         id="walletInput"
-        placeholder="Search by order ID, transaction hash or address"
+        placeholder="Search by wallet address (0x...)"
       >
       <button class="search-btn" onclick="loadData()">
         <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -496,17 +609,13 @@
         </svg>
       </button>
     </div>
-
-  
   </div>
 
   <div class="main-content">
+    <div id="summarySection" class="summary-container"></div>
+
     <div class="filters">
       <h2>Transactions</h2>
-      <button class="filter-btn">From All chains ▼</button>
-      <button class="filter-btn">↔</button>
-      <button class="filter-btn">To All chains ▼</button>
-      <button class="filter-btn">Status ▼</button>
     </div>
 
     <div class="table-container" id="tableContainer">
@@ -563,19 +672,128 @@
       }, 2000);
     }
 
+    function formatNumber(num) {
+      if (num >= 1e18) return (num / 1e18).toFixed(2);
+      if (num >= 1e9) return (num / 1e9).toFixed(2) + 'B';
+      if (num >= 1e6) return (num / 1e6).toFixed(2) + 'M';
+      if (num >= 1e3) return (num / 1e3).toFixed(2) + 'K';
+      return num.toFixed(2);
+    }
+
+    /* Show skeleton loaders in summary while loading */
+    function showSummarySkeleton() {
+      const summarySection = document.getElementById('summarySection');
+      summarySection.innerHTML = `
+        <div class="summary-card skeleton"></div>
+        <div class="summary-card skeleton"></div>
+        <div class="summary-card skeleton"></div>
+        <div class="summary-card skeleton"></div>
+      `;
+    }
+
+    async function loadSummary(address) {
+      showSummarySkeleton();
+      try {
+        const res = await fetch(
+          `http://localhost:3000/transactions/summary/${address}`
+        );
+        
+        if (!res.ok) throw new Error('Failed to fetch summary');
+        
+        const data = await res.json();
+        renderSummary(data);
+      } catch (error) {
+        console.error('Summary error:', error);
+        const summarySection = document.getElementById('summarySection');
+        summarySection.innerHTML = '<div class="error">Failed to load summary data</div>';
+      }
+    }
+
+    function renderSummary(data) {
+      const summarySection = document.getElementById('summarySection');
+      
+      const totalInFormatted = (data.total_in / 1e18).toFixed(4);
+      const totalOutFormatted = (data.total_out / 1e18).toFixed(4);
+      const netChangeFormatted = (data.net_change / 1e18).toFixed(4);
+      const isPositive = data.net_change >= 0;
+
+      summarySection.innerHTML = `
+        <div class="summary-card">
+          <div class="summary-label">Total In</div>
+          <div class="summary-value positive">${totalInFormatted}</div>
+          <div class="summary-subtext">ETH Received</div>
+        </div>
+        
+        <div class="summary-card">
+          <div class="summary-label">Total Out</div>
+          <div class="summary-value">${totalOutFormatted}</div>
+          <div class="summary-subtext">ETH Sent</div>
+        </div>
+        
+        <div class="summary-card">
+          <div class="summary-label">Net Change</div>
+          <div class="summary-value ${isPositive ? 'positive' : 'negative'}">
+            ${isPositive ? '+' : ''}${netChangeFormatted}
+          </div>
+          <div class="summary-subtext">ETH Balance</div>
+        </div>
+        
+        <div class="summary-card">
+          <div class="summary-label">Transactions</div>
+          <div class="summary-value">${data.tx_count}</div>
+          <div class="summary-subtext">Total Txs</div>
+        </div>
+      `;
+    }
+
+    /* Show skeleton table rows while loading transactions */
+    function showTableSkeleton() {
+      const container = document.getElementById('tableContainer');
+      let skeletonHtml = `
+        <table>
+          <thead>
+            <tr>
+              <th>Created</th>
+              <th>Address</th>
+              <th>Asset</th>
+              <th>Value</th>
+              <th>Source</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody>
+      `;
+      
+      for (let i = 0; i < 5; i++) {
+        skeletonHtml += `
+          <tr>
+            <td><div class="skeleton" style="height: 16px; width: 100px;"></div></td>
+            <td><div class="skeleton" style="height: 16px; width: 150px;"></div></td>
+            <td><div class="skeleton" style="height: 16px; width: 100px;"></div></td>
+            <td><div class="skeleton" style="height: 16px; width: 80px;"></div></td>
+            <td><div class="skeleton" style="height: 16px; width: 80px;"></div></td>
+            <td><div class="skeleton" style="height: 16px; width: 100px;"></div></td>
+          </tr>
+        `;
+      }
+      
+      skeletonHtml += `</tbody></table>`;
+      container.innerHTML = skeletonHtml;
+    }
+
     async function loadData(page = 1) {
       const addressInput = document.getElementById('walletInput').value.trim();
       
       if (addressInput) {
         currentAddress = addressInput;
         currentPage = page;
+        loadSummary(currentAddress);
       } else if (!currentAddress) {
         alert('Please enter a wallet address');
         return;
       }
 
-      const container = document.getElementById('tableContainer');
-      container.innerHTML = '<div class="loading"><div class="spinner"></div><p>Loading transactions...</p></div>';
+      showTableSkeleton();
 
       try {
         const res = await fetch(
@@ -588,6 +806,7 @@
         paginationData = data.pagination;
 
         if (!data.transactions || data.transactions.length === 0) {
+          const container = document.getElementById('tableContainer');
           container.innerHTML = `
             <div class="empty-state">
               <svg width="60" height="60" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -602,6 +821,7 @@
 
         renderTable(data.transactions, data.pagination);
       } catch (error) {
+        const container = document.getElementById('tableContainer');
         container.innerHTML = `<div class="error">❌ Error: ${error.message}</div>`;
       }
     }
@@ -643,7 +863,6 @@
             </button>
       `;
 
-      // Page numbers
       const maxVisiblePages = 5;
       let startPage = Math.max(1, current_page - Math.floor(maxVisiblePages / 2));
       let endPage = Math.min(total_pages, startPage + maxVisiblePages - 1);

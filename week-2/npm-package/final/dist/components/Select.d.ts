@@ -1,5 +1,5 @@
 import type React from "react";
-import type { ThemeConfig } from "../types";
+import "../styles/globals.css";
 export interface SelectOption {
     label: string;
     value: string;
@@ -19,7 +19,6 @@ export interface SelectProps {
     labelClassName?: string;
     errorClassName?: string;
     inputClassName?: string;
-    theme?: Partial<ThemeConfig>;
 }
 export declare const Select: React.FC<SelectProps>;
 //# sourceMappingURL=Select.d.ts.map

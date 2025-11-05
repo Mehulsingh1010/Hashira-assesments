@@ -1,5 +1,5 @@
 import type React from "react";
-import type { ThemeConfig } from "../types";
+import "../styles/globals.css";
 export interface FileUploadProps {
     name: string;
     label?: string;
@@ -9,9 +9,10 @@ export interface FileUploadProps {
     required?: boolean;
     disabled?: boolean;
     helperText?: string;
-    theme?: Partial<ThemeConfig>;
     className?: string;
-    style?: React.CSSProperties;
+    containerClassName?: string;
+    labelClassName?: string;
+    errorClassName?: string;
     showPreview?: boolean;
 }
 export declare const FileUpload: React.FC<FileUploadProps>;

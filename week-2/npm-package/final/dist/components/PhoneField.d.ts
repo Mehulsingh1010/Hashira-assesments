@@ -1,5 +1,5 @@
 import React from "react";
-import type { ThemeConfig } from "../types";
+import "../styles/globals.css";
 export interface PhoneFieldProps {
     name: string;
     label?: string;
@@ -15,7 +15,6 @@ export interface PhoneFieldProps {
     errorClassName?: string;
     inputClassName?: string;
     helperText?: string;
-    theme?: Partial<ThemeConfig>;
 }
 export declare const PhoneField: React.FC<PhoneFieldProps>;
 //# sourceMappingURL=PhoneField.d.ts.map

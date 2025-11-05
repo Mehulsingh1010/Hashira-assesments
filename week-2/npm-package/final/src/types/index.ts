@@ -1,7 +1,5 @@
 import type React from "react"
-/**
- * Global type definitions for the form validator widget
- */
+
 
 export interface FormFieldError {
   field: string

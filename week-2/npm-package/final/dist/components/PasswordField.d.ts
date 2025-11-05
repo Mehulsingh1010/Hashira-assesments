@@ -1,5 +1,5 @@
 import React from "react";
-import type { ThemeConfig } from "../types";
+import "../styles/globals.css";
 export interface PasswordFieldProps {
     name: string;
     label?: string;
@@ -17,7 +17,6 @@ export interface PasswordFieldProps {
     errorClassName?: string;
     inputClassName?: string;
     helperText?: string;
-    theme?: Partial<ThemeConfig>;
 }
 export declare const PasswordField: React.FC<PasswordFieldProps>;
 //# sourceMappingURL=PasswordField.d.ts.map

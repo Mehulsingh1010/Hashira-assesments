@@ -1,5 +1,5 @@
 import React from "react";
-import type { ThemeConfig } from "../types";
+import "../styles/globals.css";
 export interface RadioOption {
     label: string;
     value: string;
@@ -14,7 +14,13 @@ export interface RadioProps {
     required?: boolean;
     direction?: "horizontal" | "vertical";
     helperText?: string;
-    theme?: Partial<ThemeConfig>;
+    className?: string;
+    containerClassName?: string;
+    labelClassName?: string;
+    errorClassName?: string;
+    style?: React.CSSProperties;
+    containerStyle?: React.CSSProperties;
+    labelStyle?: React.CSSProperties;
 }
 export declare const Radio: React.FC<RadioProps>;
 //# sourceMappingURL=Radio.d.ts.map

@@ -1,5 +1,5 @@
 import React from "react";
-import type { ThemeConfig } from "../types";
+import "../styles/globals.css";
 export interface ButtonProps {
     type?: "button" | "submit" | "reset";
     children?: React.ReactNode;
@@ -8,10 +8,8 @@ export interface ButtonProps {
     disabled?: boolean;
     loading?: boolean;
     variant?: "primary" | "secondary" | "danger";
-    theme?: Partial<ThemeConfig>;
     fullWidth?: boolean;
     size?: "small" | "medium" | "large";
-    style?: React.CSSProperties;
     enableThrottle?: boolean;
     throttleDelay?: number;
     showErrorSummary?: boolean;
@@ -19,6 +17,8 @@ export interface ButtonProps {
     successMessage?: string;
     onSuccess?: () => void;
     submissionDelay?: number;
+    className?: string;
+    containerClassName?: string;
 }
 export declare const Button: React.FC<ButtonProps>;
 //# sourceMappingURL=Button.d.ts.map

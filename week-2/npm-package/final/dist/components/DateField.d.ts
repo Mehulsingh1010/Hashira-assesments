@@ -1,5 +1,5 @@
 import type React from "react";
-import type { ThemeConfig } from "../types";
+import "../styles/globals.css";
 export interface DateFieldProps {
     name: string;
     label?: string;
@@ -18,7 +18,6 @@ export interface DateFieldProps {
     errorClassName?: string;
     inputClassName?: string;
     helperText?: string;
-    theme?: Partial<ThemeConfig>;
 }
 export declare const DateField: React.FC<DateFieldProps>;
 //# sourceMappingURL=DateField.d.ts.map

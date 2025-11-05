@@ -11,6 +11,8 @@ import {
   Checkbox,
 } from "mehul-form-validator-widget";
 
+import "../../node_modules/mehul-form-validator-widget/dist/style.css"
+
 // function LoginContent({ onNavigate }) {
 //   return (
 //     <>

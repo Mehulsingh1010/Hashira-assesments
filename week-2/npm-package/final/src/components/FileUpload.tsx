@@ -3,8 +3,7 @@
 import type React from "react"
 import { useState, useCallback, useEffect, useRef } from "react"
 import { useFormContext } from "../context/FormContext"
-import type { ThemeConfig } from "../types"
-import { defaultTheme } from "../styles/theme"
+import "../styles/globals.css"
 
 export interface FileUploadProps {
   name: string
@@ -15,9 +14,10 @@ export interface FileUploadProps {
   required?: boolean
   disabled?: boolean
   helperText?: string
-  theme?: Partial<ThemeConfig>
   className?: string
-  style?: React.CSSProperties
+  containerClassName?: string
+  labelClassName?: string
+  errorClassName?: string
   showPreview?: boolean
 }
 
@@ -30,12 +30,12 @@ export const FileUpload: React.FC<FileUploadProps> = ({
   required = false,
   disabled = false,
   helperText,
-  theme: customTheme,
-  className,
-  style: customStyle,
+  className = "",
+  containerClassName = "",
+  labelClassName = "",
+  errorClassName = "",
   showPreview = true,
 }) => {
-  const theme = { ...defaultTheme, ...customTheme }
   const { 
     values, 
     errors, 
@@ -226,133 +226,14 @@ export const FileUpload: React.FC<FileUploadProps> = ({
     ? (Array.isArray(fieldValue) ? fieldValue : [])
     : (fieldValue ? [fieldValue] : [])
 
-  const styles = {
-    container: {
-      marginBottom: theme.spacing,
-      display: "flex",
-      flexDirection: "column" as const,
-      gap: "8px",
-      ...customStyle,
-    },
-    label: {
-      fontSize: "14px",
-      fontWeight: 500,
-      color: theme.textColor,
-      display: "flex",
-      alignItems: "center",
-      gap: "4px",
-    },
-    required: {
-      color: theme.errorColor,
-    },
-    dropzone: {
-      padding: "24px",
-      border: `2px dashed ${
-        isUploading ? theme.primaryColor :
-        isDragOver ? theme.primaryColor : 
-        displayError ? theme.errorColor : 
-        theme.borderColor
-      }`,
-      borderRadius: theme.borderRadius,
-      backgroundColor: isDragOver ? "#f9fafb" : "#ffffff",
-      cursor: disabled || isUploading ? "not-allowed" : "pointer",
-      transition: "all 0.2s ease",
-      textAlign: "center" as const,
-      opacity: disabled ? 0.6 : 1,
-    },
-    dropzoneLabel: {
-      cursor: disabled || isUploading ? "not-allowed" : "pointer",
-      display: "block",
-    },
-    dropzoneText: {
-      fontSize: "14px",
-      color: theme.textColor,
-      marginBottom: "4px",
-    },
-    sizeText: {
-      fontSize: "12px",
-      color: "#6b7280",
-      marginTop: "4px",
-    },
-    progressContainer: {
-      marginTop: "12px",
-      width: "100%",
-    },
-    progressBar: {
-      width: "100%",
-      height: "8px",
-      backgroundColor: "#e5e7eb",
-      borderRadius: "4px",
-      overflow: "hidden",
-    },
-    progressFill: {
-      height: "100%",
-      backgroundColor: theme.primaryColor,
-      transition: "width 0.1s ease",
-      borderRadius: "4px",
-    },
-    progressText: {
-      fontSize: "12px",
-      color: theme.primaryColor,
-      marginTop: "4px",
-      fontWeight: 600,
-    },
-    filesContainer: {
-      marginTop: "12px",
-      display: "flex",
-      flexDirection: "column" as const,
-      gap: "8px",
-    },
-    fileItem: {
-      fontSize: "13px",
-      color: theme.textColor,
-      padding: "10px 12px",
-      backgroundColor: "#f9fafb",
-      borderRadius: theme.borderRadius,
-      border: `1px solid ${theme.borderColor}`,
-      display: "flex",
-      alignItems: "center",
-      justifyContent: "space-between",
-      gap: "8px",
-    },
-    fileInfo: {
-      display: "flex",
-      alignItems: "center",
-      gap: "8px",
-      flex: 1,
-    },
-    fileIcon: {
-      fontSize: "16px",
-    },
-    fileName: {
-      fontWeight: 500,
-    },
-    fileSize: {
-      fontSize: "11px",
-      color: "#6b7280",
-    },
-    removeButton: {
-      background: "none",
-      border: "none",
-      color: theme.errorColor,
-      cursor: "pointer",
-      fontSize: "18px",
-      padding: "0",
-      lineHeight: 1,
-      transition: "opacity 0.2s",
-    },
-    error: {
-      fontSize: "12px",
-      color: theme.errorColor,
-      display: "flex",
-      alignItems: "center",
-      gap: "4px",
-    },
-    helperText: {
-      fontSize: "12px",
-      color: "#6b7280",
-    },
-  }
+  const dropzoneClasses = `
+    form-file-dropzone
+    ${isDragOver ? 'form-file-dropzone-dragover' : ''}
+    ${isUploading ? 'form-file-dropzone-uploading' : ''}
+    ${displayError ? 'form-file-dropzone-error' : ''}
+    ${disabled ? 'form-file-dropzone-disabled' : ''}
+    ${className}
+  `.trim().replace(/\s+/g, ' ')
 
   const formatFileSize = (bytes: number): string => {
     if (bytes < 1024) return bytes + ' B'
@@ -361,16 +242,24 @@ export const FileUpload: React.FC<FileUploadProps> = ({
   }
 
   return (
-    <div style={styles.container} className={className}>
+    <div className={`form-field-container ${containerClassName}`}>
+      {/* Label */}
       {label && (
-        <label style={styles.label}>
-          {label}
-          {required && <span style={styles.required}>*</span>}
-        </label>
+        <div className="form-label-wrapper">
+          <label className={`form-label ${labelClassName}`}>
+            {label}
+          </label>
+          {required && (
+            <span className="form-required-badge" title="Required field">
+              *
+            </span>
+          )}
+        </div>
       )}
       
+      {/* Dropzone */}
       <div
-        style={styles.dropzone}
+        className={dropzoneClasses}
         onDragOver={handleDragOver}
         onDragLeave={handleDragLeave}
         onDrop={handleDrop}
@@ -382,15 +271,15 @@ export const FileUpload: React.FC<FileUploadProps> = ({
           accept={accept}
           multiple={multiple}
           disabled={disabled || isUploading}
-          style={{ display: "none" }}
+          className="form-file-input"
           id={`file-input-${name}`}
         />
-        <label htmlFor={`file-input-${name}`} style={styles.dropzoneLabel}>
-          <div style={styles.dropzoneText}>
+        <label htmlFor={`file-input-${name}`} className="form-file-dropzone-label">
+          <div className="form-file-dropzone-text">
             {isUploading ? "Uploading..." : "Drag and drop files here or click to select"}
           </div>
           {maxSize && (
-            <div style={styles.sizeText}>
+            <div className="form-file-size-text">
               Max file size: {(maxSize / 1024 / 1024).toFixed(1)}MB
             </div>
           )}
@@ -398,16 +287,14 @@ export const FileUpload: React.FC<FileUploadProps> = ({
 
         {/* Upload Progress Bar */}
         {isUploading && (
-          <div style={styles.progressContainer}>
-            <div style={styles.progressBar}>
+          <div className="form-file-progress-container">
+            <div className="form-file-progress-bar">
               <div 
-                style={{
-                  ...styles.progressFill,
-                  width: `${uploadProgress}%`
-                }}
+                className="form-file-progress-fill"
+                style={{ width: `${uploadProgress}%` }}
               />
             </div>
-            <div style={styles.progressText}>
+            <div className="form-file-progress-text">
               Uploading... {uploadProgress}%
             </div>
           </div>
@@ -416,22 +303,20 @@ export const FileUpload: React.FC<FileUploadProps> = ({
 
       {/* Uploaded Files Display */}
       {showPreview && uploadedFiles.length > 0 && (
-        <div style={styles.filesContainer}>
+        <div className="form-file-list">
           {uploadedFiles.map((file: any, index: number) => (
-            <div key={index} style={styles.fileItem}>
-              <div style={styles.fileInfo}>
-                <span style={styles.fileIcon}>📄</span>
-                <div style={{ flex: 1 }}>
-                  <div style={styles.fileName}>{file.name}</div>
-                  <div style={styles.fileSize}>{formatFileSize(file.size)}</div>
+            <div key={index} className="form-file-item">
+              <div className="form-file-info">
+                <span className="form-file-icon">📄</span>
+                <div className="form-file-details">
+                  <div className="form-file-name">{file.name}</div>
+                  <div className="form-file-size">{formatFileSize(file.size)}</div>
                 </div>
               </div>
               <button
                 type="button"
                 onClick={() => removeFile(index)}
-                style={styles.removeButton}
-                onMouseEnter={(e) => e.currentTarget.style.opacity = '0.7'}
-                onMouseLeave={(e) => e.currentTarget.style.opacity = '1'}
+                className="form-file-remove-button"
                 title="Remove file"
               >
                 ×
@@ -441,13 +326,19 @@ export const FileUpload: React.FC<FileUploadProps> = ({
         </div>
       )}
 
+      {/* Error Message */}
       {displayError && (
-        <span style={styles.error}>
-          ⚠️ {fieldError}
-        </span>
+        <div className={`form-error-text ${errorClassName}`}>
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
+            <path d="M8 0a8 8 0 100 16A8 8 0 008 0zm0 11a1 1 0 110 2 1 1 0 010-2zm0-8a1 1 0 00-1 1v5a1 1 0 002 0V4a1 1 0 00-1-1z"/>
+          </svg>
+          <span>{fieldError}</span>
+        </div>
       )}
+      
+      {/* Helper Text */}
       {helperText && !displayError && (
-        <span style={styles.helperText}>{helperText}</span>
+        <div className="form-helper-text">{helperText}</div>
       )}
     </div>
   )
