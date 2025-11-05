@@ -213,19 +213,19 @@ fn main() {
 
     // println!("Serialized JSON: {}",json_str);
 
+    // let arr=[1,2,3,4,5];
+
+    // let parts=&arr[1..=3];
+
+    // println!("{:#?}",parts);
 
 
-    let arr=[1,2,3,4,5];
+    // let mut v=vec![1,2,3,4];
 
-    let parts=&arr[1..=3];
+    // v.push(8);
 
-    println!("{:#?}",parts);
-
-
-
-
-    
-
+    // println!("The elements are as: {:#?}",v);
+    // println!("The first element is: {}",&v[0]);
 
 }
 

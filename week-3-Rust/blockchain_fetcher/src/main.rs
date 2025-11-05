@@ -1,45 +1,26 @@
 mod api;
 mod models;
+mod handlers;
 
-use api::fetch_transactions;
-use std::env;
+use axum::{routing::get, Router};
+use dotenv::dotenv;
 
 #[tokio::main]
 async fn main() {
-    dotenv::dotenv().ok();
+    dotenv().ok();
 
-    let address = env::var("WALLET_ADDRESS").expect("WALLET_ADDRESS not set");
-    let address_lower = address.to_lowercase();
+    let app = Router::new()
+        .route("/transactions/:address", get(handlers::get_wallet_report))
+        .route("/transactions/history/:address", get(handlers::get_transaction_history));
 
-    println!("Fetching transactions for address: {}", address);
+    println!("Server started running on http://localhost:3000");
 
-    match fetch_transactions(&address).await {
-        Ok(txs) => {
-            println!("✅ Successfully fetched {} transactions.", txs.len());
-            println!("note that : 1 ETH= 10**18 Wei ");
-
-            let mut total_in: f64 = 0.0;
-            let mut total_out: f64 = 0.0;
-
-            for tx in &txs {
-                let value_raw = tx.value.parse::<f64>().unwrap_or(0.0);
-                let from_lower = tx.from.to_lowercase();
-                let to_lower = tx.to.clone().unwrap_or_default().to_lowercase();
-
-                if to_lower == address_lower {
-                    total_in += value_raw;
-                } else if from_lower == address_lower {
-                    total_out += value_raw;
-                }
-            }
-
-            println!("\n💰 Total Received (raw Wei): {}", total_in);
-            println!("💸 Total Sent (raw Wei): {}", total_out);
-            println!(
-                "📊 Net Balance Change (raw Wei): {}",
-                total_in - total_out
-            );
-        }
-        Err(err) => eprintln!("❌ Error: {}", err),
-    }
+    axum::serve(
+        tokio::net::TcpListener::bind("localhost:3000")
+            .await
+            .expect("Can't bind to port"),
+        app,
+    )
+    .await
+    .unwrap();
 }
