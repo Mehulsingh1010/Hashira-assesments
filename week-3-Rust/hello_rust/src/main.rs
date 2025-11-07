@@ -1,9 +1,25 @@
-// use std::io;
-// use rand::{rng, Rng};
-// use serde::Serialize;
+use std::io;
+use rand::{rng, Rng};
+use serde::Serialize;
 
+// #[derive(Debug)]
+// struct Rectangle{
+//     length:u8,
+//     breadth:u8
+// }
+
+// impl Rectangle{
+//     fn new (new_length:u8, new_breadth:u8) -> Rectangle{
+//         Rectangle{
+//         length:new_length,
+//         breadth:new_breadth
+//     }}
+
+// }
 
 fn main() {
+    // let rec_one = Rectangle::new(10,2);
+    // println!("{:#?}",rec_one);
     //number data types in rust
 
     // let mut num :u16=5222;
@@ -105,7 +121,7 @@ fn main() {
     //         }
     //     }
 
-    // println!("enums");
+//     println!("enums");
 
 //     #[derive(Debug)]
 //     enum Ip {
@@ -129,16 +145,14 @@ fn main() {
 //         address: String::from("::1"),
 //     };
 
-
-
 //   println!(" home : {:#?}",loopback);
 
 
-    // #[derive(Debug)]
-    //  enum IpAddr {
-    //     V4(String),
-    //     V6(String),
-    // }
+// #[derive(Debug)]
+//      enum IpAddr {
+//         V4(String),
+//         V6(String),
+//     }
 
     // let home = IpAddr::V4(String::from("127.0.0.1"));
 
