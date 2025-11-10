@@ -61,11 +61,9 @@ pub async fn get_transaction_history(
     let total_pages = (total_items as f64 / params.page_size as f64).ceil() as usize;
     let current_page = params.page.max(1).min(total_pages.max(1));
     
-    // Calculate pagination indices
     let start_idx = (current_page - 1) * params.page_size;
     let end_idx = (start_idx + params.page_size).min(total_items);
     
-    // Get paginated slice
     let paginated_txs = if start_idx < total_items {
         &txs[start_idx..end_idx]
     } else {

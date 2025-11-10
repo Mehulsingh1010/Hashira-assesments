@@ -259,3 +259,10 @@ fn main() {
 
 
 //so RUsT: hello_world (snake case), JS: helloWorld (camel case)
+
+// ----------------------------------------------------------------------------------------------------------------------------
+
+
+trait Course{
+    fn get_overview
+}
