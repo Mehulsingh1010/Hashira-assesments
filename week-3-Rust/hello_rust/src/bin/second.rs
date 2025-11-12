@@ -1,18 +1,5 @@
-use std::{thread, time::Duration};
-
-
-fn main(){
-    let handle=thread::spawn(||{
-        for i in 1..10{
-            println!("hi number {} from the spawned thread!", i);
-            thread::sleep(Duration::from_millis(1));
-        }
-    });
-    handle.join().unwrap();
-
-    for i in 1..5{
-        println!("Hi number {} from the main thread!", i);
-        thread::sleep(Duration::from_millis(1));
-    }
-
+fn main() {
+    let num_str = "42";
+    let num: i32 = num_str.parse().unwrap();
+    println!("{}", num + 8); // prints 50
 }
