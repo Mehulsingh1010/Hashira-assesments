@@ -1,7 +1,8 @@
 use std::io;
 use rand::{rng, Rng};
 use serde::Serialize;
-
+mod newone;
+use newone::self_div;
 // #[derive(Debug)]
 // struct Rectangle{
 //     length:u8,
@@ -241,6 +242,9 @@ fn main() {
     // println!("The elements are as: {:#?}",v);
     // println!("The first element is: {}",&v[0]);
 
+    let ans=self_div(10, 1);
+    print!("{:?}",ans);
+
 }
 
 
@@ -262,7 +266,3 @@ fn main() {
 
 // ----------------------------------------------------------------------------------------------------------------------------
 
-
-trait Course{
-    fn get_overview
-}

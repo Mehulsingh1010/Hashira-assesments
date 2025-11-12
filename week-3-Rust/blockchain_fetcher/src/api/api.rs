@@ -19,16 +19,16 @@ pub async fn fetch_transactions(address: &str) -> Result<Vec<Transaction>, Strin
 
     let res = reqwest::get(&url)
         .await
-        .map_err(|e| format!("Network error: {}", e))?;
+        .map_err(|e| format!("some Network error occured: {}", e))?;
 
     if !res.status().is_success() {
-        return Err(format!("HTTP Error: {}", res.status()));
+        return Err(format!("some HTTP error occured: {}", res.status()));
     }
 
     let api: ApiResponse = res
         .json()
         .await
-        .map_err(|e| format!("JSON Parse Error: {}", e))?;
+        .map_err(|e| format!("some JSON Parse Error occured: {}", e))?;
 
     if api.status != "1" {
         return Ok(vec![]);

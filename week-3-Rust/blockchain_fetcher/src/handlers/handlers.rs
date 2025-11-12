@@ -56,7 +56,7 @@ pub async fn get_transaction_history(
     Query(params): Query<PaginationParams>,
 ) -> Json<PaginatedResponse> {
     let txs = fetch_transactions(&address).await.unwrap_or_default();
-    
+
     let total_items = txs.len();
     let total_pages = (total_items as f64 / params.page_size as f64).ceil() as usize;
     let current_page = params.page.max(1).min(total_pages.max(1));
