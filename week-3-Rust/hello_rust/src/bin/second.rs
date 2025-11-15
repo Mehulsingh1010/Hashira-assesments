@@ -1,6 +1,7 @@
+use std::rc::Rc;
 // use core::{error, num};
 // use std::{fs::File, io::{self, Read}};
-
+use std::sync::Mutex;
 // use serde::de::value::Error;
 
 // fn main(){
@@ -75,11 +76,43 @@ impl Greet for person{
     }
 }
 
-fn main(){
-    let per=person{name:"mehul".to_string()};
-    per.hello();
-    per.bye();
+use std::{sync::mpsc, thread, time::Duration};
 
+
+fn main() {
+//   let (tx, rx) = mpsc::channel();
+
+//     thread::spawn(move || {
+//         let vals = vec![
+//             String::from("hi"),
+//             String::from("from"),
+//             String::from("the"),
+//             String::from("thread"),
+//         ];
+
+//         for val in vals {
+//             tx.send(val).unwrap();
+//             thread::sleep(Duration::from_secs(1));
+//         }
+//     });
+// for received in rx {
+    //     println!("Got: {received}");
+    // }
+
+    let m=Mutex::new(5);
+    {
+        let mut num =m.lock().unwrap();
+        *num=8;
+    }
+    println!("m={m:?}");
+
+    // let counter =Rc::new(Mutex::new(0)) ;
+
+    // let m=Mutex::new(5);
+
+    println!("m={m:?}");
+
+    // println!("result {{*counter.lock().unwrap()}}")
 }
 
 
