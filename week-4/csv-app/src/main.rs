@@ -1,9 +1,16 @@
+use axum::{
+    extract::Multipart,
+    http::StatusCode,
+    response::IntoResponse,
+    routing::post,
+    Router,
+};
 use crossbeam::channel;
 use csv::ReaderBuilder;
 use serde::{Deserialize, Serialize};
-use std::fs::File;
 use std::io::Write;
 use std::thread;
+use tower_http::cors::{CorsLayer, Any};
 
 #[derive(Debug, Deserialize, Serialize)]
 struct Transaction {
@@ -14,71 +21,97 @@ struct Transaction {
     description: String,
 }
 
-fn main() -> anyhow::Result<()> {
+#[tokio::main]
+async fn main() {
+    let app = Router::new()
+        .route("/convert", post(convert_csv))
+        .layer(
+            CorsLayer::new()
+                .allow_origin(Any)
+                .allow_methods(Any)
+                .allow_headers(Any),
+        );
 
-    // tx/send_tx: producer -> workers (Transaction)
-    // out_tx/send_out: workers -> main (JSON strings)
+    let listener = tokio::net::TcpListener::bind("127.0.0.1:3001")
+        .await
+        .unwrap();
+    
+    println!("Server running on http://127.0.0.1:3001");
+    axum::serve(listener, app).await.unwrap();
+}
+
+async fn convert_csv(mut multipart: Multipart) -> impl IntoResponse {
+    // Extract CSV data from multipart form
+    let mut csv_data = Vec::new();
+    
+    while let Some(field) = multipart.next_field().await.unwrap() {
+        if field.name() == Some("file") {
+            csv_data = field.bytes().await.unwrap().to_vec();
+            break;
+        }
+    }
+
+    if csv_data.is_empty() {
+        return (StatusCode::BAD_REQUEST, "No file uploaded".to_string());
+    }
+
+    // Process CSV
+    match process_csv(&csv_data) {
+        Ok(jsonl) => (StatusCode::OK, jsonl),
+        Err(e) => (StatusCode::INTERNAL_SERVER_ERROR, format!("Error: {}", e)),
+    }
+}
+
+fn process_csv(csv_data: &[u8]) -> Result<String, Box<dyn std::error::Error>> {
     let (send_tx, recv_tx) = channel::unbounded::<Transaction>();
     let (send_out, recv_out) = channel::unbounded::<String>();
 
-    // Workers will receive Transaction, convert to JSON string, and send to out channel.
-    let worker_count = 4; 
+    // Spawn workers
+    let worker_count = 4;
     for id in 0..worker_count {
         let rx = recv_tx.clone();
         let out = send_out.clone();
 
         thread::spawn(move || {
-            // Each worker loops until the recv channel is closed.
             while let Ok(txn) = rx.recv() {
-                // Convert Transaction -> compact JSON string
                 if let Ok(s) = serde_json::to_string(&txn) {
-                    // If sending fails, main probably exited; ignore error and stop.
                     if out.send(s).is_err() {
                         break;
                     }
                 }
-                // activity
                 println!("[worker {}] converted {}", id, txn.transaction_id);
             }
-            // When rx is closed and emptied, worker exits.
             println!("[worker {}] exiting", id);
         });
     }
 
-
-    // recv_out will eventually see channel closed and the loop will finish.
     drop(send_out);
 
-
-    // Use csv::Reader so quoted fields and commas inside quotes are handled correctly.
+    // Parse CSV
     let mut rdr = ReaderBuilder::new()
         .has_headers(true)
-        .from_path("data.csv")?;
+        .from_reader(csv_data);
 
     for result in rdr.deserialize::<Transaction>() {
         match result {
             Ok(record) => {
-                // Send; if send fails, workers are gone — break early.
                 if send_tx.send(record).is_err() {
                     break;
                 }
             }
             Err(err) => {
-                // Skip malformed row but print an informative message
                 eprintln!("CSV parse error (skipping row): {}", err);
             }
         }
     }
 
-    // Close producer side so workers know there's no more work.
     drop(send_tx);
 
-    let mut out_file = File::create("output.jsonl")?;
-    // Receive loop: will end when all worker senders are dropped.
+    // Collect results
+    let mut output = Vec::new();
     while let Ok(json_line) = recv_out.recv() {
-        writeln!(out_file, "{}", json_line)?;
+        writeln!(output, "{}", json_line)?;
     }
 
-    println!("Conversion complete → output.jsonl");
-    Ok(())
+    Ok(String::from_utf8(output)?)
 }
