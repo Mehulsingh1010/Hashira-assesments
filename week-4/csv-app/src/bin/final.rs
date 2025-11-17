@@ -1,9 +1,8 @@
 use crossbeam::channel;//for multi producer multi consumner comunication. multiple workers can reiceve from the same channel
 use csv::ReaderBuilder;//import csv reader thathandle complexx formats like qwuotes commas etc
-use serde_json::{json, Value};//macro for building json
 use std::fs::File;//creating and opneing files
 use std::io::Write;//provides macro writeln! method for writing files
-use std::thread;//for spawning paralelle threads
+use std::thread;//for spawning parallel threads
 use clap::Parser;//CLi for argument exchange
 
 #[derive(Parser, Debug)]//auto generates cli parsing from struct
@@ -99,7 +98,91 @@ fn main() -> anyhow::Result<()> {//result return for error handeling and anyhow 
     for (_, json_line) in results {
         writeln!(out_file, "{}", json_line)?;
     }
-
+    //PROCESS COMPLETED
     println!("Conversion complete → {}", args.output);
     Ok(())
 }
+
+
+//optimized version 
+
+// use crossbeam::channel;
+// use csv::ReaderBuilder;
+// use std::fs::File;
+// use std::io::Write;
+// use std::path::{Path, PathBuf};
+// use std::thread;
+// use clap::Parser;
+
+// #[derive(Parser)]
+// struct Args {
+//     /// Input CSV files
+//     #[arg(short, long, required = true, num_args = 1..)]
+//     input: Vec<String>,
+
+//     /// Output directory
+//     #[arg(short, long, default_value = "output")]
+//     output_dir: String,
+
+//     /// Worker threads
+//     #[arg(short, long, default_value_t = 4)]
+//     workers: usize,
+// }
+
+// fn main() -> anyhow::Result<()> {
+//     let args = Args::parse();
+    
+//     std::fs::create_dir_all(&args.output_dir)?;
+//     let (tx, rx) = channel::unbounded::<PathBuf>();
+
+//     // Spawn workers
+//     let handles: Vec<_> = (0..args.workers)
+//         .map(|id| {
+//             let rx = rx.clone();
+//             let out_dir = args.output_dir.clone();
+//             thread::spawn(move || {
+//                 while let Ok(path) = rx.recv() {
+//                     let out_path = Path::new(&out_dir).join(
+//                         format!("{}.jsonl", path.file_stem().unwrap().to_str().unwrap())
+//                     );
+//                     match convert_csv(&path, &out_path) {
+//                         Ok(n) => println!("[Worker {}] [SUCCESS] {} → {} ({} rows)", id, path.display(), out_path.display(), n),
+//                         Err(e) => eprintln!("[Worker {}] [FAILED] {} - {}", id, path.display(), e),
+//                     }
+//                 }
+//             })
+//         })
+//         .collect();
+
+//     // Send jobs
+//     for file in args.input {
+//         tx.send(PathBuf::from(file))?;
+//     }
+//     drop(tx);
+
+//     // Wait for completion
+//     for h in handles {
+//         h.join().unwrap();
+//     }
+
+//     println!(" [SUCCESS] Output: {}", args.output_dir);
+//     Ok(())
+// }
+
+// fn convert_csv(input: &Path, output: &Path) -> anyhow::Result<usize> {
+//     let mut rdr = ReaderBuilder::new().has_headers(true).from_path(input)?;
+//     let headers: Vec<_> = rdr.headers()?.iter().map(|h| h.to_string()).collect();
+//     let mut out = File::create(output)?;
+//     let mut count = 0;
+
+//     for record in rdr.records().flatten() {
+//         let json = headers.iter().zip(record.iter())
+//             .map(|(h, v)| format!("\"{}\":{}", h, serde_json::to_string(v).unwrap()))
+//             .collect::<Vec<_>>()
+//             .join(",");
+//         writeln!(out, "{{{}}}", json)?;
+//         count += 1;
+//     }
+
+//     Ok(count)
+// }
