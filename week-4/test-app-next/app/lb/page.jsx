@@ -1,6 +1,6 @@
 'use client'
 import React, { useState, useEffect } from 'react';
-import { Activity, Server, Zap, TrendingUp, ArrowRight, Loader2 } from 'lucide-react';
+import { Activity, Server, Zap, ArrowRight, Loader2 } from 'lucide-react';
 
 export default function LoadBalancerDashboard() {
   const [stats, setStats] = useState(null);

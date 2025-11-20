@@ -89,10 +89,7 @@ function LoginContent({ onNavigate }) {
           placeholder="your.email@example.com"
           required
           validation={{ type: "email" }}
-          theme={retroTheme}
-          containerClassName="retro-field"
-          inputClassName="retro-input"
-          labelClassName="retro-label font-mono"
+          
         />
       </FormGroup>
 
