@@ -1,117 +1,84 @@
-use axum::{
-    extract::Multipart,
-    http::StatusCode,
-    response::IntoResponse,
-    routing::post,
-    Router,
-};
-use crossbeam::channel;
-use csv::ReaderBuilder;
-use serde::{Deserialize, Serialize};
-use std::io::Write;
-use std::thread;
-use tower_http::cors::{CorsLayer, Any};
+use crossbeam::channel;//for multiple channel multiple consumers
+use csv::ReaderBuilder;//file reading for csv formats 
+use std::fs::File;//for file creating or opening
+use std::io::Write;//for writeln! macro to write file
+use std::path::{Path, PathBuf}; //path reference to a pth(borrowed like &str)
+use std::thread;//for the thread spawn utility (concurrency)
+use clap::Parser;//importing parser that auto generate cli parsing
 
-#[derive(Debug, Deserialize, Serialize)]
-struct Transaction {
-    transaction_id: String,
-    category: String,
-    amount: f64,
-    currency: String,
-    description: String,
-}
+#[derive(Parser)]//tells clap to parse these arguments via cli and default value is provided
+struct Arguments {
+    /// Input CSV 
+    // short : --i, long: --input, req:true then mandatory or else fail the request , num_args is number of inputs ( auto specified)
+    #[arg(short, long, required = true, num_args = 1..)]
+    input: Vec<String>,//vector of inputs , can be singular too
 
-#[tokio::main]
-async fn main() {
-    let app = Router::new()
-        .route("/convert", post(convert_csv))
-        .layer(
-            CorsLayer::new()
-                .allow_origin(Any)
-                .allow_methods(Any)
-                .allow_headers(Any),
-        );
+    /// Output directory
+    #[arg(short, long, default_value = "output")]
+    output_dir: String,
 
-    let listener = tokio::net::TcpListener::bind("127.0.0.1:3001")
-        .await
-        .unwrap();
+    /// Worker threads
+    #[arg(short, long, default_value_t = 4)]// t = typed so its referenced as a whole unlike the above &str 
+    workers: usize,
+}//automatically creates --help
+
+fn main() -> anyhow::Result<()> {//entry point,return anyhow result either sucess or error 
+    let arguments = Arguments::parse();//initiating arguments parse, reads from std env arguments, handles--help, returns populated Arguments struct
     
-    println!("Server running on http://127.0.0.1:3001");
-    axum::serve(listener, app).await.unwrap();
-}
-
-async fn convert_csv(mut multipart: Multipart) -> impl IntoResponse {
-    // Extract CSV data from multipart form
-    let mut csv_data = Vec::new();
-    
-    while let Some(field) = multipart.next_field().await.unwrap() {
-        if field.name() == Some("file") {
-            csv_data = field.bytes().await.unwrap().to_vec();
-            break;
-        }
-    }
-
-    if csv_data.is_empty() {
-        return (StatusCode::BAD_REQUEST, "No file uploaded".to_string());
-    }
-
-    // Process CSV
-    match process_csv(&csv_data) {
-        Ok(jsonl) => (StatusCode::OK, jsonl),
-        Err(e) => (StatusCode::INTERNAL_SERVER_ERROR, format!("Error: {}", e)),
-    }
-}
-
-fn process_csv(csv_data: &[u8]) -> Result<String, Box<dyn std::error::Error>> {
-    let (send_tx, recv_tx) = channel::unbounded::<Transaction>();
-    let (send_out, recv_out) = channel::unbounded::<String>();
+    std::fs::create_dir_all(&arguments.output_dir)?;//created folder for output )optional step)
+    let (tsx, rsx) = channel::unbounded::<PathBuf>();//creates channel for sending file to workers , tsx and rsx are transmitter and reciever , unbounded for no queue msg limit
 
     // Spawn workers
-    let worker_count = 4;
-    for id in 0..worker_count {
-        let rx = recv_tx.clone();
-        let out = send_out.clone();
-
-        thread::spawn(move || {
-            while let Ok(txn) = rx.recv() {
-                if let Ok(s) = serde_json::to_string(&txn) {
-                    if out.send(s).is_err() {
-                        break;
+    let handles: Vec<_> = (0..arguments.workers)//worker spawning part, vec type inferred automatically
+        .map(|id| {// the whole thing {} runs for each worker .
+            let rsx = rsx.clone();//clones the reciever for this worker, each thread needs its own handle to channel and clone creates new reference to the SAME channel 
+            let out_dir = arguments.output_dir.clone();// clone the output directory path for this worker clone created owned coopy of the String needed bcz thread takes ownership and we cant share references
+            thread::spawn(move || {//thread is spawned here, move takes ownership of rsx output dir and id
+                while let Ok(path) = rsx.recv() {//to recieve the file and then rsx blocks waitsuntil a msg arrives, returns Ok when file path recieved and returns Err whenc ahnnel is closed and empty
+                    let out_path = Path::new(&out_dir).join(//creates path from string lik eouptut and join appends filename to directory , like output + data .jsonl = output/data.jsonl so its in the specific directory 
+                        format!("{}.jsonl", path.file_stem().unwrap().to_str().unwrap())//takes filename withhotu extention then converts to string slice then adds jsonl extention result csv->json
+                    );
+                    match convert_csv(&path, &out_path) {
+                        Ok(n) => println!("[Worker {}] [SUCCESS] {} → {} ({} rows)", id, path.display(), out_path.display(), n),
+                        Err(e) => eprintln!("[Worker {}] [FAILED] {} - {}", id, path.display(), e),
                     }
                 }
-                println!("[worker {}] converted {}", id, txn.transaction_id);
-            }
-            println!("[worker {}] exiting", id);
-        });
+            })
+        })
+        .collect();//collects all threads into a vectorvec<joinhandle<()>>
+
+ 
+
+
+    // Send jobs
+    for file in arguments.input {
+        tsx.send(PathBuf::from(file))?;//send the path to worker viachannel convert string to PathBuf puts msg in channle and returns error also workerreciee thes eon the other end with rsx recv
+    }
+    drop(tsx);//desttroys variable
+
+    // Wait for completion
+    for h in handles {
+        h.join().unwrap();//iteraete through all thread handles
     }
 
-    drop(send_out);
+    println!(" [SUCCESS] Output: {}", arguments.output_dir);
+    Ok(())
+}
 
-    // Parse CSV
-    let mut rdr = ReaderBuilder::new()
-        .has_headers(true)
-        .from_reader(csv_data);
+fn convert_csv(input: &Path, output: &Path) -> anyhow::Result<usize> {
+    let mut readerr = ReaderBuilder::new().has_headers(true).from_path(input)?;
+    let headers: Vec<_> = readerr.headers()?.iter().map(|h| h.to_string()).collect();
+    let mut output = File::create(output)?;
+    let mut count = 0;
 
-    for result in rdr.deserialize::<Transaction>() {
-        match result {
-            Ok(record) => {
-                if send_tx.send(record).is_err() {
-                    break;
-                }
-            }
-            Err(err) => {
-                eprintln!("CSV parse error (skipping row): {}", err);
-            }
-        }
+    for record in readerr.records().flatten() {
+        let json = headers.iter().zip(record.iter())
+            .map(|(h, v)| format!("\"{}\":{}", h, serde_json::to_string(v).unwrap()))
+            .collect::<Vec<_>>()
+            .join(",");
+        writeln!(output, "{{{}}}", json)?;
+        count += 1;
     }
 
-    drop(send_tx);
-
-    // Collect results
-    let mut output = Vec::new();
-    while let Ok(json_line) = recv_out.recv() {
-        writeln!(output, "{}", json_line)?;
-    }
-
-    Ok(String::from_utf8(output)?)
+    Ok(count)
 }
