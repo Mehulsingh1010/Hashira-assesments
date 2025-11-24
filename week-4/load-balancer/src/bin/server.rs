@@ -17,11 +17,6 @@ use std::{
 use tokio::sync::RwLock;
 use tower_http::cors::CorsLayer;
 use uuid::Uuid;
-
-// ====================================================================================
-// DATA STRUCTURES - These define what information we track
-// ====================================================================================
-
 // WorkerNode: Represents one worker that can do tasks
 // Think of it like an employee in a company - we track their info
 #[derive(Clone, Serialize, Deserialize, Debug)]
@@ -58,10 +53,6 @@ struct RequestResponse {
     node_id: String,                // Which worker handled it
     result: String,                 // What the worker returned
 }
-
-// ====================================================================================
-// SHARED STATE - Data that all threads can access safely
-// ====================================================================================
 
 // Why Arc<RwLock<AppState>>?
 // - Arc: Allows multiple threads to "own" the same data (Atomic Reference Counting)
@@ -114,10 +105,6 @@ impl AppState {
         Some(active_nodes[self.round_robin_index].id.clone())
     }
 }
-
-// ====================================================================================
-// MAIN FUNCTION - Entry point of the program
-// ====================================================================================
 
 #[tokio::main]  // This macro makes our main function async-capable
 async fn main() {
@@ -173,10 +160,6 @@ async fn main() {
     // Step 6: Serve requests forever (this blocks until server stops)
     axum::serve(listener, app).await.unwrap();
 }
-
-// ====================================================================================
-// API HANDLERS - These functions respond to HTTP requests
-// ====================================================================================
 
 // Handle POST /process - This is where actual work distribution happens!
 // YES, we ARE actually sending requests to worker nodes
@@ -305,10 +288,6 @@ async fn deregister_node(
     
     StatusCode::OK
 }
-
-// ====================================================================================
-// BACKGROUND TASK - Health monitoring
-// ====================================================================================
 
 // This runs FOREVER in a background thread
 // Every 5 seconds, it checks if workers are still alive

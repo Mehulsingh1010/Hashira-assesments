@@ -12,17 +12,12 @@ use std::time::{Duration, SystemTime};
 use tokio::time;
 use tokio::signal;  // For graceful shutdown
 
-// ====================================================================================
-// CLI ARGUMENTS - Parse what user types in terminal
-// ====================================================================================
-
 // Clap is a library that automatically handles command-line arguments
 // When you run: cargo run --bin node -- --port 3001
 // Clap parses this and creates an Args struct with port=3001
 
 #[derive(Parser, Debug)]
-#[command(name = "Worker Node")]
-#[command(about = "A worker node for the load balancer", long_about = None)]
+
 struct Args {
     /// Port to run this worker node on
     /// The user MUST provide this: --port 3001
@@ -34,10 +29,6 @@ struct Args {
     #[arg(short, long)]
     id: Option<String>,
 }
-
-// ====================================================================================
-// DATA STRUCTURES - Same as server, so they can talk to each other
-// ====================================================================================
 
 #[derive(Clone, Serialize, Deserialize, Debug)]
 struct WorkerNode {
@@ -54,10 +45,6 @@ struct WorkerNode {
 struct WorkRequest {
     data: String,  // The task to process
 }
-
-// ====================================================================================
-// MAIN FUNCTION - Entry point for worker
-// ====================================================================================
 
 #[tokio::main]
 async fn main() {
@@ -133,10 +120,6 @@ async fn main() {
     println!("👋 Worker stopped cleanly");
 }
 
-// ====================================================================================
-// REGISTRATION - Tell load balancer we exist
-// ====================================================================================
-
 // This function is called ONCE when worker starts up
 // It sends a POST request to load balancer saying "Hey, I'm here!"
 async fn register_with_load_balancer(node_id: &str, address: &str) -> bool {
@@ -165,10 +148,6 @@ async fn register_with_load_balancer(node_id: &str, address: &str) -> bool {
     }
 }
 
-// ====================================================================================
-// DEREGISTRATION - Tell load balancer we're leaving
-// ====================================================================================
-
 // This is called when worker shuts down (Ctrl+C)
 // It tells load balancer "Remove me, don't send me any more work"
 async fn deregister_with_load_balancer(node_id: &str) {
@@ -188,10 +167,6 @@ async fn deregister_with_load_balancer(node_id: &str) {
     }
 }
 
-// ====================================================================================
-// WORK HANDLER - Do the actual work!
-// ====================================================================================
-
 // This function is called every time load balancer sends us work
 // It receives a WorkRequest and returns a result
 async fn handle_work(Json(request): Json<WorkRequest>) -> Json<String> {
@@ -209,10 +184,6 @@ async fn handle_work(Json(request): Json<WorkRequest>) -> Json<String> {
     // Return result as JSON
     Json(result)
 }
-
-// ====================================================================================
-// HEARTBEAT - Tell load balancer we're alive
-// ====================================================================================
 
 // This runs FOREVER in background
 // Every 5 seconds it sends "I'm alive!" message

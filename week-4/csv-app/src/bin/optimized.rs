@@ -61,7 +61,7 @@ fn main() -> anyhow::Result<()> {//entry point,return anyhow result either suces
     println!(" [SUCCESS] Output: {}", arguments.output_dir);
     Ok(())
 }
-//
+
 fn convert_csv(input: &Path, output: &Path) -> anyhow::Result<usize> {
     let mut readerr = ReaderBuilder::new().has_headers(true).from_path(input)?;
     let headers: Vec<_> = readerr.headers()?.iter().map(|h| h.to_string()).collect();
