@@ -1,4 +1,3 @@
-// src/state.rs
 use std::sync::{Arc, Mutex};
 use crate::node::RaftNode;
 

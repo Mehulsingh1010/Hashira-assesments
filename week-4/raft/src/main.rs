@@ -1,10 +1,11 @@
-// src/main.rs
 use axum::{Router, routing::{get, post}};
 use std::net::SocketAddr;
 use tower_http::cors::CorsLayer;
 mod state;
 mod node;
 mod routes;
+mod messages;
+mod election;
 
 use state::AppState;
 
@@ -18,10 +19,23 @@ async fn main() {
     let peers = all_peers.into_iter().filter(|&p| p != id).collect();
     let state = AppState::new(id, peers);
 
+    let state_election = state.clone();
+    tokio::spawn(election::run_election_loop(state_election));
+
+    let state_vote = state.clone();
+    tokio::spawn(election::broadcast_request_votes(state_vote));
+
+    let state_heartbeat = state.clone();
+    tokio::spawn(election::broadcast_heartbeats(state_heartbeat));
+
     let app = Router::new()
         .route("/health", get(routes::health))
         .route("/items", post(routes::set_item))
         .route("/items/:key", get(routes::get_item))
+        .route("/request_vote", post(routes::request_vote))
+        .route("/append_entries", post(routes::append_entries))
+        .route("/vote_response", post(routes::handle_vote_response))
+        .route("/status", get(routes::status))
         .layer(CorsLayer::permissive())
         .with_state(state);
 
