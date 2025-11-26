@@ -138,6 +138,7 @@ pub async fn append_entries(
     )
 }
 
+
 #[derive(Deserialize)]
 pub struct VoteResponse {
     pub granted: bool,
