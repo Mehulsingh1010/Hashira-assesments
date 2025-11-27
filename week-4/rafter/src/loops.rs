@@ -272,7 +272,7 @@ fn update_commit_index(s: &mut RaftState) {
     indices.push(s.last_log_index());
     indices.sort_by(|a, b| b.cmp(a)); // Sort descending
 
-    let majority_idx = (s.peers.len() + 1 - 1) / 2; // Index of the median (majority) match
+    let majority_idx = (s.peers.len() - 1 ) / 2; // Index of the median (majority) match
     
     // Safety check: ensure we have enough indices to compute the majority index
     if indices.len() <= majority_idx {

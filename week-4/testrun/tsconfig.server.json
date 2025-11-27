@@ -1,0 +1,15 @@
+{
+  "extends": "./tsconfig.json", // Inherit most settings from Next.js config
+  "compilerOptions": {
+    "module": "CommonJS",        // 👈 Crucial: Switch to CommonJS modules
+    "moduleResolution": "node",  // 👈 Crucial: Use Node.js module resolution
+    "noEmit": true,              // Keep this since ts-node handles execution
+    "jsx": "preserve"
+  },
+  "include": [
+    "raftNode.ts"                // 👈 Only include your server file
+  ],
+  "exclude": [
+    "**/*.tsx"                   // Exclude React components
+  ]
+}
