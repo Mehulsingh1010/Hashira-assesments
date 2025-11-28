@@ -104,7 +104,7 @@ pub struct RaftState {
 
 impl RaftState {
     pub async fn new(id: usize, peers: Vec<PeerInfo>) -> Self {
-        let mongo_uri = std::env::var("MONGO_URI").unwrap_or("mongodb+srv://himanshusinha392_db_user:rSuFd7jSsAj50RvG@cluster0.iso9ppq.mongodb.net/?retryWrites=true&w=majority".into());
+        let mongo_uri = std::env::var("MONGO_URI").unwrap_or("".into());
         let mongo_client = MongoClient::with_uri_str(&mongo_uri)
             .await
             .expect("Mongo connection failed");
