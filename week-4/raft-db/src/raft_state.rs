@@ -91,7 +91,6 @@ pub struct RaftState {
     pub next_index: HashMap<usize, i64>,
     pub match_index: HashMap<usize, i64>,
 
-    // cluster
     pub peers: Vec<PeerInfo>,
     pub client: Client,
 
