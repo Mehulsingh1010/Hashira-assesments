@@ -31,8 +31,8 @@ contract PepsiCoin {
     event Transfer(address indexed from, address indexed to, uint256 value);
     event Approval(address indexed owner, address indexed spender, uint256 value);
     event FaucetClaimed(address indexed claimer, uint256 amount);
-    event Mint(address indexed to, uint256 amount);                
-    event OwnershipRenounced(address indexed previousOwner);       
+    event Mint(address indexed to, uint256 amount);
+    event OwnershipRenounced(address indexed previousOwner);
 
     constructor(uint256 _initialSupply) {
         if (_initialSupply == 0) revert AmountMustBeGreaterThanZero();
@@ -140,7 +140,7 @@ function faucet() public {
 
 
     // ------------------ Burn ------------------
-    function burn(uint256 amount) public {
+    function burn(uint256 amount) external {
         if (amount == 0) revert AmountMustBeGreaterThanZero();
         if (balances[msg.sender] < amount) revert InsufficientBalance();
 

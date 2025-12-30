@@ -1,0 +1,23 @@
+{
+  "surrealdb": {
+    "create_avg_ms": 0.5174349799999979,
+    "read_avg_ms": 0.31579363999999943,
+    "update_avg_ms": 0.43517268000000076,
+    "delete_avg_ms": 0.6017007599999981,
+    "ops": 5000
+  },
+  "postgres": {
+    "create_avg_ms": 2.0445887799999984,
+    "read_avg_ms": 1.0443320399999978,
+    "update_avg_ms": 2.1032070000000047,
+    "delete_avg_ms": 2.1044180200000056,
+    "ops": 5000
+  },
+  "mongodb": {
+    "create_avg_ms": 1.12931236,
+    "read_avg_ms": 1.0407382600000012,
+    "update_avg_ms": 0.9642171399999979,
+    "delete_avg_ms": 0.9574140000000021,
+    "ops": 5000
+  }
+}
