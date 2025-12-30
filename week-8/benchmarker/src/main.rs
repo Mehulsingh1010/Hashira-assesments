@@ -9,9 +9,11 @@ mod utils;
 mod surrealdb_impl;
 mod postgres_impl;
 mod mongo_impl;
+mod rocksdb_impl;  // ← NEW: Raw standalone RocksDB
 
 use db_trait::Database;
 use utils::{generate_key, generate_value};
+use rocksdb_impl::RocksDBImpl;  // ← NEW
 
 #[derive(Serialize, Default)]
 struct DbResult {
@@ -27,6 +29,7 @@ struct Results {
     surrealdb: DbResult,
     postgres: DbResult,
     mongodb: DbResult,
+    rocksdb_raw: DbResult,  // ← NEW: Raw standalone RocksDB
 }
 
 #[tokio::main]
@@ -36,10 +39,13 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
     let num_ops = 5000;
     let value_size = 256;
 
+    println!("Starting benchmarks with {} operations...", num_ops);
+
     let results = Results {
-        surrealdb: benchmark("SurrealDB", Box::new(surrealdb_impl::SurrealDBImpl::new()) as Box<dyn Database>, num_ops, value_size).await,
-        postgres: benchmark("PostgreSQL", Box::new(postgres_impl::PostgresImpl::new()) as Box<dyn Database>, num_ops, value_size).await,
-        mongodb: benchmark("MongoDB", Box::new(mongo_impl::MongoImpl::new()) as Box<dyn Database>, num_ops, value_size).await,
+        surrealdb: benchmark("SurrealDB", Box::new(surrealdb_impl::SurrealDBImpl::new()), num_ops, value_size).await,
+        postgres: benchmark("PostgreSQL", Box::new(postgres_impl::PostgresImpl::new()), num_ops, value_size).await,
+        mongodb: benchmark("MongoDB", Box::new(mongo_impl::MongoImpl::new()), num_ops, value_size).await,
+        rocksdb_raw: benchmark("RocksDB (Raw Standalone)", Box::new(RocksDBImpl::new()), num_ops, value_size).await,  // ← NEW
     };
 
     let json = serde_json::to_string_pretty(&results)?;
@@ -51,7 +57,7 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
 
 async fn benchmark(name: &str, mut db: Box<dyn Database>, num_ops: usize, value_size: usize) -> DbResult {
     println!("Starting {} benchmark...", name);
-    db.init().await.expect("Init failed");
+    db.init().await.expect(&format!("{} init failed", name));
 
     let mut create = vec![];
     let mut read = vec![];
@@ -67,7 +73,7 @@ async fn benchmark(name: &str, mut db: Box<dyn Database>, num_ops: usize, value_
         create.push(start.elapsed());
 
         let start = Instant::now();
-        db.read(&key).await.unwrap();
+        let _ = db.read(&key).await.unwrap();  // ignore result, just time it
         read.push(start.elapsed());
 
         let start = Instant::now();

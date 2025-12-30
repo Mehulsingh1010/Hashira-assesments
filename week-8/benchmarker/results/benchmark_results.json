@@ -1,23 +1,30 @@
 {
   "surrealdb": {
-    "create_avg_ms": 1.796439300000003,
-    "read_avg_ms": 1.5213690599999983,
-    "update_avg_ms": 1.6433703600000074,
-    "delete_avg_ms": 1.866642839999994,
+    "create_avg_ms": 1.1791554200000025,
+    "read_avg_ms": 0.9578896400000007,
+    "update_avg_ms": 1.0672469600000003,
+    "delete_avg_ms": 1.1929755200000032,
     "ops": 5000
   },
   "postgres": {
-    "create_avg_ms": 1.8869281800000015,
-    "read_avg_ms": 0.956637459999996,
-    "update_avg_ms": 1.9315026000000006,
-    "delete_avg_ms": 1.9589085000000057,
+    "create_avg_ms": 1.906598519999991,
+    "read_avg_ms": 0.9782821000000005,
+    "update_avg_ms": 1.9647666000000004,
+    "delete_avg_ms": 1.9919229199999984,
     "ops": 5000
   },
   "mongodb": {
-    "create_avg_ms": 0.9605347400000035,
-    "read_avg_ms": 0.8687391000000012,
-    "update_avg_ms": 0.7971289000000015,
-    "delete_avg_ms": 0.7956439600000014,
+    "create_avg_ms": 0.9560307799999996,
+    "read_avg_ms": 0.8882853000000019,
+    "update_avg_ms": 0.8113603800000002,
+    "delete_avg_ms": 0.8058592199999983,
+    "ops": 5000
+  },
+  "rocksdb_raw": {
+    "create_avg_ms": 0.025323559999999953,
+    "read_avg_ms": 0.007205020000000026,
+    "update_avg_ms": 0.024189600000000068,
+    "delete_avg_ms": 0.021839259999999902,
     "ops": 5000
   }
 }
