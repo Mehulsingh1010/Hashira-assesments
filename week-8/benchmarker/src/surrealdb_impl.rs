@@ -1,8 +1,9 @@
 use crate::db_trait::Database;
 use async_trait::async_trait;
 use serde::{Deserialize, Serialize};
-use surrealdb::engine::local::{Db, Mem};
-use surrealdb::Surreal;  // No need for Thing or RecordId import here
+use surrealdb::engine::remote::ws::Client;  // Correct for remote
+use surrealdb::opt::auth::Root;             // For signin
+use surrealdb::Surreal;
 use std::error::Error;
 use std::time::{Duration, Instant};
 
@@ -11,15 +12,14 @@ struct KvRecord {
     value: String,
 }
 
-// Add the id field for deserialization (it will be filled by SurrealDB)
 #[derive(Deserialize, Debug)]
 struct KvRecordWithId {
-    id: surrealdb::RecordId,  // This is the correct type now
+    id: surrealdb::RecordId,
     value: String,
 }
 
 pub struct SurrealDBImpl {
-    db: Option<Surreal<Db>>,
+    db: Option<Surreal<Client>>,
 }
 
 impl SurrealDBImpl {
@@ -31,8 +31,16 @@ impl SurrealDBImpl {
 #[async_trait]
 impl Database for SurrealDBImpl {
     async fn init(&mut self) -> Result<(), Box<dyn Error + Send + Sync>> {
-        let db = Surreal::new::<Mem>(()).await?;
+        let db = Surreal::new::<surrealdb::engine::remote::ws::Ws>("127.0.0.1:8000").await?;
+
+        db.signin(Root {
+            username: "root",
+            password: "root",
+        })
+        .await?;
+
         db.use_ns("benchmark").use_db("benchmark").await?;
+
         self.db = Some(db);
         Ok(())
     }
@@ -40,20 +48,20 @@ impl Database for SurrealDBImpl {
     async fn create(&mut self, key: &str, value: &str) -> Result<Duration, Box<dyn Error + Send + Sync>> {
         let start = Instant::now();
 
-        // Returns Option<KvRecordWithId> (the full record including generated id)
         let _: Option<KvRecordWithId> = self
             .db
             .as_ref()
             .unwrap()
             .create(("kv", key))
-            .content(KvRecord { value: value.to_string() })
+            .content(KvRecord {
+                value: value.to_string(),
+            })
             .await?;
 
         Ok(start.elapsed())
     }
 
     async fn read(&self, key: &str) -> Result<Option<String>, Box<dyn Error + Send + Sync>> {
-        // Directly deserialize into the full record
         let result: Option<KvRecordWithId> = self
             .db
             .as_ref()
@@ -67,13 +75,14 @@ impl Database for SurrealDBImpl {
     async fn update(&mut self, key: &str, value: &str) -> Result<Duration, Box<dyn Error + Send + Sync>> {
         let start = Instant::now();
 
-        // Returns Option<KvRecordWithId> (updated record with id)
         let _: Option<KvRecordWithId> = self
             .db
             .as_ref()
             .unwrap()
             .update(("kv", key))
-            .content(KvRecord { value: value.to_string() })
+            .content(KvRecord {
+                value: value.to_string(),
+            })
             .await?;
 
         Ok(start.elapsed())
@@ -82,7 +91,6 @@ impl Database for SurrealDBImpl {
     async fn delete(&mut self, key: &str) -> Result<Duration, Box<dyn Error + Send + Sync>> {
         let start = Instant::now();
 
-        // delete returns Option<KvRecordWithId> (the deleted record, if existed)
         let _: Option<KvRecordWithId> = self
             .db
             .as_ref()
@@ -96,6 +104,5 @@ impl Database for SurrealDBImpl {
     async fn cleanup(&mut self) -> Result<(), Box<dyn Error + Send + Sync>> {
         self.db = None;
         Ok(())
- 
     }
 }

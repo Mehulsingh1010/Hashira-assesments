@@ -1,23 +1,23 @@
 {
   "surrealdb": {
-    "create_avg_ms": 0.5174349799999979,
-    "read_avg_ms": 0.31579363999999943,
-    "update_avg_ms": 0.43517268000000076,
-    "delete_avg_ms": 0.6017007599999981,
+    "create_avg_ms": 1.796439300000003,
+    "read_avg_ms": 1.5213690599999983,
+    "update_avg_ms": 1.6433703600000074,
+    "delete_avg_ms": 1.866642839999994,
     "ops": 5000
   },
   "postgres": {
-    "create_avg_ms": 2.0445887799999984,
-    "read_avg_ms": 1.0443320399999978,
-    "update_avg_ms": 2.1032070000000047,
-    "delete_avg_ms": 2.1044180200000056,
+    "create_avg_ms": 1.8869281800000015,
+    "read_avg_ms": 0.956637459999996,
+    "update_avg_ms": 1.9315026000000006,
+    "delete_avg_ms": 1.9589085000000057,
     "ops": 5000
   },
   "mongodb": {
-    "create_avg_ms": 1.12931236,
-    "read_avg_ms": 1.0407382600000012,
-    "update_avg_ms": 0.9642171399999979,
-    "delete_avg_ms": 0.9574140000000021,
+    "create_avg_ms": 0.9605347400000035,
+    "read_avg_ms": 0.8687391000000012,
+    "update_avg_ms": 0.7971289000000015,
+    "delete_avg_ms": 0.7956439600000014,
     "ops": 5000
   }
 }
