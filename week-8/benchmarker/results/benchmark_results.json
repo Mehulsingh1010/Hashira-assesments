@@ -1,30 +1,68 @@
 {
   "surrealdb": {
-    "create_avg_ms": 1.1791554200000025,
-    "read_avg_ms": 0.9578896400000007,
-    "update_avg_ms": 1.0672469600000003,
-    "delete_avg_ms": 1.1929755200000032,
+    "create_avg_ms": 1.8750987999999997,
+    "create_total_ms": 9375.493999999999,
+    "read_avg_ms": 1.5810753399999988,
+    "read_total_ms": 7905.376699999994,
+    "update_avg_ms": 1.722130740000004,
+    "update_total_ms": 8610.65370000002,
+    "delete_avg_ms": 1.9505270600000055,
+    "delete_total_ms": 9752.635300000027,
     "ops": 5000
   },
   "postgres": {
-    "create_avg_ms": 1.906598519999991,
-    "read_avg_ms": 0.9782821000000005,
-    "update_avg_ms": 1.9647666000000004,
-    "delete_avg_ms": 1.9919229199999984,
+    "create_avg_ms": 2.5070942000000063,
+    "create_total_ms": 12535.47100000003,
+    "read_avg_ms": 1.3417526800000037,
+    "read_total_ms": 6708.763400000019,
+    "update_avg_ms": 2.5421497399999957,
+    "update_total_ms": 12710.748699999978,
+    "delete_avg_ms": 2.56355227999999,
+    "delete_total_ms": 12817.761399999948,
     "ops": 5000
   },
   "mongodb": {
-    "create_avg_ms": 0.9560307799999996,
-    "read_avg_ms": 0.8882853000000019,
-    "update_avg_ms": 0.8113603800000002,
-    "delete_avg_ms": 0.8058592199999983,
+    "create_avg_ms": 1.4891954200000004,
+    "create_total_ms": 7445.977100000002,
+    "read_avg_ms": 1.3803545999999969,
+    "read_total_ms": 6901.772999999985,
+    "update_avg_ms": 1.2784929600000006,
+    "update_total_ms": 6392.464800000003,
+    "delete_avg_ms": 1.275824240000001,
+    "delete_total_ms": 6379.121200000005,
     "ops": 5000
   },
   "rocksdb_raw": {
-    "create_avg_ms": 0.025323559999999953,
-    "read_avg_ms": 0.007205020000000026,
-    "update_avg_ms": 0.024189600000000068,
-    "delete_avg_ms": 0.021839259999999902,
+    "create_avg_ms": 0.031211279999999886,
+    "create_total_ms": 156.05639999999943,
+    "read_avg_ms": 0.008876379999999991,
+    "read_total_ms": 44.38189999999995,
+    "update_avg_ms": 0.027896179999999958,
+    "update_total_ms": 139.4808999999998,
+    "delete_avg_ms": 0.02403366,
+    "delete_total_ms": 120.16829999999999,
     "ops": 5000
+  },
+  "conclusions": {
+    "fastest_create": {
+      "database": "RocksDB",
+      "time_ms": 0.031211279999999886
+    },
+    "fastest_read": {
+      "database": "RocksDB",
+      "time_ms": 0.008876379999999991
+    },
+    "fastest_update": {
+      "database": "RocksDB",
+      "time_ms": 0.027896179999999958
+    },
+    "fastest_delete": {
+      "database": "RocksDB",
+      "time_ms": 0.02403366
+    },
+    "overall_fastest": {
+      "database": "RocksDB",
+      "time_ms": 460.0874999999991
+    }
   }
 }
