@@ -1,8 +1,8 @@
-use crate::db_trait::Database;
+use crate::db_traits::db_trait::Database;
 use async_trait::async_trait;
 use serde::{Deserialize, Serialize};
-use surrealdb::engine::remote::ws::Client;  // Correct for remote
-use surrealdb::opt::auth::Root;             // For signin
+use surrealdb::engine::remote::ws::Client;  
+use surrealdb::opt::auth::Root;             
 use surrealdb::Surreal;
 use std::error::Error;
 use std::time::{Duration, Instant};
@@ -14,7 +14,6 @@ struct KvRecord {
 
 #[derive(Deserialize, Debug)]
 struct KvRecordWithId {
-    id: surrealdb::RecordId,
     value: String,
 }
 

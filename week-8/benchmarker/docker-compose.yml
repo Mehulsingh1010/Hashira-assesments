@@ -32,14 +32,10 @@ services:
   surrealdb:
     image: surrealdb/surrealdb:latest
     restart: unless-stopped
-    command: start --user root --pass root --log info rocksdb:///data/db
+    command: start --user root --pass root --log info memory
     ports:
       - "8000:8000"
-    volumes:
-      - surrealdb_data:/data/db
-    user: root  
 
 volumes:
   postgres_data:
   mongo_data:
-  surrealdb_data:

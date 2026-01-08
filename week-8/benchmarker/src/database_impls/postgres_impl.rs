@@ -1,4 +1,4 @@
-use crate::db_trait::Database;
+use crate::db_traits::db_trait::Database;
 use async_trait::async_trait;
 use sqlx::PgPool;
 use std::time::{Duration, Instant};

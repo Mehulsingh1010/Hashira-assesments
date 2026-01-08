@@ -7,7 +7,6 @@ pub fn generate_key(index: usize)-> String{
 
 pub fn generate_value(size:usize)-> String{
     thread_rng().sample_iter(&Alphanumeric).take(size).map(char::from).collect()
-
 }
 
 

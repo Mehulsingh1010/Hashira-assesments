@@ -1,4 +1,4 @@
-use crate::db_trait::Database;
+use crate::db_traits::db_trait::Database;
 use async_trait::async_trait;
 use mongodb::{Client, bson::doc};
 use std::time::{Duration, Instant};
@@ -10,8 +10,8 @@ pub struct MongoImpl {
 }
 
 impl MongoImpl {
-    pub fn new() -> Self {
-        Self { client: None, db: None }
+    pub fn new()->Self{
+        Self{client:None,db:None}
     }
 }
 
@@ -25,20 +25,22 @@ impl Database for MongoImpl {
         Ok(())
     }
     
+
 async fn create(&mut self, key: &str, value: &str) -> Result<Duration, Box<dyn Error + Send + Sync>> {
+
     let start = Instant::now();
-    let coll = self.db.as_ref().unwrap().collection::<mongodb::bson::Document>("kv");
+    let coll: mongodb::Collection<mongodb::bson::Document> = self.db.as_ref().unwrap().collection::<mongodb::bson::Document>("kv");
 
     coll.update_one(
         doc! { "_id": key },
         doc! { "$set": { "value": value } },
     )
+    
     .upsert(true)
     .await?;
 
     Ok(start.elapsed())
 }
-
 
     async fn read(&self, key: &str) -> Result<Option<String>, Box<dyn Error + Send + Sync>> {
         let coll = self.db.as_ref().unwrap().collection::<mongodb::bson::Document>("kv");
