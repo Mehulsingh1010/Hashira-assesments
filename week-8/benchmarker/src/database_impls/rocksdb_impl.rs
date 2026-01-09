@@ -38,13 +38,13 @@ impl Database for RocksDBImpl {
 
     async fn create(&mut self, key: &str, value: &str) -> Result<Duration, Box<dyn Error + Send + Sync>> {
         let start = Instant::now();
-        let db = self.db.as_ref().unwrap();
+        let db = self.db.as_ref().ok_or("Database not initialized. Call init() first")?;
         db.put(key.as_bytes(), value.as_bytes())?;
         Ok(start.elapsed())
     }
 
     async fn read(&self, key: &str) -> Result<Option<String>, Box<dyn Error + Send + Sync>> {
-        let db = self.db.as_ref().unwrap();
+        let db = self.db.as_ref().ok_or("Database not initialized. Call init() first")?;
         match db.get(key.as_bytes())? {
             Some(bytes) => Ok(Some(String::from_utf8_lossy(&bytes).to_string())),
             None => Ok(None),
@@ -53,14 +53,14 @@ impl Database for RocksDBImpl {
 
     async fn update(&mut self, key: &str, value: &str) -> Result<Duration, Box<dyn Error + Send + Sync>> {
         let start = Instant::now();
-        let db = self.db.as_ref().unwrap();
-        db.put(key.as_bytes(), value.as_bytes())?;  // overwrites
+        let db = self.db.as_ref().ok_or("Database not initialized. Call init() first")?;
+        db.put(key.as_bytes(), value.as_bytes())?;
         Ok(start.elapsed())
     }
 
     async fn delete(&mut self, key: &str) -> Result<Duration, Box<dyn Error + Send + Sync>> {
         let start = Instant::now();
-        let db = self.db.as_ref().unwrap();
+        let db = self.db.as_ref().ok_or("Database not initialized. Call init() first")?;
         db.delete(key.as_bytes())?;
         Ok(start.elapsed())
     }

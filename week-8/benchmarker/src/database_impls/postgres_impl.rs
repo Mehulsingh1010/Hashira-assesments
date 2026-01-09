@@ -25,18 +25,20 @@ impl Database for PostgresImpl {
 
     async fn create(&mut self, key: &str, value: &str) -> Result<Duration, Box<dyn Error + Send + Sync>> {
         let start = Instant::now();
+        let pool = self.pool.as_ref().ok_or("Database not initialized. Call init() first")?;
         sqlx::query("INSERT INTO kv (key, value) VALUES ($1, $2) ON CONFLICT (key) DO UPDATE SET value = $2")
             .bind(key)
             .bind(value)
-            .execute(self.pool.as_ref().unwrap())
+            .execute(pool)
             .await?;
         Ok(start.elapsed())
     }
 
     async fn read(&self, key: &str) -> Result<Option<String>, Box<dyn Error + Send + Sync>> {
+        let pool = self.pool.as_ref().ok_or("Database not initialized. Call init() first")?;
         let row: Option<(String,)> = sqlx::query_as("SELECT value FROM kv WHERE key = $1")
             .bind(key)
-            .fetch_optional(self.pool.as_ref().unwrap())
+            .fetch_optional(pool)
             .await?;
         Ok(row.map(|r| r.0))
     }
@@ -47,9 +49,10 @@ impl Database for PostgresImpl {
 
     async fn delete(&mut self, key: &str) -> Result<Duration, Box<dyn Error + Send + Sync>> {
         let start = Instant::now();
+        let pool = self.pool.as_ref().ok_or("Database not initialized. Call init() first")?;
         sqlx::query("DELETE FROM kv WHERE key = $1")
             .bind(key)
-            .execute(self.pool.as_ref().unwrap())
+            .execute(pool)
             .await?;
         Ok(start.elapsed())
     }

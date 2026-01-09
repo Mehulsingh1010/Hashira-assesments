@@ -31,72 +31,50 @@ impl SurrealDBImpl {
 impl Database for SurrealDBImpl {
     async fn init(&mut self) -> Result<(), Box<dyn Error + Send + Sync>> {
         let db = Surreal::new::<surrealdb::engine::remote::ws::Ws>("127.0.0.1:8000").await?;
-
         db.signin(Root {
             username: "root",
             password: "root",
         })
         .await?;
-
         db.use_ns("benchmark").use_db("benchmark").await?;
-
         self.db = Some(db);
         Ok(())
     }
 
     async fn create(&mut self, key: &str, value: &str) -> Result<Duration, Box<dyn Error + Send + Sync>> {
         let start = Instant::now();
-
-        let _: Option<KvRecordWithId> = self
-            .db
-            .as_ref()
-            .unwrap()
+        let db = self.db.as_ref().ok_or("Database not initialized. Call init() first")?;
+        let _: Option<KvRecordWithId> = db
             .create(("kv", key))
             .content(KvRecord {
                 value: value.to_string(),
             })
             .await?;
-
         Ok(start.elapsed())
     }
 
     async fn read(&self, key: &str) -> Result<Option<String>, Box<dyn Error + Send + Sync>> {
-        let result: Option<KvRecordWithId> = self
-            .db
-            .as_ref()
-            .unwrap()
-            .select(("kv", key))
-            .await?;
-
+        let db = self.db.as_ref().ok_or("Database not initialized. Call init() first")?;
+        let result: Option<KvRecordWithId> = db.select(("kv", key)).await?;
         Ok(result.map(|r| r.value))
     }
 
     async fn update(&mut self, key: &str, value: &str) -> Result<Duration, Box<dyn Error + Send + Sync>> {
         let start = Instant::now();
-
-        let _: Option<KvRecordWithId> = self
-            .db
-            .as_ref()
-            .unwrap()
+        let db = self.db.as_ref().ok_or("Database not initialized. Call init() first")?;
+        let _: Option<KvRecordWithId> = db
             .update(("kv", key))
             .content(KvRecord {
                 value: value.to_string(),
             })
             .await?;
-
         Ok(start.elapsed())
     }
 
     async fn delete(&mut self, key: &str) -> Result<Duration, Box<dyn Error + Send + Sync>> {
         let start = Instant::now();
-
-        let _: Option<KvRecordWithId> = self
-            .db
-            .as_ref()
-            .unwrap()
-            .delete(("kv", key))
-            .await?;
-
+        let db = self.db.as_ref().ok_or("Database not initialized. Call init() first")?;
+        let _: Option<KvRecordWithId> = db.delete(("kv", key)).await?;
         Ok(start.elapsed())
     }
 
