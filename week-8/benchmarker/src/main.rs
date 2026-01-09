@@ -4,12 +4,12 @@ use std::time::Duration;
 use serde_json;
 use tokio;
 
-mod db_traits;
-mod database_impls;
+mod traits;
+mod databases;
 mod constants;
-use db_traits::db_trait::Database;
+use traits::db_trait::Database;
 mod utils;
-use database_impls::{MongoImpl, PostgresImpl, RocksDBImpl, SurrealDBImpl};
+use databases::{MongoImpl, PostgresImpl, RocksDBImpl, SurrealDBImpl};
 use constants::{DbResult, Winner, Conclusions, Results,VALUE_SIZE, NUM_OPS};
 
 use utils::{generate_key, generate_value};
