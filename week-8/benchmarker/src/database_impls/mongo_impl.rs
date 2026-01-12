@@ -1,4 +1,4 @@
-use crate::db_traits::db_trait::Database;
+use crate::traits::db_trait::Database;
 use async_trait::async_trait;
 use mongodb::{Client, bson::doc};
 use std::time::{Duration, Instant};
